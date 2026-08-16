@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ys Hair Studio ☁️ 云端</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial;background:#f0f2f5;color:#222;padding-bottom:100px}
+:root{--primary:#1a1a2e;--gold:#c9a84c;--success:#0e7c4b;--danger:#c0392b;--bg:#f0f2f5}
+.top{background:var(--primary);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+.top h1{font-size:18px;letter-spacing:1px}
+.top h1 span{color:var(--gold)}
+.top .user{font-size:13px;opacity:.8}
+.cloud-badge{background:#4CAF50;color:#fff;padding:2px 12px;border-radius:20px;font-size:11px;margin-left:8px}
+.wrap{max-width:1400px;margin:auto;padding:12px}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;position:sticky;top:56px;z-index:99;background:var(--bg);padding:8px 0}
+.tabs button{padding:8px 16px;border:0;border-radius:6px;background:#fff;color:#333;cursor:pointer;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;border-bottom:3px solid transparent}
+.tabs button:hover{background:#e8e8e8}
+.tabs button.active{background:var(--primary);color:#fff;border-bottom-color:var(--gold)}
+.page{display:none;animation:fade .3s}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.panel{background:#fff;padding:18px;border-radius:12px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:auto}
+.panel h3{margin-bottom:12px;font-size:16px;color:var(--primary);border-left:4px solid var(--gold);padding-left:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}
+.card .num{font-size:28px;font-weight:bold;color:var(--primary);margin-top:4px}
+.card .label{font-size:13px;color:#888}
+.card.gold .num{color:var(--gold)}
+.card.green .num{color:var(--success)}
+.card.red .num{color:var(--danger)}
+.card.blue .num{color:#2980b9}
+.card.purple .num{color:#8e44ad}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.row>*{flex:1;min-width:120px}
+input,select,textarea{padding:10px 12px;border:1px solid #ddd;border-radius:8px;width:100%;font-size:15px;background:#fafafa;transition:border .2s}
+input:focus,select:focus{outline:none;border-color:var(--gold);background:#fff}
+button{padding:10px 20px;border:0;border-radius:8px;background:var(--primary);color:#fff;cursor:pointer;font-size:14px;transition:all .2s;white-space:nowrap}
+button:hover{opacity:.85;transform:scale(.98)}
+button.gold{background:var(--gold)}
+button.green{background:var(--success)}
+button.red{background:var(--danger)}
+button.outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{padding:8px 6px;border-bottom:1px solid #eee;text-align:left;vertical-align:middle}
+th{background:#f8f8f8;font-weight:600;color:#555;position:sticky;top:0}
+tr:hover{background:#fafafa}
+.badge{padding:3px 12px;border-radius:20px;font-size:12px;display:inline-block}
+.badge.green{background:#d4edda;color:#155724}
+.badge.red{background:#f8d7da;color:#721c24}
+.badge.gold{background:#fff3cd;color:#856404}
+.badge.blue{background:#d1ecf1;color:#0c5460}
+.badge.gray{background:#e9ecef;color:#6c757d}
+.svc-btn{display:inline-block;border:2px solid #ddd;border-radius:10px;padding:14px 18px;margin:5px;cursor:pointer;background:#fafafa;transition:all .2s;text-align:center;min-width:100px}
+.svc-btn:active{transform:scale(.95)}
+.svc-btn.selected{border-color:var(--gold);background:#fff8e7}
+.svc-btn .price{color:var(--gold);font-weight:bold;font-size:18px}
+.svc-btn .name{font-size:14px}
+.svc-btn .comm{font-size:11px;color:#999}
+.total{font-size:32px;color:var(--danger);font-weight:bold}
+.hide{display:none!important}
+.text-muted{color:#999;font-size:13px}
+.flex{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.flex-between{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.mt-8{margin-top:8px}
+.mb-8{margin-bottom:8px}
+.w-100{width:100%}
+.text-center{text-align:center}
+.today-sales-list{max-height:300px;overflow-y:auto}
+.today-sales-list table{font-size:13px}
+@media(max-width:600px){.top h1{font-size:15px}.tabs button{font-size:12px;padding:6px 12px}.cards{grid-template-columns:1fr 1fr}.panel{padding:12px}.row>*{min-width:80px}.svc-btn{min-width:70px;padding:10px 12px}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>✂️ Ys <span>Hair Style</span> Studio <span class="cloud-badge">☁️ Cloudflare</span></h1>
+  <span class="user" id="who">👤 管理员</span>
+</header>
+
+<div class="wrap">
+
+<div id="login" class="panel" style="max-width:400px;margin:40px auto">
+  <h2 style="text-align:center;color:var(--primary)">✂️ 登录系统</h2>
+  <p style="text-align:center;color:#999;font-size:13px" id="loginHint">管理员账号 admin / 密码 123456</p>
+  <input id="un" value="admin" placeholder="账号">
+  <input id="pw" type="password" value="123456" placeholder="密码">
+  <button onclick="login()" style="width:100%;padding:14px;background:var(--gold);font-size:16px">登 录</button>
+  <p style="text-align:center;color:#bbb;font-size:12px;margin-top:12px">☁️ 数据云端存储 · Cloudflare 全球加速</p>
+</div>
+
+<div id="app" class="hide">
+
+<div class="tabs">
+  <button class="active" onclick="page('dash')">📊 总览</button>
+  <button onclick="page('pos')">💇 POS收银</button>
+  <button onclick="page('member')">👤 会员管理</button>
+  <button onclick="page('staff')">👨‍💼 员工管理</button>
+  <button onclick="page('payroll')">💰 工资结算</button>
+  <button onclick="page('settle')">🧾 每日结账</button>
+  <button onclick="page('monthly')">📈 月绩报告</button>
+  <button onclick="page('orders')">📋 订单报表</button>
+  <button onclick="page('settings')">⚙️ 设置</button>
+</div>
+
+<!-- 总览 -->
+<section id="dash" class="page active">
+  <h2 style="margin-bottom:12px">📊 经营总览</h2>
+  <div class="cards">
+    <div class="card gold"><div class="label">💰 今日营业额</div><div class="num" id="todaySales">RM 0</div></div>
+    <div class="card"><div class="label">📈 本月营业额</div><div class="num" id="monthSales">RM 0</div></div>
+    <div class="card green"><div class="label">🏆 净利润</div><div class="num" id="profitNum">RM 0</div></div>
+    <div class="card red"><div class="label">🔄 本月退款</div><div class="num" id="refundNum">RM 0</div></div>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="label">📋 今日订单</div><div class="num" id="todayOrders">0</div></div>
+    <div class="card blue"><div class="label">👤 总会员</div><div class="num" id="totalMembers">0</div></div>
+    <div class="card"><div class="label">👨‍💼 员工数</div><div class="num" id="totalStaff">0</div></div>
+    <div class="card red"><div class="label">⚠️ 低库存</div><div class="num" id="lowStock">0</div></div>
+  </div>
+  <div class="panel">
+    <h3>📋 今日顾客消费明细</h3>
+    <div class="today-sales-list">
+      <table><thead><tr><th>时间</th><th>顾客</th><th>员工</th><th>服务</th><th>金额</th><th>支付</th></tr></thead><tbody id="todayDetail"></tbody></table>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="flex-between"><h3>📊 快捷操作</h3></div>
+    <div class="flex" style="gap:8px;flex-wrap:wrap">
+      <button onclick="page('pos')" class="gold">💇 快速开单</button>
+      <button onclick="page('member')">👤 会员充值</button>
+      <button onclick="autoSettle()" class="green">🧾 一键结账</button>
+    </div>
+  </div>
+</section>
+
+<!-- POS -->
+<section id="pos" class="page">
+  <h2 style="margin-bottom:12px">💇 POS 收银</h2>
+  <div class="row">
+    <div style="flex:2"><select id="cus"><option value="">散客 (现金)</option></select></div>
+    <div style="flex:1"><select id="st"></select></div>
+    <div style="flex:1"><input id="disc" type="number" value="0" placeholder="折扣 RM" step="0.5"></div>
+  </div>
+  <div class="panel" style="background:#f8f6f0">
+    <div id="svcs" style="display:flex;flex-wrap:wrap;gap:5px"></div>
+  </div>
+  <div class="panel">
+    <table><thead><tr><th>服务</th><th>价格</th><th>提成</th><th>操作</th></tr></thead><tbody id="cart"></tbody></table>
+    <div class="flex-between"><span class="total" id="sum">RM 0.00</span>
+      <div class="flex">
+        <select id="pay" style="width:auto;flex:0">
+          <option>Cash 现金</option><option>DuitNow QR</option><option>Card 刷卡</option>
+          <option>Bank Transfer</option><option>会员储值</option>
+        </select>
+        <button onclick="checkout()" class="green" style="padding:12px 32px">✅ 收款</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 会员 -->
+<section id="member" class="page">
+  <div class="flex-between"><h2>👤 会员管理</h2><span class="text-muted">总会员: <b id="memberCount">0</b></span></div>
+  <div class="panel">
+    <div class="row">
+      <input id="mn" placeholder="姓名 *">
+      <input id="mp" placeholder="电话">
+      <input id="mlevel" placeholder="等级 (普通/银卡/金卡)" value="普通">
+      <button onclick="addMember()" class="gold">➕ 新增会员</button>
+    </div>
+  </div>
+  <div class="panel" style="overflow:auto">
+    <table><thead><tr><th>姓名</th><th>电话</th><th>等级</th><th>储值</th><th>积分</th><th>到店</th><th>操作</th></tr></thead><tbody id="members"></tbody></table>
+  </div>
+</section>
+
+<!-- 员工 -->
+<section id="staff" class="page">
+  <div class="flex-between"><h2>👨‍💼 员工管理</h2></div>
+  <div class="panel">
+    <div class="row">
+      <input id="sn" placeholder="姓名 *">
+      <input id="sbase" type="number" placeholder="底薪 RM" value="1200">
+      <input id="srate" type="number" placeholder="提成比例 %" value="30">
+      <button onclick="addStaff()" class="gold">➕ 添加员工</button>
+    </div>
+  </div>
+  <div class="panel" style="overflow:auto">
+    <table><thead><tr><th>姓名</th><th>底薪</th><th>提成比例</th><th>本月业绩</th><th>本月佣金</th><th>状态</th><th>操作</th></tr></thead><tbody id="staffList"></tbody></table>
+  </div>
+</section>
+
+<!-- 工资 -->
+<section id="payroll" class="page">
+  <h2>💰 工资结算</h2>
+  <div class="panel" style="overflow:auto">
+    <table><thead><tr><th>员工</th><th>底薪</th><th>本月业绩</th><th>佣金</th><th>应发总额</th><th>已发月份</th><th>操作</th></tr></thead><tbody id="payrollList"></tbody></table>
+  </div>
+</section>
+
+<!-- 结账 -->
+<section id="settle" class="page">
+  <h2>🧾 每日结账</h2>
+  <div class="panel">
+    <div class="row">
+      <input id="sd" type="date">
+      <button onclick="autoSettle()" class="green" style="padding:12px 32px">⚡ 一键自动结账</button>
+    </div>
+    <p class="text-muted mt-8">💡 点击"一键自动结账"将从今日订单自动汇总数据</p>
+  </div>
+  <div class="panel" style="overflow:auto"><table><thead><tr><th>日期</th><th>营业额</th><th>Cash</th><th>DuitNow</th><th>Card</th><th>Transfer</th><th>储值</th><th>实际现金</th><th>差额</th><th>备注</th></tr></thead><tbody id="settlements"></tbody></table></div>
+</section>
+
+<!-- 月绩 -->
+<section id="monthly" class="page">
+  <h2>📈 月绩报告</h2>
+  <div class="panel">
+    <div class="row">
+      <input id="mrMonth" type="month" value="">
+      <button onclick="loadMonthlyReport()" class="gold">🔍 查询</button>
+      <button onclick="document.getElementById('mrMonth').value='';loadMonthlyReport()" class="outline">🔄 全部</button>
+    </div>
+  </div>
+  <div class="cards" id="monthlySummary">
+    <div class="card gold"><div class="label">💰 总收入</div><div class="num" id="mrRevenue">RM 0</div></div>
+    <div class="card"><div class="label">📉 总折扣</div><div class="num" id="mrDiscount">RM 0</div></div>
+    <div class="card red"><div class="label">💸 总支出</div><div class="num" id="mrExpense">RM 0</div></div>
+    <div class="card green"><div class="label">🏆 净利润</div><div class="num" id="mrProfit">RM 0</div></div>
+  </div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card purple"><div class="label">🗑️ 已删除订单</div><div class="num" id="mrDeleted">0 单</div></div>
+    <div class="card red"><div class="label">💰 删除涉及金额</div><div class="num" id="mrDeletedAmount">RM 0</div></div>
+    <div class="card gold"><div class="label">📊 有效订单</div><div class="num" id="mrValidOrders">0 单</div></div>
+  </div>
+  <div class="panel">
+    <h3>👨‍💼 员工月绩 & 佣金报告</h3>
+    <div style="overflow:auto"><table><thead><tr><th>员工</th><th>订单数</th><th>总业绩</th><th>佣金</th><th>提成比例</th></tr></thead><tbody id="staffMonthlyReport"></tbody></table></div>
+  </div>
+  <div class="panel">
+    <h3>📋 每日明细</h3>
+    <div style="overflow:auto"><table><thead><tr><th>日期</th><th>订单数</th><th>营业额</th><th>退款</th><th>删除</th><th>净收入</th></tr></thead><tbody id="dailyDetail"></tbody></table></div>
+  </div>
+</section>
+
+<!-- 订单 -->
+<section id="orders" class="page">
+  <h2>📋 订单报表</h2>
+  <div class="panel">
+    <div class="flex" style="gap:8px">
+      <input id="ofrom" type="date" placeholder="开始">
+      <input id="oto" type="date" placeholder="结束">
+      <select id="oStatus" style="width:auto;flex:0.5">
+        <option value="all">全部状态</option>
+        <option value="paid">已收款</option>
+        <option value="refunded">已退款</option>
+        <option value="deleted">已删除</option>
+      </select>
+      <button onclick="filterOrders()" class="gold">🔍 筛选</button>
+      <button onclick="resetOrders()" class="outline">🔄 重置</button>
+    </div>
+  </div>
+  <div class="panel" style="overflow:auto"><table><thead><tr><th>单号</th><th>日期</th><th>顾客</th><th>金额</th><th>支付</th><th>状态</th><th>操作</th></tr></thead><tbody id="orderRows"></tbody></table></div>
+</section>
+
+<!-- 设置 -->
+<section id="settings" class="page">
+  <h2>⚙️ 系统设置</h2>
+  
+  <div class="panel" style="border:2px solid var(--gold)">
+    <h3>🔐 修改登录密码</h3>
+    <div class="row">
+      <input id="oldPw" type="password" placeholder="当前密码">
+      <input id="newPw" type="password" placeholder="新密码 (至少4位)">
+      <input id="confirmPw" type="password" placeholder="确认新密码">
+      <button onclick="changePassword()" class="gold">✅ 修改密码</button>
+    </div>
+    <p class="text-muted mt-8">💡 修改后所有设备同步生效</p>
+  </div>
+  
+  <div class="panel">
+    <h3>🏷️ 服务项目管理</h3>
+    <div class="row">
+      <input id="svcName" placeholder="服务名称">
+      <input id="svcPrice" type="number" placeholder="价格 RM">
+      <input id="svcRate" type="number" placeholder="提成 %">
+      <button onclick="addService()" class="gold">➕ 添加服务</button>
+    </div>
+    <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>服务</th><th>价格</th><th>提成</th><th>操作</th></tr></thead><tbody id="serviceList"></tbody></table></div>
+  </div>
+  
+  <div class="panel" style="border:2px solid var(--success)">
+    <h3>💾 数据管理</h3>
+    <div class="flex" style="gap:8px;flex-wrap:wrap">
+      <button onclick="exportData()" class="gold">📤 导出备份</button>
+      <button onclick="importData()" class="outline">📥 导入备份</button>
+    </div>
+    <p class="text-muted mt-8">💡 数据永久存储在 Cloudflare，永不丢失！</p>
+  </div>
+</section>
+
+</div></div>
+
+<script>
+// ============================================================
+//  YS HAIR STUDIO - Cloudflare 云端版
+//  ✅ 已配置好你的 Worker 地址
+// ============================================================
+
+// ===== ✅ 已配置好的 API 地址 =====
+const API_BASE = 'https://old-glade-9558.yshairystylestudio.workers.dev';
+// ====================================
+
+// ===== API 封装 =====
+const API = {
+  async get(endpoint) {
+    const r = await fetch(API_BASE + endpoint);
+    if (!r.ok) throw new Error(await r.text());
+    return r.json();
+  },
+  async post(endpoint, data) {
+    const r = await fetch(API_BASE + endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) throw new Error(await r.text());
+    return r.json();
+  }
+};
+
+let DATA = {
+  services: [],
+  customers: [],
+  staff: [],
+  orders: [],
+  products: [],
+  appointments: [],
+  expenses: [],
+  settlements: [],
+  nextId: {}
+};
+let cart = [], selectedSvcs = [];
+
+// ===== 工具函数 =====
+function today() { return new Date().toISOString().slice(0,10); }
+function now() { return new Date().toISOString(); }
+
+// ===== 加载数据 =====
+async function loadData() {
+  try {
+    const data = await API.get('/api/data');
+    DATA = data;
+    return data;
+  } catch(e) {
+    console.error('加载数据失败:', e);
+    alert('❌ 连接服务器失败，请检查网络或Worker地址是否正确');
+    return null;
+  }
+}
+
+// ===== 保存数据 =====
+async function saveData() {
+  try {
+    await API.post('/api/data', DATA);
+    return true;
+  } catch(e) {
+    console.error('保存数据失败:', e);
+    alert('❌ 保存失败，请检查网络连接');
+    return false;
+  }
+}
+
+// ===== 登录 =====
+async function login() {
+  const u = document.getElementById('un').value.trim();
+  const p = document.getElementById('pw').value.trim();
+  try {
+    const result = await API.post('/api/login', { username: u, password: p });
+    if (result.success) {
+      document.getElementById('login').classList.add('hide');
+      document.getElementById('app').classList.remove('hide');
+      document.getElementById('who').textContent = '👤 ' + u + ' | ☁️ Cloudflare';
+      await loadData();
+      loadAll();
+    }
+  } catch(e) {
+    alert('❌ 账号或密码错误\n\n请确认 KV 存储已创建并绑定到 Worker');
+  }
+}
+
+// ===== 修改密码 =====
+async function changePassword() {
+  const old = document.getElementById('oldPw').value.trim();
+  const newPw = document.getElementById('newPw').value.trim();
+  const confirm = document.getElementById('confirmPw').value.trim();
+  if (!old || !newPw || !confirm) return alert('❌ 请填写完整');
+  if (newPw.length < 4) return alert('❌ 新密码至少4位');
+  if (newPw !== confirm) return alert('❌ 两次输入不一致');
+  if (newPw === old) return alert('❌ 新密码不能和旧密码相同');
+  try {
+    await API.post('/api/change-password', { oldPassword: old, newPassword: newPw });
+    alert('✅ 密码修改成功！新密码：' + newPw);
+    document.getElementById('oldPw').value = '';
+    document.getElementById('newPw').value = '';
+    document.getElementById('confirmPw').value = '';
+  } catch(e) {
+    alert('❌ ' + e.message);
+  }
+}
+
+// ===== 页面切换 =====
+function page(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  const map = ['dash','pos','member','staff','payroll','settle','monthly','orders','settings'];
+  document.querySelectorAll('.tabs button').forEach((b,i) => {
+    if (map[i] === name) b.classList.add('active');
+  });
+  if (name === 'monthly') loadMonthlyReport();
+  loadAll();
+}
+
+// ===== 加载全部 =====
+function loadAll() {
+  if (!DATA.services) return;
+  loadDashboard();
+  loadPOS();
+  loadMembers();
+  loadStaff();
+  loadPayroll();
+  loadSettlements();
+  loadOrders();
+  loadServices();
+  document.getElementById('memberCount').textContent = (DATA.customers||[]).length;
+  document.getElementById('totalStaff').textContent = (DATA.staff||[]).length;
+}
+
+// ===== DASHBOARD =====
+function loadDashboard() {
+  const todayStr = today();
+  const monthStr = todayStr.slice(0,7);
+  const orders = DATA.orders || [];
+  const todayOrders = orders.filter(o => o.status==='paid' && o.date===todayStr);
+  const monthOrders = orders.filter(o => o.status==='paid' && o.date.startsWith(monthStr));
+  const todaySales = todayOrders.reduce((s,o) => s + o.total, 0);
+  const monthSales = monthOrders.reduce((s,o) => s + o.total, 0);
+  const totalRefund = orders.filter(o => o.status==='refunded').reduce((s,o) => s + (o.refund_amount||0), 0);
+  const totalExpense = (DATA.expenses||[]).reduce((s,e) => s + e.amount, 0);
+  const profit = monthSales - totalExpense - totalRefund;
+  
+  document.getElementById('todaySales').textContent = 'RM ' + todaySales.toFixed(2);
+  document.getElementById('monthSales').textContent = 'RM ' + monthSales.toFixed(2);
+  document.getElementById('profitNum').textContent = 'RM ' + profit.toFixed(2);
+  document.getElementById('refundNum').textContent = 'RM ' + totalRefund.toFixed(2);
+  document.getElementById('todayOrders').textContent = todayOrders.length;
+  document.getElementById('totalMembers').textContent = (DATA.customers||[]).length;
+  document.getElementById('lowStock').textContent = (DATA.products||[]).filter(p => p.qty <= p.min).length;
+  
+  const tbody = document.ge
