@@ -305,10 +305,10 @@ tr:hover{background:#fafafa}
 <script>
 // ============================================================
 //  YS HAIR STUDIO - Cloudflare 云端版
-//  ✅ 已配置好你的 Worker 地址
+//  ✅ 已配置好 API 地址
 // ============================================================
 
-// ===== ✅ 已配置好的 API 地址 =====
+// ===== ✅ API 地址（已配置好） =====
 const API_BASE = 'https://old-glade-9558.yshairystylestudio.workers.dev';
 // ====================================
 
@@ -355,7 +355,6 @@ async function loadData() {
     return data;
   } catch(e) {
     console.error('加载数据失败:', e);
-    alert('❌ 连接服务器失败，请检查网络或Worker地址是否正确');
     return null;
   }
 }
@@ -386,7 +385,7 @@ async function login() {
       loadAll();
     }
   } catch(e) {
-    alert('❌ 账号或密码错误\n\n请确认 KV 存储已创建并绑定到 Worker');
+    alert('❌ 连接服务器失败: ' + e.message + '\n\n请检查网络或联系管理员');
   }
 }
 
@@ -459,4 +458,5 @@ function loadDashboard() {
   document.getElementById('totalMembers').textContent = (DATA.customers||[]).length;
   document.getElementById('lowStock').textContent = (DATA.products||[]).filter(p => p.qty <= p.min).length;
   
-  const tbody = document.ge
+  const tbody = document.getElementById('todayDetail');
+  if (todayO
