@@ -438,7 +438,7 @@ function loadDashboard() {
   const totalRefund = orders.filter(o => o.status==='refunded').reduce((s,o) => s + (o.refund_amount||0), 0);
   const totalExpense = (DATA.expenses||[]).reduce((s,e) => s + e.amount, 0);
   const profit = monthSales - totalExpense - totalRefund;
-  
+
   document.getElementById('todaySales').textContent = 'RM ' + todaySales.toFixed(2);
   document.getElementById('monthSales').textContent = 'RM ' + monthSales.toFixed(2);
   document.getElementById('profitNum').textContent = 'RM ' + profit.toFixed(2);
@@ -446,7 +446,7 @@ function loadDashboard() {
   document.getElementById('todayOrders').textContent = todayOrders.length;
   document.getElementById('totalMembers').textContent = (DATA.customers||[]).length;
   document.getElementById('lowStock').textContent = (DATA.products||[]).filter(p => p.qty <= p.min).length;
-  
+
   const tbody = document.getElementById('todayDetail');
   if (todayOrders.length === 0) {
     tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#999;padding:12px">今日暂无消费记录</td></tr>';
@@ -464,16 +464,16 @@ function loadPOS() {
   const customers = DATA.customers || [];
   const staffs = DATA.staff || [];
   const services = DATA.services || [];
-  
+
   const cusSelect = document.getElementById('cus');
-  cusSelect.innerHTML = '<option value="">散客 (现金)</option>' + 
+  cusSelect.innerHTML = '<option value="">散客 (现金)</option>' +
     customers.map(c => `<option value="${c.id}">${c.name} · 储值 RM${c.balance.toFixed(2)}</option>`).join('');
-  
+
   const stSelect = document.getElementById('st');
   stSelect.innerHTML = staffs.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-  
+
   const svcsDiv = document.getElementById('svcs');
-  svcsDiv.innerHTML = services.map((s,i) => 
+  svcsDiv.innerHTML = services.map((s,i) =>
     `<div class="svc-btn" onclick="toggleSvc(${i})" id="svc_${i}">
       <div class="name">${s.name}</div><div class="price">RM${s.price}</div>
       <div class="comm">提成 ${s.rate}%</div>
@@ -495,7 +495,7 @@ function drawCart() {
   const tbody = document.getElementById('cart');
   if (cart.length === 0) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">请点击上方服务项目添加</td></tr>'; }
   else {
-    tbody.innerHTML = cart.map((item,i) => 
+    tbody.innerHTML = cart.map((item,i) =>
       `<tr><td>${item.name}</td><td>RM${item.price.toFixed(2)}</td><td>RM${(item.price * item.rate / 100).toFixed(2)}</td>
       <td><button onclick="removeFromCart(${i})" class="red" style="padding:4px 12px">✕</button></td></tr>`
     ).join('');
@@ -519,17 +519,17 @@ async function checkout() {
   const payment = document.getElementById('pay').value;
   const total = Math.max(0, cart.reduce((s,item) => s + item.price, 0) - discount);
   if (total <= 0) return alert('❌ 总金额必须大于0');
-  
+
   const customers = DATA.customers || [];
   const staffs = DATA.staff || [];
-  
+
   if (payment === '会员储值') {
     const cus = customers.find(c => c.id == customerId);
     if (!cus) return alert('❌ 请选择会员');
     if (cus.balance < total) return alert('❌ 余额不足！当前余额 RM' + cus.balance.toFixed(2));
     cus.balance -= total;
   }
-  
+
   const cusName = customerId ? customers.find(c=>c.id==customerId)?.name : '散客';
   const order = {
     id: (DATA.nextId?.order||1),
@@ -542,21 +542,21 @@ async function checkout() {
     deleted_at: null, deleted_by: null,
     created: now()
   };
-  
+
   if (!DATA.orders) DATA.orders = [];
   DATA.orders.push(order);
   if (!DATA.nextId) DATA.nextId = {};
   DATA.nextId.order = (DATA.nextId.order||0) + 1;
-  
+
   if (customerId) {
     const cus = customers.find(c => c.id == customerId);
     if (cus) { cus.visit = (cus.visit||0) + 1; cus.points = (cus.points||0) + Math.floor(total / 5); }
   }
-  
+
   cart = []; selectedSvcs = [];
   document.querySelectorAll('.svc-btn').forEach(el => el.classList.remove('selected'));
   document.getElementById('disc').value = 0;
-  
+
   await saveData();
   await loadData();
   loadAll();
@@ -570,7 +570,7 @@ function loadMembers() {
     tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无会员，请点击"新增会员"添加</td></tr>';
     return;
   }
-  tbody.innerHTML = customers.map(c => 
+  tbody.innerHTML = customers.map(c =>
     `<tr><td><b>${c.name}</b></td><td>${c.phone||'-'}</td>
     <td><span class="badge ${c.level==='金卡'?'gold':c.level==='银卡'?'blue':'green'}">${c.level||'普通'}</span></td>
     <td>RM${c.balance.toFixed(2)}</td><td>${c.points||0}</td><td>${c.visit||0}</td>
@@ -657,7 +657,7 @@ function loadPayroll() {
     <td>RM${totalSales.toFixed(2)}</td><td>RM${totalComm.toFixed(2)}</td>
     <td><b>RM${total.toFixed(2)}</b></td>
     <td>${s.paid_months?.join(', ')||'-'}</td>
-    <td>${paid ? '<span class="badge green">✅ 已发</span>' : 
+    <td>${paid ? '<span class="badge green">✅ 已发</span>' :
       `<button onclick="payStaff(${s.id})" class="green" style="padding:4px 12px;font-size:12px">💰 发放</button>`}</td></tr>`;
   }).join('');
 }
@@ -688,7 +688,7 @@ function loadSettlements() {
     tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#999;padding:20px">暂无结账记录</td></tr>';
     return;
   }
-  tbody.innerHTML = settlements.slice().reverse().map(s => 
+  tbody.innerHTML = settlements.slice().reverse().map(s =>
     `<tr><td>${s.date}</td><td>RM${s.total.toFixed(2)}</td>
     <td>RM${s.cash.toFixed(2)}</td><td>RM${(s.duitnow||0).toFixed(2)}</td>
     <td>RM${(s.card||0).toFixed(2)}</td><td>RM${(s.transfer||0).toFixed(2)}</td>
@@ -703,24 +703,24 @@ async function autoSettle() {
   const date = document.getElementById('sd').value || today();
   const settlements = DATA.settlements || [];
   if (settlements.find(s => s.date === date)) return alert('⚠️ 该日期已结账！');
-  
+
   const orders = DATA.orders || [];
   const dayOrders = orders.filter(o => o.status==='paid' && o.date === date);
   if (dayOrders.length === 0) {
     if (!confirm('⚠️ 该日期暂无订单，仍要创建结账记录吗？')) return;
   }
-  
+
   const total = dayOrders.reduce((s,o) => s + o.total, 0);
   const cash = dayOrders.filter(o => o.payment === 'Cash 现金').reduce((s,o) => s + o.total, 0);
   const duitnow = dayOrders.filter(o => o.payment === 'DuitNow QR').reduce((s,o) => s + o.total, 0);
   const card = dayOrders.filter(o => o.payment === 'Card 刷卡').reduce((s,o) => s + o.total, 0);
   const transfer = dayOrders.filter(o => o.payment === 'Bank Transfer').reduce((s,o) => s + o.total, 0);
   const stored = dayOrders.filter(o => o.payment === '会员储值').reduce((s,o) => s + o.total, 0);
-  
+
   const actual = parseFloat(prompt('💰 请填写实际现金盘点金额 (RM)', cash.toFixed(2)));
   if (actual === null || isNaN(actual)) return alert('❌ 已取消');
   const note = prompt('📝 备注 (可选)') || '';
-  
+
   if (!DATA.settlements) DATA.settlements = [];
   if (!DATA.nextId) DATA.nextId = {};
   DATA.settlements.push({
@@ -730,7 +730,7 @@ async function autoSettle() {
     note, created: now()
   });
   DATA.nextId.settlement = (DATA.nextId.settlement||0) + 1;
-  
+
   document.getElementById('sd').value = date;
   await saveData();
   await loadData();
@@ -743,13 +743,13 @@ function loadMonthlyReport() {
   const orders = DATA.orders || [];
   const staffs = DATA.staff || [];
   const expenses = DATA.expenses || [];
-  
+
   let paidOrders = orders.filter(o => o.status === 'paid');
   if (month) paidOrders = paidOrders.filter(o => o.date.startsWith(month));
-  
+
   let deletedOrders = orders.filter(o => o.status === 'deleted');
   if (month) deletedOrders = deletedOrders.filter(o => o.date.startsWith(month));
-  
+
   const revenue = paidOrders.reduce((s,o) => s + o.total, 0);
   const discount = paidOrders.reduce((s,o) => s + (o.discount||0), 0);
   const totalExpense = expenses.reduce((s,e) => {
@@ -758,25 +758,25 @@ function loadMonthlyReport() {
   }, 0);
   const totalRefund = orders.filter(o => o.status==='refunded' && (month ? o.date.startsWith(month) : true))
     .reduce((s,o) => s + (o.refund_amount||0), 0);
-  
+
   const totalCommission = paidOrders.reduce((s,o) => {
     const staff = staffs.find(st => st.id == o.staff_id);
     if (staff) return s + (o.total * staff.rate / 100);
     return s;
   }, 0);
-  
+
   const profit = revenue - totalCommission - totalExpense - totalRefund;
-  
+
   document.getElementById('mrRevenue').textContent = 'RM ' + revenue.toFixed(2);
   document.getElementById('mrDiscount').textContent = 'RM ' + discount.toFixed(2);
   document.getElementById('mrExpense').textContent = 'RM ' + totalExpense.toFixed(2);
   document.getElementById('mrProfit').textContent = 'RM ' + profit.toFixed(2);
-  
+
   const deletedAmount = deletedOrders.reduce((s,o) => s + o.total, 0);
   document.getElementById('mrDeleted').textContent = deletedOrders.length + ' 单';
   document.getElementById('mrDeletedAmount').textContent = 'RM ' + deletedAmount.toFixed(2);
   document.getElementById('mrValidOrders').textContent = paidOrders.length + ' 单';
-  
+
   const staffTbody = document.getElementById('staffMonthlyReport');
   if (staffs.length === 0) {
     staffTbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:20px">暂无员工</td></tr>';
@@ -790,7 +790,7 @@ function loadMonthlyReport() {
       <td>${s.rate||30}%</td></tr>`;
     }).join('');
   }
-  
+
   const dailyTbody = document.getElementById('dailyDetail');
   const allRelevant = [...paidOrders, ...deletedOrders];
   if (allRelevant.length === 0) {
@@ -810,7 +810,7 @@ function loadMonthlyReport() {
       if (!dailyMap[o.date]) dailyMap[o.date] = { count:0, revenue:0, refund:0, deleted:0 };
       dailyMap[o.date].refund += (o.refund_amount||0);
     });
-    dailyTbody.innerHTML = Object.keys(dailyMap).sort().map(d => 
+    dailyTbody.innerHTML = Object.keys(dailyMap).sort().map(d =>
       `<tr><td>${d}</td><td>${dailyMap[d].count}</td>
       <td>RM${dailyMap[d].revenue.toFixed(2)}</td>
       <td>RM${dailyMap[d].refund.toFixed(2)}</td>
@@ -834,7 +834,7 @@ function renderOrders(list) {
     else if (o.status === 'refunded') { statusBadge = 'red'; statusText = '🔄 已退款'; }
     else if (o.status === 'deleted') { statusBadge = 'gray'; statusText = '🗑️ 已删除'; }
     else { statusBadge = 'gold'; statusText = '⏳ 待处理'; }
-    
+
     let actions = '-';
     if (o.status === 'paid') {
       actions = `<button onclick="refundOrder(${o.id})" class="red" style="padding:4px 12px;font-size:12px">退款</button>
@@ -874,16 +874,16 @@ async function refundOrder(id) {
   if (!order) return;
   const max = order.total - (order.refund_amount||0);
   if (max <= 0) return alert('⚠️ 该订单已全额退款');
-  
+
   const pwd = prompt('🔐 请输入管理员密码确认退款：');
   if (pwd === null) return;
   if (pwd !== '123456' && pwd !== (DATA.auth?.password)) return alert('❌ 密码错误，退款取消');
-  
+
   const amt = parseFloat(prompt('💰 退款金额 (RM)\n最多可退: RM' + max.toFixed(2), max.toFixed(2)));
   if (!amt || amt <= 0 || amt > max) return alert('❌ 金额无效');
   const reason = prompt('📝 退款原因', '顾客要求退款');
   if (reason === null) return;
-  
+
   if (order.payment === '会员储值' && order.customer_id) {
     const cus = (DATA.customers||[]).find(c => c.id === order.customer_id);
     if (cus) cus.balance += amt;
@@ -892,7 +892,7 @@ async function refundOrder(id) {
   order.refund_amount = (order.refund_amount||0) + amt;
   order.refund_reason = reason;
   order.refund_date = today();
-  
+
   await saveData();
   await loadData();
   loadAll();
@@ -904,17 +904,17 @@ async function deleteOrder(id) {
   if (!order) return;
   if (order.status === 'deleted') return alert('⚠️ 该订单已删除');
   if (order.status === 'refunded') return alert('⚠️ 已退款的订单不能删除');
-  
+
   const pwd = prompt('🔐 请输入管理员密码确认删除：');
   if (pwd === null) return;
   if (pwd !== '123456' && pwd !== (DATA.auth?.password)) return alert('❌ 密码错误，删除取消');
-  
+
   if (!confirm(`确认删除订单 #${order.id} (RM${order.total.toFixed(2)}) 吗？`)) return;
-  
+
   order.status = 'deleted';
   order.deleted_at = now();
   order.deleted_by = 'admin';
-  
+
   await saveData();
   await loadData();
   loadAll();
@@ -925,7 +925,7 @@ function loadServices() {
   const services = DATA.services || [];
   const tbody = document.getElementById('serviceList');
   if (services.length === 0) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">暂无服务</td></tr>'; return; }
-  tbody.innerHTML = services.map(s => 
+  tbody.innerHTML = services.map(s =>
     `<tr><td>${s.name}</td><td>RM${s.price}</td><td>${s.rate}%</td>
     <td><button onclick="removeService(${s.id})" class="red" style="padding:4px 12px;font-size:12px">删除</button></td></tr>`
   ).join('');
@@ -963,7 +963,7 @@ function exportData() {
     settlements: DATA.settlements || [],
     nextId: DATA.nextId || {}
   };
-  
+
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -983,7 +983,7 @@ function importData() {
   input.onchange = async function(e) {
     const file = e.target.files[0];
     if (!file) return alert('❌ 未选择文件');
-    
+
     const reader = new FileReader();
     reader.onload = async function(ev) {
       try {
@@ -992,7 +992,7 @@ function importData() {
           return alert('❌ 无效的备份文件');
         }
         if (!confirm('⚠️ 导入将覆盖所有现有数据！\n确定继续吗？')) return;
-        
+
         DATA.services = data.services || [];
         DATA.customers = data.customers || [];
         DATA.staff = data.staff || [];
@@ -1002,7 +1002,7 @@ function importData() {
         DATA.expenses = data.expenses || [];
         DATA.settlements = data.settlements || [];
         DATA.nextId = data.nextId || DATA.nextId || {};
-        
+
         await saveData();
         await loadData();
         loadAll();
@@ -1022,3 +1022,5 @@ document.getElementById('mrMonth').value = today().slice(0,7);
 console.log('✂️ Ys Hair Studio Cloudflare 版已启动');
 console.log('☁️ API 地址: ' + API_BASE);
 </script>
+</body>
+</html>
