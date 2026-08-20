@@ -1,1026 +1,3351 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ys Hair Studio ☁️ 云端</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Microsoft YaHei",Arial;background:#f0f2f5;color:#222;padding-bottom:100px}
-:root{--primary:#1a1a2e;--gold:#c9a84c;--success:#0e7c4b;--danger:#c0392b;--bg:#f0f2f5}
-.top{background:var(--primary);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
-.top h1{font-size:18px;letter-spacing:1px}
-.top h1 span{color:var(--gold)}
-.top .user{font-size:13px;opacity:.8}
-.cloud-badge{background:#4CAF50;color:#fff;padding:2px 12px;border-radius:20px;font-size:11px;margin-left:8px}
-.wrap{max-width:1400px;margin:auto;padding:12px}
-.tabs{display:flex;gap:5px;flex-wrap:wrap;position:sticky;top:56px;z-index:99;background:var(--bg);padding:8px 0}
-.tabs button{padding:8px 16px;border:0;border-radius:6px;background:#fff;color:#333;cursor:pointer;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;border-bottom:3px solid transparent}
-.tabs button:hover{background:#e8e8e8}
-.tabs button.active{background:var(--primary);color:#fff;border-bottom-color:var(--gold)}
-.page{display:none;animation:fade .3s}
-.page.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.panel{background:#fff;padding:18px;border-radius:12px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:auto}
-.panel h3{margin-bottom:12px;font-size:16px;color:var(--primary);border-left:4px solid var(--gold);padding-left:12px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-.card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}
-.card .num{font-size:28px;font-weight:bold;color:var(--primary);margin-top:4px}
-.card .label{font-size:13px;color:#888}
-.card.gold .num{color:var(--gold)}
-.card.green .num{color:var(--success)}
-.card.red .num{color:var(--danger)}
-.card.blue .num{color:#2980b9}
-.card.purple .num{color:#8e44ad}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
-.row>*{flex:1;min-width:120px}
-input,select,textarea{padding:10px 12px;border:1px solid #ddd;border-radius:8px;width:100%;font-size:15px;background:#fafafa;transition:border .2s}
-input:focus,select:focus{outline:none;border-color:var(--gold);background:#fff}
-button{padding:10px 20px;border:0;border-radius:8px;background:var(--primary);color:#fff;cursor:pointer;font-size:14px;transition:all .2s;white-space:nowrap}
-button:hover{opacity:.85;transform:scale(.98)}
-button.gold{background:var(--gold)}
-button.green{background:var(--success)}
-button.red{background:var(--danger)}
-button.outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-td,th{padding:8px 6px;border-bottom:1px solid #eee;text-align:left;vertical-align:middle}
-th{background:#f8f8f8;font-weight:600;color:#555;position:sticky;top:0}
-tr:hover{background:#fafafa}
-.badge{padding:3px 12px;border-radius:20px;font-size:12px;display:inline-block}
-.badge.green{background:#d4edda;color:#155724}
-.badge.red{background:#f8d7da;color:#721c24}
-.badge.gold{background:#fff3cd;color:#856404}
-.badge.blue{background:#d1ecf1;color:#0c5460}
-.badge.gray{background:#e9ecef;color:#6c757d}
-.svc-btn{display:inline-block;border:2px solid #ddd;border-radius:10px;padding:14px 18px;margin:5px;cursor:pointer;background:#fafafa;transition:all .2s;text-align:center;min-width:100px}
-.svc-btn:active{transform:scale(.95)}
-.svc-btn.selected{border-color:var(--gold);background:#fff8e7}
-.svc-btn .price{color:var(--gold);font-weight:bold;font-size:18px}
-.svc-btn .name{font-size:14px}
-.svc-btn .comm{font-size:11px;color:#999}
-.total{font-size:32px;color:var(--danger);font-weight:bold}
-.hide{display:none!important}
-.text-muted{color:#999;font-size:13px}
-.flex{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.flex-between{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.mt-8{margin-top:8px}
-.mb-8{margin-bottom:8px}
-.w-100{width:100%}
-.text-center{text-align:center}
-.today-sales-list{max-height:300px;overflow-y:auto}
-.today-sales-list table{font-size:13px}
-@media(max-width:600px){.top h1{font-size:15px}.tabs button{font-size:12px;padding:6px 12px}.cards{grid-template-columns:1fr 1fr}.panel{padding:12px}.row>*{min-width:80px}.svc-btn{min-width:70px;padding:10px 12px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Ys Hair Style Studio v3.6 · 云端版</title>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+  </script>
+  <style>
+    /* ===== 基础样式 ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: #f0f2f5;
+      color: #222;
+      padding-bottom: 100px;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    :root {
+      --primary: #1a1a2e;
+      --gold: #c9a84c;
+      --success: #0e7c4b;
+      --danger: #c0392b;
+      --bg: #f0f2f5;
+    }
+    .top {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 56px;
+    }
+    .top h1 {
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+    .top h1 span {
+      color: var(--gold);
+    }
+    .top .user {
+      font-size: 13px;
+      opacity: .8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .logout-btn {
+      padding: 6px 16px;
+      background: #dc3545;
+      color: #fff;
+      border: 0;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .logout-btn:active {
+      transform: scale(0.95);
+    }
+    .lang-btn {
+      padding: 6px 16px;
+      background: #4CAF50;
+      color: #fff;
+      border: 0;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .lang-btn:active {
+      transform: scale(0.95);
+    }
+    .wrap {
+      max-width: 1400px;
+      margin: auto;
+      padding: 12px;
+    }
+    .tabs {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 56px;
+      z-index: 99;
+      background: var(--bg);
+      padding: 8px 0;
+    }
+    .tabs button {
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 6px;
+      background: #fff;
+      color: #333;
+      cursor: pointer;
+      font-size: 13px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+      transition: all .2s;
+      border-bottom: 3px solid transparent;
+      touch-action: manipulation;
+    }
+    .tabs button:active {
+      transform: scale(0.95);
+    }
+    .tabs button.active {
+      background: var(--primary);
+      color: #fff;
+      border-bottom-color: var(--gold);
+    }
+    .page {
+      display: none;
+      animation: fade .3s;
+    }
+    .page.active {
+      display: block;
+    }
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .panel {
+      background: #fff;
+      padding: 18px;
+      border-radius: 12px;
+      margin: 12px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+      overflow: auto;
+    }
+    .panel h3 {
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: var(--primary);
+      border-left: 4px solid var(--gold);
+      padding-left: 12px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+      text-align: center;
+    }
+    .card .num {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--primary);
+      margin-top: 4px;
+    }
+    .card .label {
+      font-size: 13px;
+      color: #888;
+    }
+    .card.gold .num {
+      color: var(--gold);
+    }
+    .card.green .num {
+      color: var(--success);
+    }
+    .card.red .num {
+      color: var(--danger);
+    }
+    .card.blue .num {
+      color: #2980b9;
+    }
+    .card.purple .num {
+      color: #8e44ad;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: end;
+    }
+    .row>* {
+      flex: 1;
+      min-width: 80px;
+    }
+    input,
+    select,
+    textarea {
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 15px;
+      background: #fafafa;
+      transition: border .2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: #fff;
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%23999'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    button {
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all .2s;
+      white-space: nowrap;
+      touch-action: manipulation;
+      min-height: 44px;
+    }
+    button:active {
+      opacity: .85;
+      transform: scale(.95);
+    }
+    button.gold {
+      background: var(--gold);
+    }
+    button.green {
+      background: var(--success);
+    }
+    button.red {
+      background: var(--danger);
+    }
+    button.outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    button.print-btn {
+      background: #2196F3;
+    }
+    button.whatsapp-btn {
+      background: #25D366;
+    }
+    button.receipt-btn {
+      background: #9C27B0;
+    }
+    button.share-btn {
+      background: #FF9800;
+    }
+    /* ===== 分类折叠样式 ===== */
+    .category-section {
+      margin-bottom: 8px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .category-header {
+      background: #f5f5f5;
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      font-size: 16px;
+      color: var(--primary);
+      transition: background .2s;
+      touch-action: manipulation;
+    }
+    .category-header:active {
+      background: #e8e8e8;
+    }
+    .category-header .arrow {
+      transition: transform .3s;
+      font-size: 14px;
+      color: #999;
+    }
+    .category-header .arrow.open {
+      transform: rotate(180deg);
+    }
+    .category-header .cat-badge {
+      font-size: 12px;
+      background: var(--gold);
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: normal;
+    }
+    .category-body {
+      display: none;
+      padding: 10px 12px 12px 12px;
+      background: #fafafa;
+    }
+    .category-body.open {
+      display: block;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px;
+    }
+    .product-item {
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all .2s;
+    }
+    .product-item .p-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .product-item .p-price {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: bold;
+    }
+    .product-item .p-price-input {
+      font-size: 13px;
+      width: 70px;
+      padding: 2px 4px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .product-item .p-price-input:focus {
+      border-color: var(--gold);
+    }
+    .product-item .p-comm {
+      font-size: 10px;
+      color: #999;
+    }
+    .product-item .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .product-item .qty-control button {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      min-height: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      cursor: pointer;
+    }
+    .product-item .qty-control button:active {
+      transform: scale(.9);
+    }
+    .product-item .qty-control button.minus-btn {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .product-item .qty-control button.plus-btn {
+      background: var(--success);
+      color: #fff;
+    }
+    .product-item .qty-control .qty-num {
+      font-size: 16px;
+      font-weight: bold;
+      min-width: 28px;
+      text-align: center;
+      color: var(--primary);
+    }
+    .product-item.selected {
+      border-color: var(--gold);
+      background: #fff8e7;
+    }
+    /* ===== 购物车 ===== */
+    .cart-table td,
+    .cart-table th {
+      padding: 8px 6px;
+      vertical-align: middle;
+    }
+    .cart-table .qty-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+    }
+    .cart-table .qty-cell button {
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      min-height: 26px;
+      font-size: 14px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      cursor: pointer;
+    }
+    .cart-table .qty-cell button.minus-btn {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .cart-table .qty-cell button.plus-btn {
+      background: var(--success);
+      color: #fff;
+    }
+    .cart-table .qty-cell .qty-num {
+      font-size: 15px;
+      font-weight: bold;
+      min-width: 24px;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    td,
+    th {
+      padding: 8px 6px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background: #f8f8f8;
+      font-weight: 600;
+      color: #555;
+      position: sticky;
+      top: 0;
+    }
+    tr:hover {
+      background: #fafafa;
+    }
+    .badge {
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      display: inline-block;
+    }
+    .badge.green {
+      background: #d4edda;
+      color: #155724;
+    }
+    .badge.red {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .badge.gold {
+      background: #fff3cd;
+      color: #856404;
+    }
+    .badge.blue {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    .badge.gray {
+      background: #e9ecef;
+      color: #6c757d;
+    }
+    .total {
+      font-size: 32px;
+      color: var(--danger);
+      font-weight: bold;
+    }
+    .hide {
+      display: none !important;
+    }
+    .text-muted {
+      color: #999;
+      font-size: 13px;
+    }
+    .flex {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .mt-8 {
+      margin-top: 8px;
+    }
+    .mb-8 {
+      margin-bottom: 8px;
+    }
+    .today-sales-list {
+      max-height: 300px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .receipt-box {
+      background: #f9f9f9;
+      border: 1px dashed #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre;
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 10px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-close {
+      float: right;
+      background: transparent;
+      border: 0;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+    .discount-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .discount-group input {
+      width: 80px;
+      min-width: 60px;
+    }
+    .discount-group .disc-label {
+      font-size: 13px;
+      color: #666;
+    }
+    .price-edit-hint {
+      font-size: 10px;
+      color: #999;
+      text-align: center;
+    }
+    /* ===== PDF收据样式 ===== */
+    .pdf-receipt-wrapper {
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      padding: 15px 20px 20px 20px;
+      max-width: 420px;
+      margin: 0 auto;
+      background: white;
+      line-height: 1.5;
+    }
+    .pdf-receipt-wrapper .center {
+      text-align: center;
+    }
+    .pdf-receipt-wrapper .title {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .pdf-receipt-wrapper .sub {
+      font-size: 11px;
+      color: #666;
+    }
+    .pdf-receipt-wrapper .divider {
+      border-top: 1px dashed #999;
+      margin: 6px 0;
+    }
+    .pdf-receipt-wrapper .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 0;
+      font-size: 12px;
+    }
+    .pdf-receipt-wrapper .info-row .label {
+      color: #666;
+    }
+    .pdf-receipt-wrapper .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin: 4px 0;
+    }
+    .pdf-receipt-wrapper .items-table th {
+      background: #f0f0f0;
+      font-weight: bold;
+      font-size: 11px;
+      padding: 4px 2px;
+      border-bottom: 1px solid #999;
+      text-align: left;
+    }
+    .pdf-receipt-wrapper .items-table td {
+      padding: 4px 2px;
+      border-bottom: 1px dotted #ddd;
+      font-size: 12px;
+    }
+    .pdf-receipt-wrapper .items-table .qty-col {
+      text-align: center;
+      width: 40px;
+    }
+    .pdf-receipt-wrapper .items-table .price-col {
+      text-align: right;
+      width: 80px;
+    }
+    .pdf-receipt-wrapper .total-row {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: right;
+      padding: 6px 0;
+      border-top: 2px solid #333;
+      margin-top: 4px;
+    }
+    .pdf-receipt-wrapper .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+      margin-top: 10px;
+      border-top: 1px solid #ddd;
+      padding-top: 8px;
+    }
+    a,
+    button,
+    .category-header {
+      touch-action: manipulation;
+    }
+    @media(max-width:600px) {
+      .top h1 {
+        font-size: 15px;
+      }
+      .tabs button {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+      .panel {
+        padding: 12px;
+      }
+      .row>* {
+        min-width: 70px;
+      }
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      }
+      .discount-group input {
+        width: 60px;
+      }
+    }
+    @media print {
+      .top,
+      .tabs,
+      button,
+      .no-print {
+        display: none !important;
+      }
+      .page {
+        display: block !important;
+      }
+      .panel {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+      }
+    }
+
+    /* 密码输入安全 */
+    .pwd-mask {
+      font-family: "Courier New", monospace;
+      letter-spacing: 4px;
+      font-size: 18px;
+    }
+    input[type="password"] {
+      -webkit-text-security: disc;
+      text-security: disc;
+    }
+    /* 工资结算周期标签 */
+    .period-badge {
+      font-size: 11px;
+      background: #e9ecef;
+      border-radius: 12px;
+      padding: 2px 10px;
+      margin-left: 4px;
+    }
+    .period-badge.day {
+      background: #cfe2ff;
+      color: #084298;
+    }
+    .period-badge.month {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+    /* 日总佣金统计 */
+    .daily-total-comm {
+      background: #fff3cd;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #856404;
+      display: inline-block;
+    }
+    
+    /* 登录界面额外按钮 */
+    .login-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .login-actions button {
+      padding: 8px 20px;
+      font-size: 13px;
+      min-height: 36px;
+    }
+    .login-actions .register-btn {
+      background: #4CAF50;
+    }
+    .login-actions .reset-btn {
+      background: #FF9800;
+    }
+
+    /* Firestore 管理员提示 */
+    .admin-hint {
+      background: #e8f5e9;
+      border-left: 4px solid #2e7d32;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #1e3a5f;
+      margin: 8px 0;
+    }
+    .admin-hint code {
+      background: #c8e6c9;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  </style>
 </head>
 <body>
 
-<header class="top">
-  <h1>✂️ Ys <span>Hair Style</span> Studio <span class="cloud-badge">☁️ Cloudflare</span></h1>
-  <span class="user" id="who">👤 管理员</span>
-</header>
-
-<div class="wrap">
-
-<div id="login" class="panel" style="max-width:400px;margin:40px auto">
-  <h2 style="text-align:center;color:var(--primary)">✂️ 登录系统</h2>
-  <p style="text-align:center;color:#999;font-size:13px" id="loginHint">管理员账号 admin / 密码 123456</p>
-  <input id="un" value="admin" placeholder="账号">
-  <input id="pw" type="password" value="123456" placeholder="密码">
-  <button onclick="login()" style="width:100%;padding:14px;background:var(--gold);font-size:16px">登 录</button>
-  <p style="text-align:center;color:#bbb;font-size:12px;margin-top:12px">☁️ 数据云端存储 · Cloudflare 全球加速</p>
-</div>
-
-<div id="app" class="hide">
-
-<div class="tabs">
-  <button class="active" onclick="page('dash')">📊 总览</button>
-  <button onclick="page('pos')">💇 POS收银</button>
-  <button onclick="page('member')">👤 会员管理</button>
-  <button onclick="page('staff')">👨‍💼 员工管理</button>
-  <button onclick="page('payroll')">💰 工资结算</button>
-  <button onclick="page('settle')">🧾 每日结账</button>
-  <button onclick="page('monthly')">📈 月绩报告</button>
-  <button onclick="page('orders')">📋 订单报表</button>
-  <button onclick="page('settings')">⚙️ 设置</button>
-</div>
-
-<!-- 总览 -->
-<section id="dash" class="page active">
-  <h2 style="margin-bottom:12px">📊 经营总览</h2>
-  <div class="cards">
-    <div class="card gold"><div class="label">💰 今日营业额</div><div class="num" id="todaySales">RM 0</div></div>
-    <div class="card"><div class="label">📈 本月营业额</div><div class="num" id="monthSales">RM 0</div></div>
-    <div class="card green"><div class="label">🏆 净利润</div><div class="num" id="profitNum">RM 0</div></div>
-    <div class="card red"><div class="label">🔄 本月退款</div><div class="num" id="refundNum">RM 0</div></div>
-  </div>
-  <div class="cards">
-    <div class="card"><div class="label">📋 今日订单</div><div class="num" id="todayOrders">0</div></div>
-    <div class="card blue"><div class="label">👤 总会员</div><div class="num" id="totalMembers">0</div></div>
-    <div class="card"><div class="label">👨‍💼 员工数</div><div class="num" id="totalStaff">0</div></div>
-    <div class="card red"><div class="label">⚠️ 低库存</div><div class="num" id="lowStock">0</div></div>
-  </div>
-  <div class="panel">
-    <h3>📋 今日顾客消费明细</h3>
-    <div class="today-sales-list">
-      <table><thead><tr><th>时间</th><th>顾客</th><th>员工</th><th>服务</th><th>金额</th><th>支付</th></tr></thead><tbody id="todayDetail"></tbody></table>
+  <header class="top">
+    <h1 id="brandTitle">✂️ Ys <span>Hair Style</span> Studio · v3.6 云端</h1>
+    <div class="user">
+      <button onclick="switchLang()" class="lang-btn" id="langBtn">English</button>
+      <span id="who">👤 未登录</span>
+      <button onclick="logout()" class="logout-btn" id="logoutBtnText">🚪 退出</button>
     </div>
-  </div>
-  <div class="panel">
-    <div class="flex-between"><h3>📊 快捷操作</h3></div>
-    <div class="flex" style="gap:8px;flex-wrap:wrap">
-      <button onclick="page('pos')" class="gold">💇 快速开单</button>
-      <button onclick="page('member')">👤 会员充值</button>
-      <button onclick="autoSettle()" class="green">🧾 一键结账</button>
-    </div>
-  </div>
-</section>
+  </header>
 
-<!-- POS -->
-<section id="pos" class="page">
-  <h2 style="margin-bottom:12px">💇 POS 收银</h2>
-  <div class="row">
-    <div style="flex:2"><select id="cus"><option value="">散客 (现金)</option></select></div>
-    <div style="flex:1"><select id="st"></select></div>
-    <div style="flex:1"><input id="disc" type="number" value="0" placeholder="折扣 RM" step="0.5"></div>
-  </div>
-  <div class="panel" style="background:#f8f6f0">
-    <div id="svcs" style="display:flex;flex-wrap:wrap;gap:5px"></div>
-  </div>
-  <div class="panel">
-    <table><thead><tr><th>服务</th><th>价格</th><th>提成</th><th>操作</th></tr></thead><tbody id="cart"></tbody></table>
-    <div class="flex-between"><span class="total" id="sum">RM 0.00</span>
-      <div class="flex">
-        <select id="pay" style="width:auto;flex:0">
-          <option>Cash 现金</option><option>DuitNow QR</option><option>Card 刷卡</option>
-          <option>Bank Transfer</option><option>会员储值</option>
-        </select>
-        <button onclick="checkout()" class="green" style="padding:12px 32px">✅ 收款</button>
+  <div class="wrap">
+
+    <!-- ===== 登录界面 ===== -->
+    <div id="login" class="panel" style="max-width:420px;margin:40px auto">
+      <h2 style="text-align:center;color:var(--primary)" id="loginTitle">✂️ 登录系统</h2>
+      <p style="text-align:center;color:#999;font-size:13px" id="loginHint">使用 Firebase 邮箱密码登录</p>
+      <input id="un" placeholder="邮箱 (Email)" autocomplete="email" type="email">
+      <input id="pw" type="password" placeholder="密码 (Password)" autocomplete="current-password">
+      <button id="loginBtn" style="width:100%;padding:14px;background:var(--gold);font-size:16px;border:0;border-radius:8px;color:#fff;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent">登 录</button>
+      
+      <div class="login-actions">
+        <button onclick="register()" class="register-btn">📝 注册新账号</button>
+        <button onclick="resetPassword()" class="reset-btn">🔑 忘记密码</button>
       </div>
+      
+      <p style="text-align:center;color:#bbb;font-size:12px;margin-top:12px" id="loginFooter">数据存储在 Firebase · 多端实时同步</p>
+    </div>
+
+    <!-- ===== 主应用 ===== -->
+    <div id="app" class="hide">
+
+      <div class="tabs" id="tabContainer">
+        <button class="active" onclick="page('dash')" data-key="tabDash">📊 总览</button>
+        <button onclick="page('pos')" data-key="tabPos">💇 POS收银</button>
+        <button onclick="page('member')" data-key="tabMember">👤 会员管理</button>
+        <button onclick="page('staff')" data-key="tabStaff">👨‍💼 员工管理</button>
+        <button onclick="page('payroll')" data-key="tabPayroll">💰 工资结算</button>
+        <button onclick="page('settle')" data-key="tabSettle">🧾 每日结账</button>
+        <button onclick="page('monthly')" data-key="tabMonthly">📈 月绩报告</button>
+        <button onclick="page('appt')" data-key="tabAppt">📅 预约排班</button>
+        <button onclick="page('stock')" data-key="tabStock">📦 库存管理</button>
+        <button onclick="page('expense')" data-key="tabExpense">💸 支出管理</button>
+        <button onclick="page('orders')" data-key="tabOrders">📋 订单报表</button>
+        <button onclick="page('settings')" data-key="tabSettings">⚙️ 设置</button>
+      </div>
+
+      <!-- ===== DASHBOARD ===== -->
+      <section id="dash" class="page active">
+        <h2 style="margin-bottom:12px" id="dashTitle">📊 经营总览</h2>
+        <div class="cards">
+          <div class="card gold"><div class="label" id="labelTodaySales">💰 今日营业额</div><div class="num" id="todaySales">RM 0</div></div>
+          <div class="card"><div class="label" id="labelMonthSales">📈 本月营业额</div><div class="num" id="monthSales">RM 0</div></div>
+          <div class="card green"><div class="label" id="labelProfit">🏆 净利润</div><div class="num" id="profitNum">RM 0</div></div>
+          <div class="card red"><div class="label" id="labelRefund">🔄 本月退款</div><div class="num" id="refundNum">RM 0</div></div>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="label" id="labelTodayOrders">📋 今日订单</div><div class="num" id="todayOrders">0</div></div>
+          <div class="card blue"><div class="label" id="labelTotalMembers">👤 总会员</div><div class="num" id="totalMembers">0</div></div>
+          <div class="card"><div class="label" id="labelTotalStaff">👨‍💼 员工数</div><div class="num" id="totalStaff">0</div></div>
+          <div class="card red"><div class="label" id="labelLowStock">⚠️ 低库存</div><div class="num" id="lowStock">0</div></div>
+        </div>
+        <div class="panel">
+          <h3 id="todayDetailTitle">📋 今日顾客消费明细</h3>
+          <div class="today-sales-list">
+            <table><thead><tr><th id="thTime">时间</th><th id="thCustomer">顾客</th><th id="thStaff">员工</th><th id="thService">服务</th><th id="thAmount">金额</th><th id="thPayment">支付</th></tr></thead><tbody id="todayDetail"></tbody></table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="flex-between"><h3 id="quickActions">📊 快捷操作</h3></div>
+          <div class="flex" style="gap:8px;flex-wrap:wrap">
+            <button onclick="page('pos')" class="gold" id="btnQuickPos">💇 快速开单</button>
+            <button onclick="page('member')" id="btnQuickMember">👤 会员充值</button>
+            <button onclick="autoSettle()" class="green" id="btnQuickSettle">🧾 一键结账</button>
+            <button onclick="exportData()" class="outline" id="btnQuickBackup">📤 备份数据</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== POS 收银 ===== -->
+      <section id="pos" class="page">
+        <h2 style="margin-bottom:12px" id="posTitle">💇 POS 收银</h2>
+        <div class="row">
+          <div style="flex:1.5"><select id="cus"><option value="">现金</option></select></div>
+          <div style="flex:1"><select id="st"></select></div>
+        </div>
+
+        <!-- ===== 折扣区域 ===== -->
+        <div class="panel" style="background:#f0f8ff;border:1px solid #c9e6ff;">
+          <div class="flex-between">
+            <span style="font-weight:bold;color:var(--primary);">🏷️ 折扣设置</span>
+            <div class="discount-group">
+              <span class="disc-label">折扣 %</span>
+              <input id="discountPercent" type="number" value="0" min="0" max="100" step="1" style="width:70px;">
+              <span class="disc-label">或 RM</span>
+              <input id="discountAmount" type="number" value="0" min="0" step="0.5" style="width:80px;">
+              <button onclick="applyDiscount()" class="gold" style="padding:6px 16px;min-height:36px;font-size:13px;">✅ 应用</button>
+              <button onclick="clearDiscount()" class="outline" style="padding:6px 16px;min-height:36px;font-size:13px;">✕ 清除</button>
+            </div>
+          </div>
+          <div class="flex-between mt-8">
+            <span class="text-muted">💡 输入百分比或金额，点击「应用」</span>
+            <span id="discountDisplay" style="font-weight:bold;color:var(--danger);">折扣: RM 0.00</span>
+          </div>
+        </div>
+
+        <div class="panel" style="background:#f8f6f0">
+          <h3 style="border-left-color:var(--success);">📦 点击分类展开选择服务 <span class="text-muted" style="font-size:12px;font-weight:normal;">(点击价格可修改)</span></h3>
+          <div id="productContainer"></div>
+        </div>
+
+        <div class="panel">
+          <h3 style="border-left-color:var(--gold);">🛒 购物车</h3>
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th id="posServiceCol">服务</th>
+                <th id="posPriceCol" style="text-align:center">单价</th>
+                <th id="posCommCol" style="text-align:center">数量</th>
+                <th id="posAmountCol" style="text-align:center">小计</th>
+                <th id="posActionCol" style="text-align:center">操作</th>
+              </tr>
+            </thead>
+            <tbody id="cartBody"></tbody>
+          </table>
+          <div class="flex-between" style="margin-top:12px">
+            <div>
+              <span class="total" id="sum">RM 0.00</span>
+              <span id="discountSummary" class="text-muted" style="font-size:14px;margin-left:12px;"></span>
+            </div>
+            <div class="flex">
+              <select id="pay" style="width:auto;flex:0">
+                <option id="payCash">Cash 现金</option>
+                <option id="payDuitNow">DuitNow QR</option>
+                <option id="payCard">Card 刷卡</option>
+                <option id="payTransfer">Bank Transfer</option>
+                <option id="payStored">会员储值</option>
+              </select>
+              <button onclick="checkout()" class="green" style="padding:12px 32px" id="btnCheckout">✅ 收款</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="border:2px solid var(--gold);display:none" id="receiptPanel">
+          <h3 id="receiptTitle">🧾 收据发送</h3>
+          <div class="row">
+            <input id="customerPhone" placeholder="顾客手机号 (如 012-3456789)">
+            <input id="customerEmail" placeholder="顾客邮箱 (选填)">
+          </div>
+          <div class="flex" style="gap:8px;flex-wrap:wrap">
+            <button onclick="generateAndSharePDF()" class="share-btn" style="background:#FF9800;font-weight:bold;font-size:16px;padding:12px 24px">📤 生成 PDF</button>
+            <button onclick="sendSMS()" class="print-btn" id="btnSMS">📱 发短信</button>
+            <button onclick="sendEmail()" class="gold" id="btnEmail">📧 发邮件</button>
+            <button onclick="printReceipt()" class="print-btn" id="btnPrint">🖨️ 打印收据</button>
+            <button onclick="copyReceipt()" class="outline" id="btnCopy">📋 复制收据</button>
+          </div>
+          <div id="receiptContent" class="receipt-box"></div>
+          <div id="pdfContent" style="display:none;"></div>
+        </div>
+      </section>
+
+      <!-- ===== 其他页面 ===== -->
+      <section id="member" class="page">
+        <div class="flex-between"><h2 id="memberTitle">👤 会员管理</h2><span class="text-muted" id="memberTotalLabel">总会员: <b id="memberCount">0</b></span></div>
+        <div class="panel">
+          <div class="row">
+            <input id="mn" placeholder="姓名 *">
+            <input id="mp" placeholder="电话">
+            <input id="mlevel" placeholder="等级 (普通/银卡/金卡)" value="普通">
+            <button onclick="addMember()" class="gold" id="btnAddMember">➕ 新增会员</button>
+          </div>
+        </div>
+        <div class="panel" style="overflow:auto">
+          <table><thead><tr><th id="mNameCol">姓名</th><th id="mPhoneCol">电话</th><th id="mLevelCol">等级</th><th id="mBalanceCol">储值</th><th id="mPointsCol">积分</th><th id="mVisitCol">到店</th><th id="mActionCol">操作</th></tr></thead><tbody id="members"></tbody></table>
+        </div>
+      </section>
+
+      <section id="staff" class="page">
+        <div class="flex-between"><h2 id="staffTitle">👨‍💼 员工管理</h2></div>
+        <div class="panel">
+          <div class="row">
+            <input id="sn" placeholder="姓名 *">
+            <input id="sbase" type="number" placeholder="底薪 RM" value="0">
+            <input id="srate" type="number" placeholder="提成比例 %" value="40">
+            <button onclick="addStaff()" class="gold" id="btnAddStaff">➕ 添加员工</button>
+          </div>
+        </div>
+        <div class="panel" style="overflow:auto">
+          <table><thead><tr><th id="sNameCol">姓名</th><th id="sBaseCol">底薪</th><th id="sRateCol">提成比例</th><th id="sSalesCol">本月业绩</th><th id="sCommCol">本月佣金</th><th id="sStatusCol">状态</th><th id="sActionCol2">操作</th></tr></thead><tbody id="staffList"></tbody></table>
+        </div>
+      </section>
+
+      <!-- ===== 工资结算 ===== -->
+      <section id="payroll" class="page">
+        <h2 id="payrollTitle">💰 工资结算</h2>
+        <div class="panel">
+          <div class="row">
+            <select id="payrollType" style="width:auto;flex:0.4;">
+              <option value="month">📅 按月结算</option>
+              <option value="day">📆 按天结算</option>
+            </select>
+            <input id="payrollDate" type="date" style="flex:0.6;">
+            <button onclick="refreshPayroll()" class="gold" id="btnRefreshPayroll">🔄 刷新</button>
+            <button onclick="markAllPaid()" class="green" id="btnMarkAllPaid">✅ 标记已结算</button>
+          </div>
+          <p class="text-muted mt-8">💡 选择「按天结算」则针对选定日期；「按月结算」则针对选定月份。已结算的日期/月份会显示✅</p>
+          <div id="dailyTotalComm" class="mt-8" style="display:none;">
+            <span class="daily-total-comm">📊 当日总佣金: RM <span id="dailyTotalCommAmount">0.00</span></span>
+          </div>
+        </div>
+        <div class="panel" style="overflow:auto">
+          <table><thead><tr><th id="pNameCol">员工</th><th id="pBaseCol">底薪</th><th id="pSalesCol2">业绩</th><th id="pCommCol2">佣金</th><th id="pTotalCol">应发总额</th><th id="pStatusCol">结算状态</th><th id="pActionCol3">操作</th></tr></thead><tbody id="payrollList"></tbody></table>
+        </div>
+      </section>
+
+      <section id="settle" class="page">
+        <h2 id="settleTitle">🧾 每日结账</h2>
+        <div class="panel">
+          <div class="row">
+            <input id="sd" type="date">
+            <input id="stotal" type="number" placeholder="系统营业额" readonly style="background:#f0f0f0">
+            <input id="scash" type="number" placeholder="Cash" readonly style="background:#f0f0f0">
+            <input id="sdu" type="number" placeholder="DuitNow" readonly style="background:#f0f0f0">
+            <input id="scard" type="number" placeholder="Card" readonly style="background:#f0f0f0">
+            <input id="str" type="number" placeholder="Transfer" readonly style="background:#f0f0f0">
+            <input id="ssv" type="number" placeholder="会员储值" readonly style="background:#f0f0f0">
+          </div>
+          <div class="row">
+            <input id="actual" type="number" placeholder="实际现金盘点 *">
+            <input id="snote" placeholder="备注 (可选)">
+            <button onclick="autoSettle()" class="green" style="padding:12px 32px" id="btnAutoSettle">⚡ 一键自动结账</button>
+          </div>
+          <p class="text-muted mt-8" id="settleHint">💡 点击"一键自动结账"将从今日订单自动汇总数据</p>
+        </div>
+        <div class="panel" style="overflow:auto"><table><thead><tr><th id="seDate">日期</th><th id="seTotal">营业额</th><th id="seCash">Cash</th><th id="seDuitNow">DuitNow</th><th id="seCard">Card</th><th id="seTransfer">Transfer</th><th id="seStored">储值</th><th id="seActual">实际现金</th><th id="seDiff">差额</th><th id="seNote">备注</th></tr></thead><tbody id="settlements"></tbody></table></div>
+      </section>
+
+      <!-- ===== 月绩报告 ===== -->
+      <section id="monthly" class="page">
+        <h2 id="monthlyTitle">📈 月绩报告</h2>
+        <div class="panel">
+          <div class="row">
+            <input id="mrFrom" type="month" placeholder="开始月份" style="flex:0.7;">
+            <input id="mrTo" type="month" placeholder="结束月份" style="flex:0.7;">
+            <button onclick="loadMonthlyReport()" class="gold" id="btnSearch">🔍 查询</button>
+            <button onclick="document.getElementById('mrFrom').value='';document.getElementById('mrTo').value='';loadMonthlyReport()" class="outline" id="btnReset">🔄 全部</button>
+            <button onclick="loadYearlyReport()" class="green" id="btnYearly">📅 年度汇总</button>
+          </div>
+        </div>
+        <div class="cards" id="monthlySummary">
+          <div class="card gold"><div class="label" id="mrRevenueLabel">💰 总收入</div><div class="num" id="mrRevenue">RM 0</div></div>
+          <div class="card"><div class="label" id="mrDiscountLabel">📉 总折扣</div><div class="num" id="mrDiscount">RM 0</div></div>
+          <div class="card red"><div class="label" id="mrExpenseLabel">💸 总支出</div><div class="num" id="mrExpense">RM 0</div></div>
+          <div class="card green"><div class="label" id="mrProfitLabel">🏆 净利润</div><div class="num" id="mrProfit">RM 0</div></div>
+        </div>
+        <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+          <div class="card purple"><div class="label" id="mrDeletedLabel">🗑️ 已删除订单</div><div class="num" id="mrDeleted">0 单</div></div>
+          <div class="card red"><div class="label" id="mrDeletedAmountLabel">💰 删除涉及金额</div><div class="num" id="mrDeletedAmount">RM 0</div></div>
+          <div class="card gold"><div class="label" id="mrValidOrdersLabel">📊 有效订单</div><div class="num" id="mrValidOrders">0 单</div></div>
+        </div>
+        <div class="panel">
+          <h3 id="staffMonthlyTitle">👨‍💼 员工月绩 & 佣金报告</h3>
+          <div style="overflow:auto"><table><thead><tr><th id="smName">员工</th><th id="smOrders">订单数</th><th id="smSales">总业绩</th><th id="smComm">佣金</th><th id="smRate">提成比例</th></tr></thead><tbody id="staffMonthlyReport"></tbody></table></div>
+        </div>
+        <div class="panel">
+          <h3 id="dailyDetailTitle">📋 每日明细</h3>
+          <div style="overflow:auto"><table><thead><tr><th id="ddDate">日期</th><th id="ddOrders">订单数</th><th id="ddRevenue">营业额</th><th id="ddRefund">退款</th><th id="ddDeleted">删除</th><th id="ddNet">净收入</th></tr></thead><tbody id="dailyDetail"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="appt" class="page">
+        <h2 id="apptTitle">📅 预约 & 排班</h2>
+        <div class="panel">
+          <div class="row">
+            <input id="ad" type="date">
+            <input id="at" type="time">
+            <input id="ac" placeholder="顾客姓名 *">
+            <input id="ae" placeholder="员工">
+            <input id="as" placeholder="服务项目">
+            <button onclick="addAppt()" class="gold" id="btnAddAppt">➕ 新增预约</button>
+          </div>
+        </div>
+        <div class="panel" style="overflow:auto"><table><thead><tr><th id="apDate">日期</th><th id="apTime">时间</th><th id="apCustomer">顾客</th><th id="apStaff">员工</th><th id="apService">服务</th><th id="apStatus">状态</th><th id="apAction">操作</th></tr></thead><tbody id="appts"></tbody></table></div>
+      </section>
+
+      <section id="stock" class="page">
+        <h2 id="stockTitle">📦 库存管理</h2>
+        <div class="panel">
+          <div class="row">
+            <input id="pn" placeholder="产品名 *">
+            <input id="pqty" type="number" placeholder="数量">
+            <input id="pmin" type="number" placeholder="最低库存预警">
+            <input id="pcost" type="number" placeholder="成本价">
+            <button onclick="addProduct()" class="gold" id="btnAddProduct">➕ 添加产品</button>
+          </div>
+        </div>
+        <div class="panel" style="overflow:auto"><table><thead><tr><th id="prName">产品</th><th id="prQty">数量</th><th id="prMin">最低库存</th><th id="prCost">成本价</th><th id="prStatus">状态</th><th id="prAction">操作</th></tr></thead><tbody id="products"></tbody></table></div>
+      </section>
+
+      <section id="expense" class="page">
+        <h2 id="expenseTitle">💸 支出管理</h2>
+        <div class="panel">
+          <div class="row">
+            <input id="en" placeholder="支出项目 *">
+            <input id="ea" type="number" placeholder="金额 RM *">
+            <input id="ecat" placeholder="分类 (租金/水电/工资/其他)">
+            <button onclick="addExpense()" class="red" id="btnAddExpense">➕ 记录支出</button>
+          </div>
+        </div>
+        <div class="panel" style="overflow:auto"><table><thead><tr><th id="exName">项目</th><th id="exAmount">金额</th><th id="exCat">分类</th><th id="exDate">日期</th></tr></thead><tbody id="expenses"></tbody></table></div>
+      </section>
+
+      <section id="orders" class="page">
+        <h2 id="ordersTitle">📋 订单报表</h2>
+        <div class="panel">
+          <div class="flex" style="gap:8px">
+            <input id="ofrom" type="date" placeholder="开始">
+            <input id="oto" type="date" placeholder="结束">
+            <select id="oStatus" style="width:auto;flex:0.5">
+              <option value="all" id="osAll">全部状态</option>
+              <option value="paid" id="osPaid">已收款</option>
+              <option value="refunded" id="osRefunded">已退款</option>
+              <option value="deleted" id="osDeleted">已删除</option>
+            </select>
+            <button onclick="filterOrders()" class="gold" id="btnFilter">🔍 筛选</button>
+            <button onclick="resetOrders()" class="outline" id="btnResetOrders">🔄 重置</button>
+          </div>
+        </div>
+        <div class="panel" style="overflow:auto"><table><thead><tr><th id="orId">单号</th><th id="orDate">日期</th><th id="orCustomer">顾客</th><th id="orAmount">金额</th><th id="orPayment">支付</th><th id="orStatus">状态</th><th id="orAction">操作</th></tr></thead><tbody id="orderRows"></tbody></table></div>
+      </section>
+
+      <section id="settings" class="page">
+        <h2 id="settingsTitle">⚙️ 系统设置</h2>
+        <div class="panel" style="border:2px solid var(--gold)">
+          <h3 id="settingsPassword">🔐 修改登录密码</h3>
+          <div class="row">
+            <input id="oldPw" type="password" placeholder="当前登录密码">
+            <input id="newPw" type="password" placeholder="新登录密码 (至少6位)">
+            <input id="confirmPw" type="password" placeholder="确认新登录密码">
+            <button onclick="changePassword()" class="gold" id="btnChangePwd">✅ 修改登录密码</button>
+          </div>
+          <p class="text-muted mt-8" id="pwdHint">💡 修改后请用新密码登录</p>
+        </div>
+        <div class="panel" style="border:2px solid var(--danger)">
+          <h3 id="settingsRefundPwd">🔐 退款/删除专用密码 (输入时隐藏)</h3>
+          <div class="row">
+            <input id="oldRefundPw" type="password" placeholder="当前退款密码">
+            <input id="newRefundPw" type="password" placeholder="新退款密码 (至少4位)">
+            <input id="confirmRefundPw" type="password" placeholder="确认新退款密码">
+            <button onclick="changeRefundPassword()" class="red" id="btnChangeRefundPwd">🔐 修改退款密码</button>
+          </div>
+          <p class="text-muted mt-8" id="refundPwdHint">💡 退款和删除订单时需输入此密码 (默认: 135103)</p>
+        </div>
+
+        <div class="panel">
+          <h3 id="settingsServices">🏷️ 服务分类与选项管理</h3>
+          <p class="text-muted mb-8">💡 点击分类名称可展开/收起，选项名称、价格、提成可自定义</p>
+          <div id="categoryManager"></div>
+          <hr style="margin:16px 0;border-color:#eee;">
+          <div class="row">
+            <input id="newCatName" placeholder="新分类名称 (如: 剪发、染发、护理)">
+            <button onclick="addCategory()" class="gold" id="btnAddCategory">➕ 添加分类</button>
+          </div>
+          <div class="row mt-8">
+            <input id="newOptName" placeholder="新选项名称 (如: 短发、中发、长发)">
+            <input id="newOptPrice" type="number" placeholder="价格 RM" value="50">
+            <input id="newOptRate" type="number" placeholder="提成 %" value="25">
+            <select id="newOptCategory" style="flex:0.8"></select>
+            <button onclick="addOption()" class="green" id="btnAddOption">➕ 添加选项</button>
+          </div>
+        </div>
+
+        <div class="panel" style="border:2px solid var(--success)">
+          <h3 id="settingsData">💾 数据管理</h3>
+          <div class="flex" style="gap:8px;flex-wrap:wrap">
+            <button onclick="exportData()" class="gold" id="btnExport">📤 导出备份</button>
+            <button onclick="importData()" class="outline" id="btnImport">📥 导入备份</button>
+            <button onclick="clearAllData()" class="red" id="btnClear">🗑️ 清除所有数据</button>
+          </div>
+          <p class="text-muted mt-8" id="dataHint">💡 建议每周备份一次</p>
+        </div>
+        
+        <!-- ===== Firestore 管理员设置提示 ===== -->
+        <div class="panel" style="border:2px solid #2e7d32;background:#f1f8e9;">
+          <h3 style="border-left-color:#2e7d32;">🔑 Firestore 管理员设置</h3>
+          <div class="admin-hint">
+            <strong>📌 退款功能需要管理员授权</strong><br>
+            请在 Firebase Console → Firestore Database 创建 <code>Users</code> 集合，添加文档：<br>
+            <code>{ email: "你的管理员邮箱", role: "admin", name: "管理员姓名" }</code>
+          </div>
+          <div class="admin-hint" style="border-left-color:#f57c00;background:#fff3e0;">
+            <strong>🔐 当前登录账号角色检测</strong><br>
+            <span id="userRoleDisplay">⏳ 检测中...</span>
+          </div>
+        </div>
+      </section>
+
     </div>
   </div>
-</section>
 
-<!-- 会员 -->
-<section id="member" class="page">
-  <div class="flex-between"><h2>👤 会员管理</h2><span class="text-muted">总会员: <b id="memberCount">0</b></span></div>
-  <div class="panel">
-    <div class="row">
-      <input id="mn" placeholder="姓名 *">
-      <input id="mp" placeholder="电话">
-      <input id="mlevel" placeholder="等级 (普通/银卡/金卡)" value="普通">
-      <button onclick="addMember()" class="gold">➕ 新增会员</button>
-    </div>
-  </div>
-  <div class="panel" style="overflow:auto">
-    <table><thead><tr><th>姓名</th><th>电话</th><th>等级</th><th>储值</th><th>积分</th><th>到店</th><th>操作</th></tr></thead><tbody id="members"></tbody></table>
-  </div>
-</section>
+  <script>
+    // ============================================================
+    //  🔥 Firebase 配置
+    // ============================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyDeVPQbKSi-4O-7gx55c6ZwacBXGTrPFJI",
+      authDomain: "ys-hair-style-studio.firebaseapp.com",
+      databaseURL: "https://ys-hair-style-studio-default-rtdb.firebaseio.com",
+      projectId: "ys-hair-style-studio",
+      storageBucket: "ys-hair-style-studio.firebasestorage.app",
+      messagingSenderId: "1013042053262",
+      appId: "1:1013042053262:web:81e155d05672843d5909df"
+    };
 
-<!-- 员工 -->
-<section id="staff" class="page">
-  <div class="flex-between"><h2>👨‍💼 员工管理</h2></div>
-  <div class="panel">
-    <div class="row">
-      <input id="sn" placeholder="姓名 *">
-      <input id="sbase" type="number" placeholder="底薪 RM" value="1200">
-      <input id="srate" type="number" placeholder="提成比例 %" value="30">
-      <button onclick="addStaff()" class="gold">➕ 添加员工</button>
-    </div>
-  </div>
-  <div class="panel" style="overflow:auto">
-    <table><thead><tr><th>姓名</th><th>底薪</th><th>提成比例</th><th>本月业绩</th><th>本月佣金</th><th>状态</th><th>操作</th></tr></thead><tbody id="staffList"></tbody></table>
-  </div>
-</section>
-
-<!-- 工资 -->
-<section id="payroll" class="page">
-  <h2>💰 工资结算</h2>
-  <div class="panel" style="overflow:auto">
-    <table><thead><tr><th>员工</th><th>底薪</th><th>本月业绩</th><th>佣金</th><th>应发总额</th><th>已发月份</th><th>操作</th></tr></thead><tbody id="payrollList"></tbody></table>
-  </div>
-</section>
-
-<!-- 结账 -->
-<section id="settle" class="page">
-  <h2>🧾 每日结账</h2>
-  <div class="panel">
-    <div class="row">
-      <input id="sd" type="date">
-      <button onclick="autoSettle()" class="green" style="padding:12px 32px">⚡ 一键自动结账</button>
-    </div>
-    <p class="text-muted mt-8">💡 点击"一键自动结账"将从今日订单自动汇总数据</p>
-  </div>
-  <div class="panel" style="overflow:auto"><table><thead><tr><th>日期</th><th>营业额</th><th>Cash</th><th>DuitNow</th><th>Card</th><th>Transfer</th><th>储值</th><th>实际现金</th><th>差额</th><th>备注</th></tr></thead><tbody id="settlements"></tbody></table></div>
-</section>
-
-<!-- 月绩 -->
-<section id="monthly" class="page">
-  <h2>📈 月绩报告</h2>
-  <div class="panel">
-    <div class="row">
-      <input id="mrMonth" type="month" value="">
-      <button onclick="loadMonthlyReport()" class="gold">🔍 查询</button>
-      <button onclick="document.getElementById('mrMonth').value='';loadMonthlyReport()" class="outline">🔄 全部</button>
-    </div>
-  </div>
-  <div class="cards" id="monthlySummary">
-    <div class="card gold"><div class="label">💰 总收入</div><div class="num" id="mrRevenue">RM 0</div></div>
-    <div class="card"><div class="label">📉 总折扣</div><div class="num" id="mrDiscount">RM 0</div></div>
-    <div class="card red"><div class="label">💸 总支出</div><div class="num" id="mrExpense">RM 0</div></div>
-    <div class="card green"><div class="label">🏆 净利润</div><div class="num" id="mrProfit">RM 0</div></div>
-  </div>
-  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-    <div class="card purple"><div class="label">🗑️ 已删除订单</div><div class="num" id="mrDeleted">0 单</div></div>
-    <div class="card red"><div class="label">💰 删除涉及金额</div><div class="num" id="mrDeletedAmount">RM 0</div></div>
-    <div class="card gold"><div class="label">📊 有效订单</div><div class="num" id="mrValidOrders">0 单</div></div>
-  </div>
-  <div class="panel">
-    <h3>👨‍💼 员工月绩 & 佣金报告</h3>
-    <div style="overflow:auto"><table><thead><tr><th>员工</th><th>订单数</th><th>总业绩</th><th>佣金</th><th>提成比例</th></tr></thead><tbody id="staffMonthlyReport"></tbody></table></div>
-  </div>
-  <div class="panel">
-    <h3>📋 每日明细</h3>
-    <div style="overflow:auto"><table><thead><tr><th>日期</th><th>订单数</th><th>营业额</th><th>退款</th><th>删除</th><th>净收入</th></tr></thead><tbody id="dailyDetail"></tbody></table></div>
-  </div>
-</section>
-
-<!-- 订单 -->
-<section id="orders" class="page">
-  <h2>📋 订单报表</h2>
-  <div class="panel">
-    <div class="flex" style="gap:8px">
-      <input id="ofrom" type="date" placeholder="开始">
-      <input id="oto" type="date" placeholder="结束">
-      <select id="oStatus" style="width:auto;flex:0.5">
-        <option value="all">全部状态</option>
-        <option value="paid">已收款</option>
-        <option value="refunded">已退款</option>
-        <option value="deleted">已删除</option>
-      </select>
-      <button onclick="filterOrders()" class="gold">🔍 筛选</button>
-      <button onclick="resetOrders()" class="outline">🔄 重置</button>
-    </div>
-  </div>
-  <div class="panel" style="overflow:auto"><table><thead><tr><th>单号</th><th>日期</th><th>顾客</th><th>金额</th><th>支付</th><th>状态</th><th>操作</th></tr></thead><tbody id="orderRows"></tbody></table></div>
-</section>
-
-<!-- 设置 -->
-<section id="settings" class="page">
-  <h2>⚙️ 系统设置</h2>
-  
-  <div class="panel" style="border:2px solid var(--gold)">
-    <h3>🔐 修改登录密码</h3>
-    <div class="row">
-      <input id="oldPw" type="password" placeholder="当前密码">
-      <input id="newPw" type="password" placeholder="新密码 (至少4位)">
-      <input id="confirmPw" type="password" placeholder="确认新密码">
-      <button onclick="changePassword()" class="gold">✅ 修改密码</button>
-    </div>
-    <p class="text-muted mt-8">💡 修改后所有设备同步生效</p>
-  </div>
-  
-  <div class="panel">
-    <h3>🏷️ 服务项目管理</h3>
-    <div class="row">
-      <input id="svcName" placeholder="服务名称">
-      <input id="svcPrice" type="number" placeholder="价格 RM">
-      <input id="svcRate" type="number" placeholder="提成 %">
-      <button onclick="addService()" class="gold">➕ 添加服务</button>
-    </div>
-    <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>服务</th><th>价格</th><th>提成</th><th>操作</th></tr></thead><tbody id="serviceList"></tbody></table></div>
-  </div>
-  
-  <div class="panel" style="border:2px solid var(--success)">
-    <h3>💾 数据管理</h3>
-    <div class="flex" style="gap:8px;flex-wrap:wrap">
-      <button onclick="exportData()" class="gold">📤 导出备份</button>
-      <button onclick="importData()" class="outline">📥 导入备份</button>
-    </div>
-    <p class="text-muted mt-8">💡 数据永久存储在 Cloudflare，永不丢失！</p>
-  </div>
-</section>
-
-</div></div>
-
-<script>
-// ============================================================
-//  YS HAIR STUDIO - Cloudflare 云端版
-//  ✅ 已配置好 API 地址
-// ============================================================
-
-const API_BASE = 'https://ys-hair-style-studio.yshairstylestudio.workers.dev';
-
-const API = {
-  async get(endpoint) {
-    const r = await fetch(API_BASE + endpoint);
-    if (!r.ok) throw new Error(await r.text());
-    return r.json();
-  },
-  async post(endpoint, data) {
-    const r = await fetch(API_BASE + endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (!r.ok) throw new Error(await r.text());
-    return r.json();
-  }
-};
-
-let DATA = {
-  services: [],
-  customers: [],
-  staff: [],
-  orders: [],
-  products: [],
-  appointments: [],
-  expenses: [],
-  settlements: [],
-  nextId: {}
-};
-let cart = [], selectedSvcs = [];
-
-function today() { return new Date().toISOString().slice(0,10); }
-function now() { return new Date().toISOString(); }
-
-async function loadData() {
-  try {
-    const data = await API.get('/api/data');
-    DATA = data;
-    return data;
-  } catch(e) {
-    console.error('加载数据失败:', e);
-    return null;
-  }
-}
-
-async function saveData() {
-  try {
-    await API.post('/api/data', DATA);
-    return true;
-  } catch(e) {
-    console.error('保存数据失败:', e);
-    alert('❌ 保存失败，请检查网络连接');
-    return false;
-  }
-}
-
-async function login() {
-  const u = document.getElementById('un').value.trim();
-  const p = document.getElementById('pw').value.trim();
-  try {
-    const result = await API.post('/api/login', { username: u, password: p });
-    if (result.success) {
-      document.getElementById('login').classList.add('hide');
-      document.getElementById('app').classList.remove('hide');
-      document.getElementById('who').textContent = '👤 ' + u + ' | ☁️ Cloudflare';
-      await loadData();
-      loadAll();
+    // 初始化 Firebase
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
     }
-  } catch(e) {
-    alert('❌ 连接服务器失败: ' + e.message);
-  }
-}
-
-async function changePassword() {
-  const old = document.getElementById('oldPw').value.trim();
-  const newPw = document.getElementById('newPw').value.trim();
-  const confirm = document.getElementById('confirmPw').value.trim();
-  if (!old || !newPw || !confirm) return alert('❌ 请填写完整');
-  if (newPw.length < 4) return alert('❌ 新密码至少4位');
-  if (newPw !== confirm) return alert('❌ 两次输入不一致');
-  if (newPw === old) return alert('❌ 新密码不能和旧密码相同');
-  try {
-    await API.post('/api/change-password', { oldPassword: old, newPassword: newPw });
-    alert('✅ 密码修改成功！新密码：' + newPw);
-    document.getElementById('oldPw').value = '';
-    document.getElementById('newPw').value = '';
-    document.getElementById('confirmPw').value = '';
-  } catch(e) {
-    alert('❌ ' + e.message);
-  }
-}
-
-function page(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-  const map = ['dash','pos','member','staff','payroll','settle','monthly','orders','settings'];
-  document.querySelectorAll('.tabs button').forEach((b,i) => {
-    if (map[i] === name) b.classList.add('active');
-  });
-  if (name === 'monthly') loadMonthlyReport();
-  loadAll();
-}
-
-function loadAll() {
-  if (!DATA.services) return;
-  loadDashboard();
-  loadPOS();
-  loadMembers();
-  loadStaff();
-  loadPayroll();
-  loadSettlements();
-  loadOrders();
-  loadServices();
-  document.getElementById('memberCount').textContent = (DATA.customers||[]).length;
-  document.getElementById('totalStaff').textContent = (DATA.staff||[]).length;
-}
-
-function loadDashboard() {
-  const todayStr = today();
-  const monthStr = todayStr.slice(0,7);
-  const orders = DATA.orders || [];
-  const todayOrders = orders.filter(o => o.status==='paid' && o.date===todayStr);
-  const monthOrders = orders.filter(o => o.status==='paid' && o.date.startsWith(monthStr));
-  const todaySales = todayOrders.reduce((s,o) => s + o.total, 0);
-  const monthSales = monthOrders.reduce((s,o) => s + o.total, 0);
-  const totalRefund = orders.filter(o => o.status==='refunded').reduce((s,o) => s + (o.refund_amount||0), 0);
-  const totalExpense = (DATA.expenses||[]).reduce((s,e) => s + e.amount, 0);
-  const profit = monthSales - totalExpense - totalRefund;
-
-  document.getElementById('todaySales').textContent = 'RM ' + todaySales.toFixed(2);
-  document.getElementById('monthSales').textContent = 'RM ' + monthSales.toFixed(2);
-  document.getElementById('profitNum').textContent = 'RM ' + profit.toFixed(2);
-  document.getElementById('refundNum').textContent = 'RM ' + totalRefund.toFixed(2);
-  document.getElementById('todayOrders').textContent = todayOrders.length;
-  document.getElementById('totalMembers').textContent = (DATA.customers||[]).length;
-  document.getElementById('lowStock').textContent = (DATA.products||[]).filter(p => p.qty <= p.min).length;
-
-  const tbody = document.getElementById('todayDetail');
-  if (todayOrders.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#999;padding:12px">今日暂无消费记录</td></tr>';
-  } else {
-    tbody.innerHTML = todayOrders.slice().reverse().map(o => {
-      const items = o.items ? o.items.map(i => i.name).join('、') : '-';
-      return `<tr><td>${o.time||''}</td><td>${o.customer_name||'散客'}</td>
-      <td>${o.staff_name||'-'}</td><td>${items}</td><td>RM${o.total.toFixed(2)}</td>
-      <td><span class="badge blue">${o.payment}</span></td></tr>`;
-    }).join('');
-  }
-}
-
-function loadPOS() {
-  const customers = DATA.customers || [];
-  const staffs = DATA.staff || [];
-  const services = DATA.services || [];
-
-  const cusSelect = document.getElementById('cus');
-  cusSelect.innerHTML = '<option value="">散客 (现金)</option>' +
-    customers.map(c => `<option value="${c.id}">${c.name} · 储值 RM${c.balance.toFixed(2)}</option>`).join('');
-
-  const stSelect = document.getElementById('st');
-  stSelect.innerHTML = staffs.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-
-  const svcsDiv = document.getElementById('svcs');
-  svcsDiv.innerHTML = services.map((s,i) =>
-    `<div class="svc-btn" onclick="toggleSvc(${i})" id="svc_${i}">
-      <div class="name">${s.name}</div><div class="price">RM${s.price}</div>
-      <div class="comm">提成 ${s.rate}%</div>
-    </div>`
-  ).join('');
-  drawCart();
-}
-
-function toggleSvc(i) {
-  const services = DATA.services || [];
-  const idx = selectedSvcs.indexOf(i);
-  if (idx > -1) { selectedSvcs.splice(idx, 1); document.getElementById('svc_'+i).classList.remove('selected'); }
-  else { selectedSvcs.push(i); document.getElementById('svc_'+i).classList.add('selected'); }
-  cart = selectedSvcs.map(idx => ({...services[idx]}));
-  drawCart();
-}
-
-function drawCart() {
-  const tbody = document.getElementById('cart');
-  if (cart.length === 0) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">请点击上方服务项目添加</td></tr>'; }
-  else {
-    tbody.innerHTML = cart.map((item,i) =>
-      `<tr><td>${item.name}</td><td>RM${item.price.toFixed(2)}</td><td>RM${(item.price * item.rate / 100).toFixed(2)}</td>
-      <td><button onclick="removeFromCart(${i})" class="red" style="padding:4px 12px">✕</button></td></tr>`
-    ).join('');
-  }
-  const total = cart.reduce((s,item) => s + item.price, 0) - (parseFloat(document.getElementById('disc').value)||0);
-  document.getElementById('sum').textContent = 'RM ' + Math.max(0,total).toFixed(2);
-}
-
-function removeFromCart(i) {
-  const idx = selectedSvcs.indexOf(i);
-  if (idx > -1) { selectedSvcs.splice(idx, 1); document.getElementById('svc_'+i).classList.remove('selected'); }
-  cart.splice(i, 1);
-  drawCart();
-}
-
-async function checkout() {
-  if (cart.length === 0) return alert('❌ 请选择至少一项服务');
-  const customerId = document.getElementById('cus').value;
-  const staffId = document.getElementById('st').value;
-  const discount = parseFloat(document.getElementById('disc').value)||0;
-  const payment = document.getElementById('pay').value;
-  const total = Math.max(0, cart.reduce((s,item) => s + item.price, 0) - discount);
-  if (total <= 0) return alert('❌ 总金额必须大于0');
-
-  const customers = DATA.customers || [];
-  const staffs = DATA.staff || [];
-
-  if (payment === '会员储值') {
-    const cus = customers.find(c => c.id == customerId);
-    if (!cus) return alert('❌ 请选择会员');
-    if (cus.balance < total) return alert('❌ 余额不足！当前余额 RM' + cus.balance.toFixed(2));
-    cus.balance -= total;
-  }
-
-  const cusName = customerId ? customers.find(c=>c.id==customerId)?.name : '散客';
-  const order = {
-    id: (DATA.nextId?.order||1),
-    date: today(), time: new Date().toTimeString().slice(0,5),
-    customer_id: customerId || null, customer_name: cusName || '散客',
-    staff_id: staffId || null, staff_name: staffId ? staffs.find(s=>s.id==staffId)?.name : '未分配',
-    total, discount, payment, status: 'paid',
-    items: cart.map(item => ({name:item.name, price:item.price, rate:item.rate})),
-    refund_amount: 0, refund_reason: null,
-    deleted_at: null, deleted_by: null,
-    created: now()
-  };
-
-  if (!DATA.orders) DATA.orders = [];
-  DATA.orders.push(order);
-  if (!DATA.nextId) DATA.nextId = {};
-  DATA.nextId.order = (DATA.nextId.order||0) + 1;
-
-  if (customerId) {
-    const cus = customers.find(c => c.id == customerId);
-    if (cus) { cus.visit = (cus.visit||0) + 1; cus.points = (cus.points||0) + Math.floor(total / 5); }
-  }
-
-  cart = []; selectedSvcs = [];
-  document.querySelectorAll('.svc-btn').forEach(el => el.classList.remove('selected'));
-  document.getElementById('disc').value = 0;
-
-  await saveData();
-  await loadData();
-  loadAll();
-  alert('✅ 收款成功！\n💰 金额: RM' + total.toFixed(2));
-}
-
-function loadMembers() {
-  const customers = DATA.customers || [];
-  const tbody = document.getElementById('members');
-  if (customers.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无会员，请点击"新增会员"添加</td></tr>';
-    return;
-  }
-  tbody.innerHTML = customers.map(c =>
-    `<tr><td><b>${c.name}</b></td><td>${c.phone||'-'}</td>
-    <td><span class="badge ${c.level==='金卡'?'gold':c.level==='银卡'?'blue':'green'}">${c.level||'普通'}</span></td>
-    <td>RM${c.balance.toFixed(2)}</td><td>${c.points||0}</td><td>${c.visit||0}</td>
-    <td><button onclick="topup(${c.id})" class="gold" style="padding:4px 12px;font-size:12px">充值</button></td></tr>`
-  ).join('');
-}
-
-async function addMember() {
-  const name = document.getElementById('mn').value.trim();
-  const phone = document.getElementById('mp').value.trim();
-  const level = document.getElementById('mlevel').value.trim() || '普通';
-  if (!name) return alert('❌ 请输入姓名');
-  if (!DATA.customers) DATA.customers = [];
-  if (!DATA.nextId) DATA.nextId = {};
-  DATA.customers.push({
-    id: (DATA.nextId.customer||1),
-    name, phone, level, balance:0, points:0, visit:0, created:today()
-  });
-  DATA.nextId.customer = (DATA.nextId.customer||0) + 1;
-  await saveData();
-  await loadData();
-  loadAll();
-  document.getElementById('mn').value = ''; document.getElementById('mp').value = ''; document.getElementById('mlevel').value = '普通';
-  alert('✅ 会员添加成功');
-}
-
-async function topup(id) {
-  const amt = parseFloat(prompt('💰 输入充值金额 (RM)', 100));
-  if (amt && amt > 0) {
-    const cus = (DATA.customers||[]).find(c => c.id === id);
-    if (cus) { cus.balance += amt; cus.points = (cus.points||0) + Math.floor(amt/10); await saveData(); await loadData(); loadAll(); alert('✅ 充值成功！'); }
-  }
-}
-
-function loadStaff() {
-  const staffs = DATA.staff || [];
-  const orders = DATA.orders || [];
-  const tbody = document.getElementById('staffList');
-  if (staffs.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无员工</td></tr>'; return; }
-  const monthStr = today().slice(0,7);
-  tbody.innerHTML = staffs.map(s => {
-    const staffOrders = orders.filter(o => o.status==='paid' && o.staff_id == s.id && o.date.startsWith(monthStr));
-    const totalSales = staffOrders.reduce((sum,o) => sum + o.total, 0);
-    const totalComm = totalSales * (s.rate / 100);
-    const paid = s.paid_months?.includes(monthStr);
-    return `<tr><td><b>${s.name}</b></td><td>RM${s.base}</td><td>${s.rate||30}%</td>
-    <td>RM${totalSales.toFixed(2)}</td><td>RM${totalComm.toFixed(2)}</td>
-    <td><span class="badge ${paid?'green':'red'}">${paid?'✅ 已发':'⏳ 待发'}</span></td>
-    <td><button onclick="removeStaff(${s.id})" class="red" style="padding:4px 12px;font-size:12px">删除</button></td></tr>`;
-  }).join('');
-}
-
-async function addStaff() {
-  const name = document.getElementById('sn').value.trim();
-  const base = parseFloat(document.getElementById('sbase').value)||0;
-  const rate = parseFloat(document.getElementById('srate').value)||30;
-  if (!name) return alert('❌ 请输入姓名');
-  if (!DATA.staff) DATA.staff = [];
-  if (!DATA.nextId) DATA.nextId = {};
-  DATA.staff.push({ id: (DATA.nextId.staff||1), name, base, rate, paid_months:[] });
-  DATA.nextId.staff = (DATA.nextId.staff||0) + 1;
-  await saveData();
-  await loadData();
-  loadAll();
-  document.getElementById('sn').value = '';
-  alert('✅ 员工添加成功');
-}
-
-async function removeStaff(id) { if (!confirm('确定删除？')) return; DATA.staff = (DATA.staff||[]).filter(s => s.id !== id); await saveData(); await loadData(); loadAll(); }
-
-function loadPayroll() {
-  const staffs = DATA.staff || [];
-  const orders = DATA.orders || [];
-  const tbody = document.getElementById('payrollList');
-  if (staffs.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">请先添加员工</td></tr>'; return; }
-  const monthStr = today().slice(0,7);
-  tbody.innerHTML = staffs.map(s => {
-    const staffOrders = orders.filter(o => o.status==='paid' && o.staff_id == s.id && o.date.startsWith(monthStr));
-    const totalSales = staffOrders.reduce((sum,o) => sum + o.total, 0);
-    const totalComm = totalSales * (s.rate / 100);
-    const total = s.base + totalComm;
-    const paid = s.paid_months?.includes(monthStr);
-    return `<tr><td><b>${s.name}</b></td><td>RM${s.base}</td>
-    <td>RM${totalSales.toFixed(2)}</td><td>RM${totalComm.toFixed(2)}</td>
-    <td><b>RM${total.toFixed(2)}</b></td>
-    <td>${s.paid_months?.join(', ')||'-'}</td>
-    <td>${paid ? '<span class="badge green">✅ 已发</span>' :
-      `<button onclick="payStaff(${s.id})" class="green" style="padding:4px 12px;font-size:12px">💰 发放</button>`}</td></tr>`;
-  }).join('');
-}
-
-async function payStaff(id) {
-  const s = (DATA.staff||[]).find(st => st.id === id);
-  if (!s) return;
-  const monthStr = today().slice(0,7);
-  if (s.paid_months?.includes(monthStr)) return alert('⚠️ 本月已发');
-  const orders = DATA.orders || [];
-  const staffOrders = orders.filter(o => o.status==='paid' && o.staff_id == s.id && o.date.startsWith(monthStr));
-  const totalSales = staffOrders.reduce((sum,o) => sum + o.total, 0);
-  const totalComm = totalSales * (s.rate / 100);
-  const total = s.base + totalComm;
-  if (!confirm(`确认发放 ${s.name} 本月工资 RM${total.toFixed(2)}？\n底薪: RM${s.base}\n佣金: RM${totalComm.toFixed(2)}`)) return;
-  s.paid_months = s.paid_months || [];
-  s.paid_months.push(monthStr);
-  await saveData();
-  await loadData();
-  loadAll();
-  alert('✅ 工资发放成功！');
-}
-
-function loadSettlements() {
-  const settlements = DATA.settlements || [];
-  const tbody = document.getElementById('settlements');
-  if (settlements.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#999;padding:20px">暂无结账记录</td></tr>';
-    return;
-  }
-  tbody.innerHTML = settlements.slice().reverse().map(s =>
-    `<tr><td>${s.date}</td><td>RM${s.total.toFixed(2)}</td>
-    <td>RM${s.cash.toFixed(2)}</td><td>RM${(s.duitnow||0).toFixed(2)}</td>
-    <td>RM${(s.card||0).toFixed(2)}</td><td>RM${(s.transfer||0).toFixed(2)}</td>
-    <td>RM${(s.stored||0).toFixed(2)}</td>
-    <td>RM${s.actual_cash.toFixed(2)}</td>
-    <td class="${s.difference>=0?'green':'red'}">RM${s.difference.toFixed(2)}</td>
-    <td>${s.note||'-'}</td></tr>`
-  ).join('');
-}
-
-async function autoSettle() {
-  const date = document.getElementById('sd').value || today();
-  const settlements = DATA.settlements || [];
-  if (settlements.find(s => s.date === date)) return alert('⚠️ 该日期已结账！');
-
-  const orders = DATA.orders || [];
-  const dayOrders = orders.filter(o => o.status==='paid' && o.date === date);
-  if (dayOrders.length === 0) {
-    if (!confirm('⚠️ 该日期暂无订单，仍要创建结账记录吗？')) return;
-  }
-
-  const total = dayOrders.reduce((s,o) => s + o.total, 0);
-  const cash = dayOrders.filter(o => o.payment === 'Cash 现金').reduce((s,o) => s + o.total, 0);
-  const duitnow = dayOrders.filter(o => o.payment === 'DuitNow QR').reduce((s,o) => s + o.total, 0);
-  const card = dayOrders.filter(o => o.payment === 'Card 刷卡').reduce((s,o) => s + o.total, 0);
-  const transfer = dayOrders.filter(o => o.payment === 'Bank Transfer').reduce((s,o) => s + o.total, 0);
-  const stored = dayOrders.filter(o => o.payment === '会员储值').reduce((s,o) => s + o.total, 0);
-
-  const actual = parseFloat(prompt('💰 请填写实际现金盘点金额 (RM)', cash.toFixed(2)));
-  if (actual === null || isNaN(actual)) return alert('❌ 已取消');
-  const note = prompt('📝 备注 (可选)') || '';
-
-  if (!DATA.settlements) DATA.settlements = [];
-  if (!DATA.nextId) DATA.nextId = {};
-  DATA.settlements.push({
-    id: (DATA.nextId.settlement||1),
-    date, total, cash, duitnow, card, transfer, stored,
-    actual_cash: actual, difference: actual - cash,
-    note, created: now()
-  });
-  DATA.nextId.settlement = (DATA.nextId.settlement||0) + 1;
-
-  document.getElementById('sd').value = date;
-  await saveData();
-  await loadData();
-  loadAll();
-  alert('✅ 结账完成！\n📅 ' + date + '\n💰 营业额: RM' + total.toFixed(2) + '\n📊 现金差额: RM' + (actual - cash).toFixed(2));
-}
-
-function loadMonthlyReport() {
-  const month = document.getElementById('mrMonth').value;
-  const orders = DATA.orders || [];
-  const staffs = DATA.staff || [];
-  const expenses = DATA.expenses || [];
-
-  let paidOrders = orders.filter(o => o.status === 'paid');
-  if (month) paidOrders = paidOrders.filter(o => o.date.startsWith(month));
-
-  let deletedOrders = orders.filter(o => o.status === 'deleted');
-  if (month) deletedOrders = deletedOrders.filter(o => o.date.startsWith(month));
-
-  const revenue = paidOrders.reduce((s,o) => s + o.total, 0);
-  const discount = paidOrders.reduce((s,o) => s + (o.discount||0), 0);
-  const totalExpense = expenses.reduce((s,e) => {
-    if (month && !e.date.startsWith(month)) return s;
-    return s + e.amount;
-  }, 0);
-  const totalRefund = orders.filter(o => o.status==='refunded' && (month ? o.date.startsWith(month) : true))
-    .reduce((s,o) => s + (o.refund_amount||0), 0);
-
-  const totalCommission = paidOrders.reduce((s,o) => {
-    const staff = staffs.find(st => st.id == o.staff_id);
-    if (staff) return s + (o.total * staff.rate / 100);
-    return s;
-  }, 0);
-
-  const profit = revenue - totalCommission - totalExpense - totalRefund;
-
-  document.getElementById('mrRevenue').textContent = 'RM ' + revenue.toFixed(2);
-  document.getElementById('mrDiscount').textContent = 'RM ' + discount.toFixed(2);
-  document.getElementById('mrExpense').textContent = 'RM ' + totalExpense.toFixed(2);
-  document.getElementById('mrProfit').textContent = 'RM ' + profit.toFixed(2);
-
-  const deletedAmount = deletedOrders.reduce((s,o) => s + o.total, 0);
-  document.getElementById('mrDeleted').textContent = deletedOrders.length + ' 单';
-  document.getElementById('mrDeletedAmount').textContent = 'RM ' + deletedAmount.toFixed(2);
-  document.getElementById('mrValidOrders').textContent = paidOrders.length + ' 单';
-
-  const staffTbody = document.getElementById('staffMonthlyReport');
-  if (staffs.length === 0) {
-    staffTbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#999;padding:20px">暂无员工</td></tr>';
-  } else {
-    staffTbody.innerHTML = staffs.map(s => {
-      const staffOrders = paidOrders.filter(o => o.staff_id == s.id);
-      const totalSales = staffOrders.reduce((sum,o) => sum + o.total, 0);
-      const totalComm = totalSales * (s.rate / 100);
-      return `<tr><td><b>${s.name}</b></td><td>${staffOrders.length}</td>
-      <td>RM${totalSales.toFixed(2)}</td><td>RM${totalComm.toFixed(2)}</td>
-      <td>${s.rate||30}%</td></tr>`;
-    }).join('');
-  }
-
-  const dailyTbody = document.getElementById('dailyDetail');
-  const allRelevant = [...paidOrders, ...deletedOrders];
-  if (allRelevant.length === 0) {
-    dailyTbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#999;padding:20px">暂无数据</td></tr>';
-  } else {
-    const dailyMap = {};
-    paidOrders.forEach(o => {
-      if (!dailyMap[o.date]) dailyMap[o.date] = { count:0, revenue:0, refund:0, deleted:0 };
-      dailyMap[o.date].count++;
-      dailyMap[o.date].revenue += o.total;
-    });
-    deletedOrders.forEach(o => {
-      if (!dailyMap[o.date]) dailyMap[o.date] = { count:0, revenue:0, refund:0, deleted:0 };
-      dailyMap[o.date].deleted += o.total;
-    });
-    orders.filter(o => o.status==='refunded' && (month ? o.date.startsWith(month) : true)).forEach(o => {
-      if (!dailyMap[o.date]) dailyMap[o.date] = { count:0, revenue:0, refund:0, deleted:0 };
-      dailyMap[o.date].refund += (o.refund_amount||0);
-    });
-    dailyTbody.innerHTML = Object.keys(dailyMap).sort().map(d =>
-      `<tr><td>${d}</td><td>${dailyMap[d].count}</td>
-      <td>RM${dailyMap[d].revenue.toFixed(2)}</td>
-      <td>RM${dailyMap[d].refund.toFixed(2)}</td>
-      <td>RM${dailyMap[d].deleted.toFixed(2)}</td>
-      <td>RM${(dailyMap[d].revenue - dailyMap[d].refund - dailyMap[d].deleted).toFixed(2)}</td></tr>`
-    ).join('');
-  }
-}
-
-function loadOrders() { renderOrders(DATA.orders||[]); }
-
-function renderOrders(list) {
-  const tbody = document.getElementById('orderRows');
-  if (list.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无订单</td></tr>';
-    return;
-  }
-  tbody.innerHTML = list.slice().reverse().map(o => {
-    let statusBadge = '', statusText = '';
-    if (o.status === 'paid') { statusBadge = 'green'; statusText = '✅ 已收款'; }
-    else if (o.status === 'refunded') { statusBadge = 'red'; statusText = '🔄 已退款'; }
-    else if (o.status === 'deleted') { statusBadge = 'gray'; statusText = '🗑️ 已删除'; }
-    else { statusBadge = 'gold'; statusText = '⏳ 待处理'; }
-
-    let actions = '-';
-    if (o.status === 'paid') {
-      actions = `<button onclick="refundOrder(${o.id})" class="red" style="padding:4px 12px;font-size:12px">退款</button>
-                 <button onclick="deleteOrder(${o.id})" style="padding:4px 12px;font-size:12px;background:#6c757d">删除</button>`;
-    } else if (o.status === 'refunded') {
-      actions = `<span class="badge red">退款 RM${(o.refund_amount||0).toFixed(2)}</span>`;
-    } else if (o.status === 'deleted') {
-      actions = `<span class="badge gray">已删除</span>`;
-    }
-    return `<tr><td>#${o.id}</td><td>${o.date} ${o.time||''}</td><td>${o.customer_name||'散客'}</td>
-    <td>RM${o.total.toFixed(2)}</td><td>${o.payment}</td>
-    <td><span class="badge ${statusBadge}">${statusText}</span></td>
-    <td>${actions}</td></tr>`;
-  }).join('');
-}
-
-function filterOrders() {
-  const from = document.getElementById('ofrom').value;
-  const to = document.getElementById('oto').value;
-  const status = document.getElementById('oStatus').value;
-  let filtered = DATA.orders || [];
-  if (from) filtered = filtered.filter(o => o.date >= from);
-  if (to) filtered = filtered.filter(o => o.date <= to);
-  if (status !== 'all') filtered = filtered.filter(o => o.status === status);
-  renderOrders(filtered);
-}
-
-function resetOrders() {
-  document.getElementById('ofrom').value = '';
-  document.getElementById('oto').value = '';
-  document.getElementById('oStatus').value = 'all';
-  renderOrders(DATA.orders||[]);
-}
-
-async function refundOrder(id) {
-  const order = (DATA.orders||[]).find(o => o.id === id);
-  if (!order) return;
-  const max = order.total - (order.refund_amount||0);
-  if (max <= 0) return alert('⚠️ 该订单已全额退款');
-
-  const pwd = prompt('🔐 请输入管理员密码确认退款：');
-  if (pwd === null) return;
-  if (pwd !== '123456' && pwd !== (DATA.auth?.password)) return alert('❌ 密码错误，退款取消');
-
-  const amt = parseFloat(prompt('💰 退款金额 (RM)\n最多可退: RM' + max.toFixed(2), max.toFixed(2)));
-  if (!amt || amt <= 0 || amt > max) return alert('❌ 金额无效');
-  const reason = prompt('📝 退款原因', '顾客要求退款');
-  if (reason === null) return;
-
-  if (order.payment === '会员储值' && order.customer_id) {
-    const cus = (DATA.customers||[]).find(c => c.id === order.customer_id);
-    if (cus) cus.balance += amt;
-  }
-  order.status = 'refunded';
-  order.refund_amount = (order.refund_amount||0) + amt;
-  order.refund_reason = reason;
-  order.refund_date = today();
-
-  await saveData();
-  await loadData();
-  loadAll();
-  alert('✅ 退款成功！\n💰 金额: RM' + amt.toFixed(2) + '\n📝 原因: ' + reason);
-}
-
-async function deleteOrder(id) {
-  const order = (DATA.orders||[]).find(o => o.id === id);
-  if (!order) return;
-  if (order.status === 'deleted') return alert('⚠️ 该订单已删除');
-  if (order.status === 'refunded') return alert('⚠️ 已退款的订单不能删除');
-
-  const pwd = prompt('🔐 请输入管理员密码确认删除：');
-  if (pwd === null) return;
-  if (pwd !== '123456' && pwd !== (DATA.auth?.password)) return alert('❌ 密码错误，删除取消');
-
-  if (!confirm(`确认删除订单 #${order.id} (RM${order.total.toFixed(2)}) 吗？`)) return;
-
-  order.status = 'deleted';
-  order.deleted_at = now();
-  order.deleted_by = 'admin';
-
-  await saveData();
-  await loadData();
-  loadAll();
-  alert('✅ 订单已删除！\n📋 记录保留，状态变为"已删除"');
-}
-
-function loadServices() {
-  const services = DATA.services || [];
-  const tbody = document.getElementById('serviceList');
-  if (services.length === 0) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">暂无服务</td></tr>'; return; }
-  tbody.innerHTML = services.map(s =>
-    `<tr><td>${s.name}</td><td>RM${s.price}</td><td>${s.rate}%</td>
-    <td><button onclick="removeService(${s.id})" class="red" style="padding:4px 12px;font-size:12px">删除</button></td></tr>`
-  ).join('');
-}
-
-async function addService() {
-  const name = document.getElementById('svcName').value.trim();
-  const price = parseFloat(document.getElementById('svcPrice').value)||0;
-  const rate = parseFloat(document.getElementById('svcRate').value)||30;
-  if (!name || !price) return alert('❌ 请填写完整');
-  if (!DATA.services) DATA.services = [];
-  if (!DATA.nextId) DATA.nextId = {};
-  DATA.services.push({ id: (DATA.nextId.service||1), name, price, rate });
-  DATA.nextId.service = (DATA.nextId.service||0) + 1;
-  await saveData();
-  await loadData();
-  loadAll();
-  document.getElementById('svcName').value = ''; document.getElementById('svcPrice').value = ''; document.getElementById('svcRate').value = '';
-  alert('✅ 服务添加成功');
-}
-
-async function removeService(id) { if (!confirm('确定删除？')) return; DATA.services = (DATA.services||[]).filter(s => s.id !== id); await saveData(); await loadData(); loadAll(); }
-
-function exportData() {
-  const data = {
-    version: '1.0',
-    exported: now(),
-    services: DATA.services || [],
-    customers: DATA.customers || [],
-    staff: DATA.staff || [],
-    orders: DATA.orders || [],
-    products: DATA.products || [],
-    appointments: DATA.appointments || [],
-    expenses: DATA.expenses || [],
-    settlements: DATA.settlements || [],
-    nextId: DATA.nextId || {}
-  };
-
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'ys_backup_' + today() + '.json';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  alert('✅ 备份导出成功！\n📁 文件已保存到手机下载文件夹');
-}
-
-function importData() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.json';
-  input.onchange = async function(e) {
-    const file = e.target.files[0];
-    if (!file) return alert('❌ 未选择文件');
-
-    const reader = new FileReader();
-    reader.onload = async function(ev) {
-      try {
-        const data = JSON.parse(ev.target.result);
-        if (!data.services) {
-          return alert('❌ 无效的备份文件');
+    const db = firebase.database();
+    const authFirebase = firebase.auth();
+    const dbFirestore = firebase.firestore();
+
+    // ============================================================
+    //  🔥 默认数据（包含您的服务项目）
+    // ============================================================
+    const DEFAULT_DATA = {
+      initialized: true,
+      categories: [
+        {
+          id: 1,
+          name: '✂️ Hair Cut',
+          options: [
+            { id: 101, name: 'Male Cut', price: 58, rate: 100 },
+            { id: 102, name: 'Famale Cut', price: 68, rate: 100 }
+          ]
+        },
+        {
+          id: 2,
+          name: '🎨 Hair Color',
+          options: [
+            { id: 201, name: 'Hair Color (Short)', price: 130, rate: 100 },
+            { id: 202, name: 'Hair Color (Medium)', price: 160, rate: 100 },
+            { id: 203, name: 'Hair Color (Long)', price: 190, rate: 100 },
+            { id: 504, name: 'Highlight (Short)', price: 130, rate: 100 },
+            { id: 505, name: 'Highlight (Medium)', price: 160, rate: 100 },
+            { id: 506, name: 'Highlight (Long)', price: 190, rate: 100 },
+            { id: 507, name: 'Bleach (Short)', price: 130, rate: 100 },
+            { id: 508, name: 'Bleach (Medium)', price: 160, rate: 100 },
+            { id: 509, name: 'Bleach (Long)', price: 190, rate: 100 },
+            { id: 510, name: 'Bleach Roots Touch Up', price: 220, rate: 100 },
+            { id: 511, name: 'Male color', price: 100, rate: 100 }
+          ]
+        },
+        {
+          id: 3,
+          name: '🔥 Digital Perm',
+          options: [
+            { id: 301, name: 'Korean Perm (Short)', price: 238, rate: 100 },
+            { id: 302, name: 'Korean Perm (Medium)', price: 268, rate: 100 },
+            { id: 303, name: 'Korean Perm (Long)', price: 298, rate: 100 },
+            { id: 512, name: 'soft Rebond (Short)', price: 238, rate: 100 },
+            { id: 513, name: 'Soft Rebond (Medium)', price: 268, rate: 100 },
+            { id: 514, name: 'Soft Rebond (Long)', price: 298, rate: 100 },
+            { id: 515, name: 'Male perm', price: 210, rate: 100 }
+          ]
+        },
+        {
+          id: 4,
+          name: '💆 Hair Treatment',
+          options: [
+            { id: 401, name: 'Demi 5Step Treatment (Short)', price: 220, rate: 100 },
+            { id: 516, name: 'Demi 5Step Treatment (Medium)', price: 250, rate: 100 },
+            { id: 517, name: 'Demi 5Step Treatment (Long)', price: 280, rate: 100 },
+            { id: 518, name: 'Mucota Scena Treatment (Short)', price: 180, rate: 100 },
+            { id: 519, name: 'Mucota Scena Treatment (Medium)', price: 210, rate: 100 },
+            { id: 520, name: 'Mucota Scena Treatment (Long)', price: 240, rate: 100 }
+          ]
+        },
+        {
+          id: 5,
+          name: '✨ Other',
+          options: [
+            { id: 501, name: 'Fringe Cut', price: 20, rate: 100 },
+            { id: 503, name: 'Hair Wash', price: 48, rate: 100 }
+          ]
         }
-        if (!confirm('⚠️ 导入将覆盖所有现有数据！\n确定继续吗？')) return;
-
-        DATA.services = data.services || [];
-        DATA.customers = data.customers || [];
-        DATA.staff = data.staff || [];
-        DATA.orders = data.orders || [];
-        DATA.products = data.products || [];
-        DATA.appointments = data.appointments || [];
-        DATA.expenses = data.expenses || [];
-        DATA.settlements = data.settlements || [];
-        DATA.nextId = data.nextId || DATA.nextId || {};
-
-        await saveData();
-        await loadData();
-        loadAll();
-        alert('✅ 数据恢复成功！\n📊 已导入 ' + DATA.customers.length + ' 位会员\n📋 已导入 ' + DATA.orders.length + ' 笔订单');
-      } catch(err) {
-        alert('❌ 文件解析失败: ' + err.message);
+      ],
+      customers: [],
+      staff: [
+        { id: 3, name: 'Kent', base: 0, rate: 40, paid_periods: [] },
+        { id: 4, name: 'Hilson', base: 0, rate: 50, paid_periods: [] },
+        { id: 5, name: 'Hilson 2', base: 0, rate: 40, paid_periods: [] }
+      ],
+      orders: [],
+      products: [],
+      appointments: [],
+      expenses: [],
+      settlements: [],
+      nextId: {
+        customer: 1,
+        order: 1,
+        product: 3,
+        appt: 1,
+        expense: 1,
+        settlement: 1,
+        category: 6,
+        option: 521,
+        staff: 6
       }
     };
-    reader.readAsText(file);
-  };
-  input.click();
-}
 
-document.getElementById('sd').value = today();
-document.getElementById('mrMonth').value = today().slice(0,7);
+    // ============================================================
+    //  数据层
+    // ============================================================
+    let _cache = {};
+    let dataLoaded = false;
 
-console.log('✂️ Ys Hair Studio Cloudflare 版已启动');
-console.log('☁️ API 地址: ' + API_BASE);
-</script>
+    function loadAllFromCloud(callback) {
+      db.ref('/').once('value').then(snapshot => {
+        const data = snapshot.val() || {};
+        if (!data.initialized) {
+          // 首次使用：写入默认数据
+          console.log('📌 首次使用，正在写入默认数据...');
+          db.ref('/').set(DEFAULT_DATA).then(() => {
+            _cache = DEFAULT_DATA;
+            if (callback) callback();
+          }).catch(err => {
+            console.error('写入默认数据失败:', err);
+            _cache = DEFAULT_DATA;
+            if (callback) callback();
+          });
+        } else {
+          _cache = data;
+          if (callback) callback();
+        }
+      }).catch(err => {
+        console.error('Firebase 加载失败:', err);
+        alert('⚠️ 无法连接云端，请检查网络或Firebase配置');
+        // 使用默认数据作为后备
+        _cache = DEFAULT_DATA;
+        if (callback) callback();
+      });
+    }
+
+    function saveToCloud(callback) {
+      db.ref('/').set(_cache).then(() => {
+        localStorage.setItem('ys_cloud_fallback', JSON.stringify(_cache));
+        if (callback) callback();
+      }).catch(err => {
+        console.error('Firebase 保存失败:', err);
+        localStorage.setItem('ys_cloud_fallback', JSON.stringify(_cache));
+        if (callback) callback();
+      });
+    }
+
+    const DB = {
+      get: function(key) {
+        return _cache[key] !== undefined ? _cache[key] : null;
+      },
+      set: function(key, data) {
+        _cache[key] = data;
+        if (!this._saveTimer) {
+          this._saveTimer = setTimeout(() => {
+            this._saveTimer = null;
+            saveToCloud();
+          }, 300);
+        }
+      }
+    };
+
+    function save() { saveToCloud(); }
+
+    var customers = [],
+      staffs = [],
+      orders = [],
+      categories = [],
+      products = [],
+      appointments = [],
+      expenses = [],
+      settlements = [],
+      nextId = {};
+
+    function refreshGlobals() {
+      customers = DB.get('customers') || [];
+      staffs = DB.get('staff') || [];
+      orders = DB.get('orders') || [];
+      categories = DB.get('categories') || [];
+      products = DB.get('products') || [];
+      appointments = DB.get('appointments') || [];
+      expenses = DB.get('expenses') || [];
+      settlements = DB.get('settlements') || [];
+      nextId = DB.get('nextId') || { customer: 1, order: 1, product: 1, appt: 1, expense: 1, settlement: 1,
+        category: 1, option: 1, staff: 1 };
+    }
+
+    // ============================================================
+    //  🔐 Firebase Auth 登录功能
+    // ============================================================
+
+    function login() {
+      var email = document.getElementById('un').value.trim();
+      var password = document.getElementById('pw').value.trim();
+
+      if (!email || !password) {
+        alert('❌ 请填写邮箱和密码');
+        return;
+      }
+
+      var loginBtn = document.getElementById('loginBtn');
+      loginBtn.textContent = '⏳ 登录中...';
+      loginBtn.disabled = true;
+
+      authFirebase.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          var user = userCredential.user;
+          document.getElementById('login').classList.add('hide');
+          document.getElementById('app').classList.remove('hide');
+          document.getElementById('who').textContent = '👤 ' + user.email + ' | Cloud';
+          loadAll();
+          loginBtn.textContent = '登 录';
+          loginBtn.disabled = false;
+          checkUserRole(user.email);
+        })
+        .catch(error => {
+          var errorMessage = '❌ 登录失败：';
+          switch (error.code) {
+            case 'auth/user-not-found':
+              errorMessage += '用户不存在，请先注册';
+              break;
+            case 'auth/wrong-password':
+              errorMessage += '密码错误';
+              break;
+            case 'auth/invalid-email':
+              errorMessage += '邮箱格式无效';
+              break;
+            case 'auth/too-many-requests':
+              errorMessage += '请求过于频繁，请稍后再试';
+              break;
+            default:
+              errorMessage += error.message;
+          }
+          alert(errorMessage);
+          loginBtn.textContent = '登 录';
+          loginBtn.disabled = false;
+        });
+    }
+
+    function register() {
+      var email = document.getElementById('un').value.trim();
+      var password = document.getElementById('pw').value.trim();
+
+      if (!email || !password) {
+        alert('❌ 请填写邮箱和密码');
+        return;
+      }
+      if (password.length < 6) {
+        alert('❌ 密码至少6位');
+        return;
+      }
+
+      if (!confirm('📝 使用 ' + email + ' 注册新账号？')) return;
+
+      var loginBtn = document.getElementById('loginBtn');
+      loginBtn.textContent = '⏳ 注册中...';
+      loginBtn.disabled = true;
+
+      authFirebase.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          var user = userCredential.user;
+          alert('✅ 注册成功！已自动登录。');
+          document.getElementById('login').classList.add('hide');
+          document.getElementById('app').classList.remove('hide');
+          document.getElementById('who').textContent = '👤 ' + user.email + ' | Cloud';
+          loadAll();
+          loginBtn.textContent = '登 录';
+          loginBtn.disabled = false;
+          checkUserRole(user.email);
+        })
+        .catch(error => {
+          var errorMessage = '❌ 注册失败：';
+          switch (error.code) {
+            case 'auth/email-already-in-use':
+              errorMessage += '该邮箱已被注册，请直接登录';
+              break;
+            case 'auth/invalid-email':
+              errorMessage += '邮箱格式无效';
+              break;
+            case 'auth/weak-password':
+              errorMessage += '密码强度太弱，请至少6位';
+              break;
+            default:
+              errorMessage += error.message;
+          }
+          alert(errorMessage);
+          loginBtn.textContent = '登 录';
+          loginBtn.disabled = false;
+        });
+    }
+
+    function logout() {
+      if (confirm('确定要退出登录吗？')) {
+        authFirebase.signOut().then(() => {
+          document.getElementById('login').classList.remove('hide');
+          document.getElementById('app').classList.add('hide');
+          document.getElementById('who').textContent = '👤 未登录';
+          document.getElementById('un').value = '';
+          document.getElementById('pw').value = '';
+          cart = [];
+          drawCart();
+          document.getElementById('userRoleDisplay').textContent = '⏳ 未登录';
+        }).catch(error => {
+          alert('❌ 退出失败：' + error.message);
+        });
+      }
+    }
+
+    function changePassword() {
+      var oldPw = document.getElementById('oldPw').value.trim();
+      var newPw = document.getElementById('newPw').value.trim();
+      var confirmPw = document.getElementById('confirmPw').value.trim();
+
+      if (!oldPw || !newPw || !confirmPw) return alert('请填写完整');
+      if (newPw.length < 6) return alert('新密码至少6位');
+      if (newPw !== confirmPw) return alert('两次输入不一致');
+
+      var user = authFirebase.currentUser;
+      if (!user) return alert('❌ 请先登录');
+
+      var credential = firebase.auth.EmailAuthProvider.credential(user.email, oldPw);
+      user.reauthenticateWithCredential(credential)
+        .then(() => user.updatePassword(newPw))
+        .then(() => {
+          document.getElementById('oldPw').value = '';
+          document.getElementById('newPw').value = '';
+          document.getElementById('confirmPw').value = '';
+          alert('✅ 密码修改成功！');
+        })
+        .catch(error => {
+          if (error.code === 'auth/wrong-password') {
+            alert('❌ 当前密码错误');
+          } else {
+            alert('❌ 修改失败：' + error.message);
+          }
+        });
+    }
+
+    function resetPassword() {
+      var email = document.getElementById('un').value.trim();
+      if (!email) {
+        alert('❌ 请先输入您的邮箱');
+        return;
+      }
+      if (!confirm('📧 将向 ' + email + ' 发送密码重置邮件？')) return;
+
+      authFirebase.sendPasswordResetEmail(email)
+        .then(() => {
+          alert('✅ 密码重置邮件已发送，请查收邮箱');
+        })
+        .catch(error => {
+          alert('❌ 发送失败：' + error.message);
+        });
+    }
+
+    // ============================================================
+    //  Firestore 管理员功能
+    // ============================================================
+
+    async function checkUserRole(email) {
+      try {
+        const snap = await dbFirestore.collection("Users")
+          .where("email", "==", email)
+          .get();
+        let role = '👤 普通用户';
+        if (!snap.empty) {
+          const data = snap.docs[0].data();
+          if (data.role === 'admin') {
+            role = '👑 管理员 (可退款)';
+          } else {
+            role = '👤 ' + (data.role || '普通用户');
+          }
+        } else {
+          role = '👤 普通用户 (未在 Firestore 注册)';
+        }
+        document.getElementById('userRoleDisplay').textContent = role;
+        return role;
+      } catch (e) {
+        console.error('角色检测失败:', e);
+        document.getElementById('userRoleDisplay').textContent = '⚠️ 检测失败，请检查 Firestore 权限';
+        return 'unknown';
+      }
+    }
+
+    async function verifyAdmin(email, password) {
+      try {
+        const tempAuth = firebase.auth();
+        const cred = await tempAuth.signInWithEmailAndPassword(email, password);
+        const adminEmail = cred.user.email;
+        
+        const snap = await dbFirestore.collection("Users")
+          .where("email", "==", adminEmail)
+          .where("role", "==", "admin")
+          .get();
+        
+        await tempAuth.signOut();
+        return !snap.empty;
+      } catch (e) {
+        console.error("管理员验证失败:", e);
+        return false;
+      }
+    }
+
+    // ============================================================
+    //  增强版退款功能
+    // ============================================================
+
+    window.refundOrder = async function(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return alert('❌ 找不到订单');
+      if (order.status === 'refunded') return alert('⚠️ 该订单已退款');
+      if (order.status === 'deleted') return alert('⚠️ 已删除的订单不能退款');
+      
+      const maxRefund = order.total - (order.refund_amount || 0);
+      if (maxRefund <= 0) return alert('⚠️ 该订单已全额退款');
+      
+      const modal = document.createElement('div');
+      modal.className = 'modal-overlay';
+      modal.id = 'refundAuthModal';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width:450px;">
+          <button class="modal-close" onclick="document.getElementById('refundAuthModal').remove()">✕</button>
+          <h3 style="margin-bottom:12px;">🔐 管理员退款授权</h3>
+          <div class="admin-hint" style="border-left-color:#f57c00;background:#fff3e0;margin-bottom:14px;">
+            <strong>📌 需要管理员权限</strong><br>
+            请在 Firestore 的 <code>Users</code> 集合中设置 <code>role = "admin"</code>
+          </div>
+          <div class="row">
+            <input id="refundAdminEmail" type="email" placeholder="管理员 Email" style="flex:1;">
+          </div>
+          <div class="row" style="margin-top:8px;">
+            <input id="refundAdminPass" type="password" placeholder="管理员密码" style="flex:1;">
+          </div>
+          <div class="row" style="margin-top:8px;">
+            <input id="refundReason" placeholder="退款原因 (必填)" style="flex:1;">
+          </div>
+          <div class="row" style="margin-top:8px;">
+            <input id="refundAmount" type="number" step="0.01" placeholder="退款金额" value="${maxRefund.toFixed(2)}" style="flex:1;">
+          </div>
+          <div style="margin-top:12px;font-size:13px;color:#666;">
+            💰 订单金额: RM${order.total.toFixed(2)} | 已退: RM${(order.refund_amount || 0).toFixed(2)} | 可退: RM${maxRefund.toFixed(2)}
+          </div>
+          <div class="flex" style="margin-top:16px;gap:8px;justify-content:flex-end;">
+            <button onclick="document.getElementById('refundAuthModal').remove()" class="outline" style="padding:8px 20px;">取消</button>
+            <button id="confirmRefundBtn" class="red" style="padding:8px 20px;">✅ 确认退款</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      
+      document.getElementById('confirmRefundBtn').onclick = async function() {
+        const email = document.getElementById('refundAdminEmail').value.trim();
+        const password = document.getElementById('refundAdminPass').value;
+        const reason = document.getElementById('refundReason').value.trim();
+        const amount = parseFloat(document.getElementById('refundAmount').value) || maxRefund;
+        
+        if (!email || !password) return alert('❌ 请输入管理员账号和密码');
+        if (!reason) return alert('❌ 请输入退款原因');
+        if (amount <= 0 || amount > maxRefund) return alert('❌ 退款金额无效，最大可退 RM' + maxRefund.toFixed(2));
+        
+        const btn = this;
+        btn.disabled = true;
+        btn.textContent = '⏳ 验证中...';
+        
+        try {
+          const isAdmin = await verifyAdmin(email, password);
+          if (!isAdmin) {
+            throw new Error('该账号不是管理员，请在 Firestore Users 集合中设置 role = "admin"');
+          }
+          
+          if (!confirm(`确认退款 RM${amount.toFixed(2)}？\n原因：${reason}`)) {
+            btn.disabled = false;
+            btn.textContent = '✅ 确认退款';
+            return;
+          }
+          
+          if (order.payment === '会员储值' || order.payment === 'Stored Value') {
+            const cus = customers.find(c => c.id === order.customer_id);
+            if (cus) cus.balance += amount;
+          }
+          
+          order.status = 'refunded';
+          order.refund_amount = (order.refund_amount || 0) + amount;
+          order.refund_reason = reason;
+          order.refund_date = today();
+          order.refunded_by = email;
+          
+          save();
+          loadAll();
+          document.getElementById('refundAuthModal').remove();
+          alert('✅ 退款成功！\n💰 金额: RM' + amount.toFixed(2) + '\n📝 原因: ' + reason + '\n👤 操作人: ' + email);
+        } catch (e) {
+          alert('❌ 退款失败：' + e.message);
+          btn.disabled = false;
+          btn.textContent = '✅ 确认退款';
+        }
+      };
+    };
+
+    // ============================================================
+    //  自动登录状态监听
+    // ============================================================
+    loadAllFromCloud(() => {
+      refreshGlobals();
+      authFirebase.onAuthStateChanged(user => {
+        if (user) {
+          document.getElementById('login').classList.add('hide');
+          document.getElementById('app').classList.remove('hide');
+          document.getElementById('who').textContent = '👤 ' + user.email + ' | Cloud';
+          loadAll();
+          checkUserRole(user.email);
+        } else {
+          document.getElementById('login').classList.remove('hide');
+          document.getElementById('app').classList.add('hide');
+          document.getElementById('userRoleDisplay').textContent = '⏳ 未登录';
+        }
+      });
+    });
+
+    // ============================================================
+    //  云端实时同步
+    // ============================================================
+    window.onload = function() {
+      db.ref('/').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          _cache = data;
+          refreshGlobals();
+          if (document.getElementById('app').classList.contains('hide') === false) {
+            loadAll();
+          }
+        }
+      });
+
+      document.getElementById('loginBtn').onclick = function(e) {
+        e.preventDefault();
+        login();
+        return false;
+      };
+
+      document.getElementById('un').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') { e.preventDefault();
+          login(); }
+      });
+      document.getElementById('pw').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') { e.preventDefault();
+          login(); }
+      });
+
+      console.log('✂️ Ys Hair Style Studio v3.6 云端版 (Firebase Auth + Firestore)');
+      console.log('📌 使用邮箱密码登录，支持注册和密码重置');
+      console.log('📌 首次使用请先「注册新账号」');
+      console.log('📌 管理员退款需要在 Firestore 创建 Users 集合并设置 role=admin');
+    };
+
+    // ============================================================
+    //  业务功能函数
+    // ============================================================
+
+    var cart = [];
+    var currentDiscountPercent = 0;
+    var currentDiscountAmount = 0;
+
+    function today() { return new Date().toISOString().slice(0, 10); }
+
+    function now() { return new Date().toISOString(); }
+
+    function thisMonth() { return today().slice(0, 7); }
+
+    var currentLang = localStorage.getItem('ys_lang') || 'zh';
+
+    function switchLang() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      localStorage.setItem('ys_lang', currentLang);
+      document.getElementById('langBtn').textContent = currentLang === 'zh' ? 'English' : '中文';
+    }
+
+    function page(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(name).classList.add('active');
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      var map = ['dash', 'pos', 'member', 'staff', 'payroll', 'settle', 'monthly', 'appt', 'stock', 'expense', 'orders',
+        'settings'
+      ];
+      document.querySelectorAll('.tabs button').forEach((b, i) => { if (map[i] === name) b.classList.add('active'); });
+      if (name === 'monthly') loadMonthlyReport();
+      if (name === 'settle') loadSettleAuto();
+      if (name === 'settings') loadCategoryManager();
+      if (name === 'payroll') refreshPayroll();
+      loadAll();
+    }
+
+    function loadAll() {
+      refreshGlobals();
+      loadDashboard();
+      loadPOS();
+      loadMembers();
+      loadStaff();
+      refreshPayroll();
+      loadSettlements();
+      loadAppointments();
+      loadProducts();
+      loadExpenses();
+      loadOrders();
+      loadCategoryManager();
+      document.getElementById('memberCount').textContent = customers.length;
+      document.getElementById('totalStaff').textContent = staffs.length;
+    }
+
+    // ============================================================
+    //  Dashboard
+    // ============================================================
+    function loadDashboard() {
+      var todayStr = today(),
+        monthStr = thisMonth();
+      var todayOrders = orders.filter(o => o.status === 'paid' && o.date === todayStr);
+      var monthOrders = orders.filter(o => o.status === 'paid' && o.date.startsWith(monthStr));
+      var todaySales = todayOrders.reduce((s, o) => s + o.total, 0);
+      var monthSales = monthOrders.reduce((s, o) => s + o.total, 0);
+      var totalRefund = orders.filter(o => o.status === 'refunded').reduce((s, o) => s + (o.refund_amount || 0), 0);
+      var totalExpense = expenses.reduce((s, e) => s + e.amount, 0);
+      var profit = monthSales - totalExpense - totalRefund;
+      document.getElementById('todaySales').textContent = 'RM ' + todaySales.toFixed(2);
+      document.getElementById('monthSales').textContent = 'RM ' + monthSales.toFixed(2);
+      document.getElementById('profitNum').textContent = 'RM ' + profit.toFixed(2);
+      document.getElementById('refundNum').textContent = 'RM ' + totalRefund.toFixed(2);
+      document.getElementById('todayOrders').textContent = todayOrders.length;
+      document.getElementById('totalMembers').textContent = customers.length;
+      document.getElementById('lowStock').textContent = products.filter(p => p.qty <= p.min).length;
+      var tbody = document.getElementById('todayDetail');
+      if (todayOrders.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="6" style="text-align:center;color:#999;padding:12px">今日暂无消费记录</td></tr>';
+      } else {
+        tbody.innerHTML = todayOrders.slice().reverse().map(o => {
+          var items = o.items ? o.items.map(i => i.name).join('、') : '-';
+          return '<tr><td>' + (o.time || '') + '</td><td>' + (o.customer_name || '散客') + '</td><td>' + (o
+              .staff_name || '-') + '</td><td>' + items + '</td><td>RM' + o.total.toFixed(2) +
+            '</td><td><span class="badge blue">' + o.payment + '</span></td></tr>';
+        }).join('');
+      }
+    }
+
+    // ============================================================
+    //  POS 收银
+    // ============================================================
+    function findOption(optionId) {
+      for (var ci = 0; ci < categories.length; ci++) {
+        var cat = categories[ci];
+        for (var oi = 0; oi < cat.options.length; oi++) {
+          if (cat.options[oi].id === optionId) {
+            return { category: cat, option: cat.options[oi], catIndex: ci, optIndex: oi };
+          }
+        }
+      }
+      return null;
+    }
+
+    function updateProductPrice(optionId, newPrice) {
+      var found = findOption(optionId);
+      if (!found) return;
+      var price = parseFloat(newPrice);
+      if (isNaN(price) || price < 0) return;
+      found.option.price = price;
+      cart.forEach(item => { if (item.optionId === optionId) item.price = price; });
+      save();
+      drawCart();
+      updateProductGrid();
+      updateTotal();
+    }
+
+    function addToCart(optionId) {
+      var found = findOption(optionId);
+      if (!found) return;
+      var existing = cart.find(item => item.optionId === optionId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          optionId: found.option.id,
+          categoryName: found.category.name,
+          optionName: found.option.name,
+          price: found.option.price,
+          rate: found.option.rate,
+          quantity: 1,
+          originalPrice: found.option.price
+        });
+      }
+      drawCart();
+      updateProductGrid();
+    }
+
+    function removeFromCart(optionId) {
+      var idx = cart.findIndex(item => item.optionId === optionId);
+      if (idx === -1) return;
+      if (cart[idx].quantity > 1) {
+        cart[idx].quantity -= 1;
+      } else {
+        cart.splice(idx, 1);
+      }
+      drawCart();
+      updateProductGrid();
+    }
+
+    function removeItemCompletely(idx) {
+      cart.splice(idx, 1);
+      drawCart();
+      updateProductGrid();
+    }
+
+    function updateProductGrid() {
+      var container = document.getElementById('productContainer');
+      if (!container) return;
+      var items = container.querySelectorAll('.product-item');
+      items.forEach(el => {
+        var oid = parseInt(el.dataset.optionId);
+        var cartItem = cart.find(c => c.optionId === oid);
+        var qtyNum = el.querySelector('.qty-num');
+        var priceInput = el.querySelector('.p-price-input');
+        if (cartItem) {
+          el.classList.add('selected');
+          qtyNum.textContent = cartItem.quantity;
+          if (priceInput) priceInput.value = cartItem.price.toFixed(2);
+        } else {
+          el.classList.remove('selected');
+          qtyNum.textContent = '0';
+          var found = findOption(oid);
+          if (found && priceInput) {
+            priceInput.value = found.option.price.toFixed(2);
+          }
+        }
+      });
+      updateTotal();
+    }
+
+    function toggleCategory(catId) {
+      var body = document.getElementById('catBody_' + catId);
+      var arrow = document.getElementById('catArrow_' + catId);
+      if (!body) return;
+      if (body.classList.contains('open')) {
+        body.classList.remove('open');
+        if (arrow) arrow.classList.remove('open');
+      } else {
+        body.classList.add('open');
+        if (arrow) arrow.classList.add('open');
+      }
+    }
+
+    function renderProductGrid() {
+      var container = document.getElementById('productContainer');
+      if (!container) return;
+      if (categories.length === 0) {
+        container.innerHTML = '<p class="text-muted" style="padding:20px;text-align:center">暂无服务分类，请到「设置」中添加</p>';
+        return;
+      }
+      var html = '';
+      categories.forEach(cat => {
+        html += '<div class="category-section">';
+        html += '<div class="category-header" onclick="toggleCategory(' + cat.id + ')">' +
+          '<span>' + cat.name + ' <span class="cat-badge">' + cat.options.length + ' 项</span></span>' +
+          '<span class="arrow" id="catArrow_' + cat.id + '">▼</span>' +
+          '</div>';
+        html += '<div class="category-body" id="catBody_' + cat.id + '">';
+        if (cat.options.length === 0) {
+          html += '<p class="text-muted" style="padding:8px 12px;color:#999;font-size:13px;">此分类暂无选项</p>';
+        } else {
+          html += '<div class="product-grid">';
+          cat.options.forEach(opt => {
+            html += '<div class="product-item" data-option-id="' + opt.id + '">' +
+              '<div class="p-name">' + opt.name + '</div>' +
+              '<div><input class="p-price-input" type="number" step="0.5" value="' + opt.price.toFixed(2) +
+              '" onchange="updateProductPrice(' + opt.id + ', this.value)" onfocus="this.select()">' +
+              '</div>' +
+              '<div class="p-comm">提成 ' + opt.rate + '%</div>' +
+              '<div class="qty-control">' +
+              '<button class="minus-btn" onclick="removeFromCart(' + opt.id + ')">−</button>' +
+              '<span class="qty-num">0</span>' +
+              '<button class="plus-btn" onclick="addToCart(' + opt.id + ')">+</button>' +
+              '</div>' +
+              '</div>';
+          });
+          html += '</div>';
+        }
+        html += '</div></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function drawCart() {
+      var tbody = document.getElementById('cartBody');
+      if (!tbody) return;
+      if (cart.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="5" style="text-align:center;color:#999;padding:20px">请选择服务</td></tr>';
+      } else {
+        tbody.innerHTML = cart.map((item, idx) => {
+          var subtotal = item.price * item.quantity;
+          var displayName = item.categoryName + ' · ' + item.optionName;
+          return '<tr>' +
+            '<td>' + displayName + '</td>' +
+            '<td style="text-align:center">RM ' + item.price.toFixed(2) + '</td>' +
+            '<td style="text-align:center">' +
+            '<div class="qty-cell">' +
+            '<button class="minus-btn" onclick="removeFromCart(' + item.optionId + ')">−</button>' +
+            '<span class="qty-num">' + item.quantity + '</span>' +
+            '<button class="plus-btn" onclick="addToCart(' + item.optionId + ')">+</button>' +
+            '</div>' +
+            '</td>' +
+            '<td style="text-align:center">RM ' + subtotal.toFixed(2) + '</td>' +
+            '<td style="text-align:center"><button onclick="removeItemCompletely(' + idx +
+            ')" class="red" style="padding:2px 10px;font-size:12px;min-height:28px">✕</button></td>' +
+            '</tr>';
+        }).join('');
+      }
+      updateTotal();
+    }
+
+    function applyDiscount() {
+      var percent = parseFloat(document.getElementById('discountPercent').value) || 0;
+      var amount = parseFloat(document.getElementById('discountAmount').value) || 0;
+      if (percent > 0 && percent <= 100) {
+        currentDiscountPercent = percent;
+        currentDiscountAmount = 0;
+        document.getElementById('discountAmount').value = 0;
+      } else if (amount > 0) {
+        currentDiscountAmount = amount;
+        currentDiscountPercent = 0;
+        document.getElementById('discountPercent').value = 0;
+      } else {
+        currentDiscountPercent = 0;
+        currentDiscountAmount = 0;
+      }
+      updateTotal();
+      updateDiscountDisplay();
+    }
+
+    function clearDiscount() {
+      currentDiscountPercent = 0;
+      currentDiscountAmount = 0;
+      document.getElementById('discountPercent').value = 0;
+      document.getElementById('discountAmount').value = 0;
+      updateTotal();
+      updateDiscountDisplay();
+    }
+
+    function updateDiscountDisplay() {
+      var totalBeforeDiscount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      var discountAmount = 0;
+      if (currentDiscountPercent > 0) {
+        discountAmount = totalBeforeDiscount * (currentDiscountPercent / 100);
+      } else if (currentDiscountAmount > 0) {
+        discountAmount = Math.min(currentDiscountAmount, totalBeforeDiscount);
+      }
+      document.getElementById('discountDisplay').textContent = '折扣: RM ' + discountAmount.toFixed(2) +
+        (currentDiscountPercent > 0 ? ' (' + currentDiscountPercent + '%)' : '');
+    }
+
+    function updateTotal() {
+      var totalBeforeDiscount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      var discountAmount = 0;
+      if (currentDiscountPercent > 0) {
+        discountAmount = totalBeforeDiscount * (currentDiscountPercent / 100);
+      } else if (currentDiscountAmount > 0) {
+        discountAmount = Math.min(currentDiscountAmount, totalBeforeDiscount);
+      }
+      var finalTotal = Math.max(0, totalBeforeDiscount - discountAmount);
+      document.getElementById('sum').textContent = 'RM ' + finalTotal.toFixed(2);
+      if (discountAmount > 0) {
+        document.getElementById('discountSummary').textContent = '(原价 RM ' + totalBeforeDiscount.toFixed(2) +
+          ' - 折扣 RM ' + discountAmount.toFixed(2) + ')';
+      } else {
+        document.getElementById('discountSummary').textContent = '';
+      }
+      updateDiscountDisplay();
+      window._currentDiscount = {
+        percent: currentDiscountPercent,
+        amount: discountAmount,
+        totalBeforeDiscount: totalBeforeDiscount
+      };
+    }
+
+    function loadPOS() {
+      var cusSelect = document.getElementById('cus');
+      cusSelect.innerHTML = '<option value="">散客</option>' +
+        customers.map(c => '<option value="' + c.id + '">' + c.name + ' · 储值 RM' + c.balance.toFixed(2) +
+          '</option>').join('');
+      var stSelect = document.getElementById('st');
+      stSelect.innerHTML = staffs.map(s => '<option value="' + s.id + '">' + s.name + '</option>').join('');
+      renderProductGrid();
+      drawCart();
+      clearDiscount();
+    }
+
+    // ===== 收款 =====
+    function checkout() {
+      if (cart.length === 0) return alert('请选择服务');
+      var customerId = document.getElementById('cus').value;
+      var staffId = document.getElementById('st').value;
+      var payment = document.getElementById('pay').value;
+      var totalBeforeDiscount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      var discountAmount = 0;
+      if (currentDiscountPercent > 0) {
+        discountAmount = totalBeforeDiscount * (currentDiscountPercent / 100);
+      } else if (currentDiscountAmount > 0) {
+        discountAmount = Math.min(currentDiscountAmount, totalBeforeDiscount);
+      }
+      var total = Math.max(0, totalBeforeDiscount - discountAmount);
+      if (total <= 0) return alert('总金额必须大于0');
+      if (payment === '会员储值' || payment === 'Stored Value') {
+        var cus = customers.find(c => c.id == customerId);
+        if (!cus) return alert('请选择会员');
+        if (cus.balance < total) return alert('余额不足！当前余额 RM' + cus.balance.toFixed(2));
+        cus.balance -= total;
+      }
+      var cusName = customerId ? (customers.find(c => c.id == customerId) || {}).name : '散客';
+      var orderItems = [];
+      cart.forEach(item => {
+        for (var i = 0; i < item.quantity; i++) {
+          orderItems.push({ name: item.categoryName + ' · ' + item.optionName, price: item.price, rate: item
+              .rate });
+        }
+      });
+      var order = {
+        id: nextId.order++,
+        date: today(),
+        time: new Date().toTimeString().slice(0, 5),
+        customer_id: customerId || null,
+        customer_name: cusName || '散客',
+        staff_id: staffId || null,
+        staff_name: staffId ? (staffs.find(s => s.id == staffId) || {}).name : '未分配',
+        total: total,
+        totalBeforeDiscount: totalBeforeDiscount,
+        discount: discountAmount,
+        discountPercent: currentDiscountPercent,
+        payment: payment,
+        status: 'paid',
+        items: orderItems,
+        refund_amount: 0,
+        refund_reason: null,
+        deleted_at: null,
+        deleted_by: null,
+        created: now(),
+        phone: '',
+        email: ''
+      };
+      orders.push(order);
+      if (customerId) {
+        var cus2 = customers.find(c => c.id == customerId);
+        if (cus2) {
+          cus2.visit = (cus2.visit || 0) + 1;
+          cus2.points = (cus2.points || 0) + Math.floor(total / 5);
+        }
+      }
+      cart = [];
+      drawCart();
+      renderProductGrid();
+      clearDiscount();
+      save();
+      loadAll();
+      showReceiptPanel(order);
+      alert('✅ 收款成功！\n💰 金额: RM' + total.toFixed(2) +
+        (discountAmount > 0 ? '\n📉 折扣: RM ' + discountAmount.toFixed(2) : '') + '\n💡 佣金将在月绩报告自动计算');
+    }
+
+    // ============================================================
+    //  收据功能 (精简)
+    // ============================================================
+    function generateReceiptText(order) {
+      var brand = 'YS HAIR STYLE STUDIO';
+      var address = 'No.08-01, Jalan Jaya Putra 7/2, Bandar Jaya Putra, 81100 Johor Bahru';
+      var phone = '+6016-525 6432';
+      var date = new Date();
+      var dateStr = date.toLocaleDateString('en-MY', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      var timeStr = date.toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit', hour12: false });
+      var invoiceNo = 'INV' + String(order.id || 1).padStart(6, '0');
+      var itemMap = {};
+      if (order.items && order.items.length > 0) {
+        order.items.forEach(item => {
+          var name = item.name || '未命名服务';
+          if (!itemMap[name]) {
+            itemMap[name] = { name: name, price: item.price || 0, qty: 0 };
+          }
+          itemMap[name].qty += 1;
+        });
+      }
+      var itemsStr = '';
+      var totalAmount = 0;
+      Object.keys(itemMap).forEach(key => {
+        var it = itemMap[key];
+        var subtotal = it.price * it.qty;
+        totalAmount += subtotal;
+        itemsStr += '  ' + it.name.padEnd(20) + ' x' + it.qty + '  RM' + subtotal.toFixed(2) + '\n';
+      });
+      var finalTotal = order.total || totalAmount;
+      var payment = order.payment || 'Cash';
+      var staffName = order.staff_name || 'Stylist';
+      var discount = order.discount || 0;
+      var receipt = '\n\n                 ' + brand + '\n  ' + address + '\n  ' + phone + '\n\n                     INVOICE\n\n  Date        : ' +
+        dateStr + ' ' + timeStr + '\n  Staff       : ' + staffName + '\n  Invoice No  : ' + invoiceNo +
+        '\n  Payment     : ' + payment +
+        (discount > 0 ? '\n  Discount    : RM ' + discount.toFixed(2) : '') +
+        '\n\n  Description              Qty   Price\n' + itemsStr +
+        (discount > 0 ? '\n  Subtotal                  RM ' + totalAmount.toFixed(2).padStart(10) +
+          '\n  Discount                  -RM ' + discount.toFixed(2).padStart(10) : '') +
+        '\n  ' + '='.repeat(40) +
+        '\n  Total                     RM ' + finalTotal.toFixed(2).padStart(10) +
+        '\n\n  Thank you for choosing ' + brand + '!';
+      return receipt;
+    }
+
+    function showReceiptPanel(order) {
+      var panel = document.getElementById('receiptPanel');
+      var content = document.getElementById('receiptContent');
+      panel.style.display = 'block';
+      var receipt = generateReceiptText(order);
+      content.textContent = receipt;
+      panel.dataset.orderId = order.id;
+    }
+
+    function getCurrentReceiptOrder() {
+      var panel = document.getElementById('receiptPanel');
+      var orderId = parseInt(panel.dataset.orderId);
+      return orders.find(o => o.id === orderId);
+    }
+
+    function generateReceiptHTML(order) {
+      var brand = 'YS HAIR STYLE STUDIO';
+      var address = 'No.08-01, Jalan Jaya Putra 7/2, Bandar Jaya Putra, 81100 Johor Bahru';
+      var phone = '+6016-525 6432';
+      var date = new Date();
+      var dateStr = date.toLocaleDateString('en-MY', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      var timeStr = date.toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit', hour12: false });
+      var invoiceNo = 'INV' + String(order.id || 1).padStart(6, '0');
+      var itemMap = {};
+      if (order.items && order.items.length > 0) {
+        order.items.forEach(item => {
+          var name = item.name || '未命名服务';
+          if (!itemMap[name]) {
+            itemMap[name] = { name: name, price: item.price || 0, qty: 0 };
+          }
+          itemMap[name].qty += 1;
+        });
+      }
+      var itemsHTML = '';
+      var totalAmount = 0;
+      Object.keys(itemMap).forEach(key => {
+        var it = itemMap[key];
+        var subtotal = it.price * it.qty;
+        totalAmount += subtotal;
+        itemsHTML += '<tr>' +
+          '<td>' + it.name + '</td>' +
+          '<td class="qty-col">' + it.qty + '</td>' +
+          '<td class="price-col">RM ' + subtotal.toFixed(2) + '</td>' +
+          '</tr>';
+      });
+      var staffName = order.staff_name || 'Stylist';
+      var payment = order.payment || 'Cash';
+      var finalTotal = order.total || totalAmount;
+      var discount = order.discount || 0;
+      var totalBeforeDiscount = order.totalBeforeDiscount || totalAmount;
+      return '<div class="pdf-receipt-wrapper">' +
+        '<div class="center title">' + brand + '</div>' +
+        '<div class="center sub">' + address + '</div>' +
+        '<div class="center sub">' + phone + '</div>' +
+        '<div class="divider"></div>' +
+        '<div style="text-align:center;font-size:14px;font-weight:bold;margin:4px 0;">INVOICE</div>' +
+        '<div class="info-row"><span class="label">Date</span><span>' + dateStr + ' ' + timeStr + '</span></div>' +
+        '<div class="info-row"><span class="label">Staff</span><span>' + staffName + '</span></div>' +
+        '<div class="info-row"><span class="label">Invoice No</span><span>' + invoiceNo + '</span></div>' +
+        '<div class="info-row"><span class="label">Payment</span><span>' + payment + '</span></div>' +
+        (discount > 0 ? '<div class="info-row"><span class="label">Discount</span><span>RM ' + discount.toFixed(2) +
+          (order.discountPercent > 0 ? ' (' + order.discountPercent + '%)' : '') + '</span></div>' : '') +
+        '<div class="divider"></div>' +
+        '<table class="items-table">' +
+        '<thead><tr><th style="text-align:left;">Description</th><th style="text-align:center;">Qty</th><th style="text-align:right;">Price</th></tr></thead>' +
+        '<tbody>' + itemsHTML + '</tbody>' +
+        '</table>' +
+        '<div class="divider"></div>' +
+        (discount > 0 ? '<div style="text-align:right;font-size:12px;color:#666;">Subtotal: RM ' + totalBeforeDiscount
+          .toFixed(2) + '</div>' : '') +
+        (discount > 0 ? '<div style="text-align:right;font-size:12px;color:var(--danger);">Discount: -RM ' + discount
+          .toFixed(2) + '</div>' : '') +
+        '<div class="total-row">Total: RM ' + finalTotal.toFixed(2) + '</div>' +
+        '<div class="footer">Thank you for choosing ' + brand + '!</div>' +
+        '</div>';
+    }
+
+    function generateAndSharePDF() {
+      var order = getCurrentReceiptOrder();
+      if (!order) return alert('请先完成收款');
+      var phone = document.getElementById('customerPhone').value.trim();
+      if (!phone) return alert('请输入顾客手机号');
+      order.phone = phone;
+      save();
+      var filename = 'Invoice_' + String(order.id || 1).padStart(6, '0') + '.pdf';
+      var html = generateReceiptHTML(order);
+      var container = document.getElementById('pdfContent');
+      container.innerHTML = html;
+      container.style.display = 'block';
+      container.style.background = 'white';
+      container.style.padding = '10px';
+      container.style.maxWidth = '420px';
+      container.style.margin = '0 auto';
+      if (typeof html2pdf === 'undefined') {
+        container.style.display = 'none';
+        alert('❌ PDF库加载失败，请检查网络连接后刷新重试');
+        return;
+      }
+      html2pdf().set({
+        margin: [0.5, 0.5, 0.5, 0.5],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, letterRendering: true, useCORS: true, logging: false, width: 420 },
+        jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' }
+      }).from(container).save(filename).then(() => {
+        container.style.display = 'none';
+        alert('✅ PDF 已保存到 Download 文件夹！\n📄 文件名: ' + filename);
+      }).catch(err => {
+        container.style.display = 'none';
+        alert('❌ PDF 生成失败：' + err.message);
+      });
+    }
+
+    function sendSMS() {
+      var order = getCurrentReceiptOrder();
+      if (!order) return alert('请先完成收款');
+      var phone = document.getElementById('customerPhone').value.trim();
+      if (!phone) return alert('请输入顾客手机号');
+      order.phone = phone;
+      save();
+      var receipt = generateReceiptText(order);
+      window.open('sms:' + phone + '?body=' + encodeURIComponent(receipt), '_blank');
+    }
+
+    function sendEmail() {
+      var order = getCurrentReceiptOrder();
+      if (!order) return alert('请先完成收款');
+      var email = document.getElementById('customerEmail').value.trim();
+      if (!email) return alert('请输入顾客邮箱');
+      order.email = email;
+      save();
+      var receipt = generateReceiptText(order);
+      window.open('mailto:' + email + '?subject=Invoice #' + order.id + '&body=' + encodeURIComponent(receipt),
+      '_blank');
+    }
+
+    function printReceipt() {
+      var order = getCurrentReceiptOrder();
+      if (!order) return alert('请先完成收款');
+      var receipt = generateReceiptText(order);
+      var iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.left = '-9999px';
+      iframe.style.top = '0';
+      iframe.style.width = '420px';
+      iframe.style.height = '650px';
+      iframe.style.border = 'none';
+      iframe.style.zIndex = '9999';
+      document.body.appendChild(iframe);
+      var doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write('<html><head><title>Invoice #' + order.id + '</title>');
+      doc.write(
+        '<style>body{font-family:"Courier New",monospace;font-size:12px;padding:20px;max-width:420px;margin:0 auto;background:white;white-space:pre-wrap;word-wrap:break-word;}pre{margin:0;padding:0;white-space:pre;}</style>'
+        );
+      doc.write('</head><body>');
+      doc.write('<pre>' + receipt + '</pre>');
+      doc.write(
+        '<div style="text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid #ddd;"><button onclick="window.print()" style="padding:10px 30px;background:#2196F3;color:#fff;border:0;border-radius:6px;font-size:16px;cursor:pointer;">🖨️ 打印</button> <button onclick="window.close()" style="padding:10px 30px;background:#999;color:#fff;border:0;border-radius:6px;font-size:16px;cursor:pointer;">✕ 关闭</button></div>'
+        );
+      doc.write('</body></html>');
+      doc.close();
+      setTimeout(() => {
+        try {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+        } catch (e) {
+          alert('⚠️ 请点击打印对话框中的「打印」按钮');
+        }
+      }, 500);
+      setTimeout(() => {
+        if (iframe && iframe.parentNode) {
+          iframe.parentNode.removeChild(iframe);
+        }
+      }, 30000);
+    }
+
+    function copyReceipt() {
+      var order = getCurrentReceiptOrder();
+      if (!order) return alert('请先完成收款');
+      var receipt = generateReceiptText(order);
+      navigator.clipboard.writeText(receipt).then(() => alert('✅ 收据已复制！')).catch(() => {
+        var textarea = document.createElement('textarea');
+        textarea.value = receipt;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('✅ 收据已复制！');
+      });
+    }
+
+    // ============================================================
+    //  会员管理
+    // ============================================================
+    function loadMembers() {
+      var tbody = document.getElementById('members');
+      if (customers.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无会员，请点击"新增会员"添加</td></tr>';
+        return;
+      }
+      tbody.innerHTML = customers.map(c => {
+        return '<tr><td><b>' + c.name + '</b></td><td>' + (c.phone || '-') + '</td><td><span class="badge ' + (c
+            .level === '金卡' ? 'gold' : c.level === '银卡' ? 'blue' : 'green') + '">' + (c.level || '普通') +
+          '</span></td><td>RM' + c.balance.toFixed(2) + '</td><td>' + (c.points || 0) + '</td><td>' + (c.visit ||
+            0) + '</td><td><button onclick="topup(' + c.id +
+          ')" class="gold" style="padding:4px 12px;font-size:12px">充值</button></td></tr>';
+      }).join('');
+    }
+
+    function addMember() {
+      var name = document.getElementById('mn').value.trim();
+      var phone = document.getElementById('mp').value.trim();
+      var level = document.getElementById('mlevel').value.trim() || '普通';
+      if (!name) return alert('请填写完整');
+      customers.push({ id: nextId.customer++, name: name, phone: phone, level: level, balance: 0, points: 0, visit: 0,
+        created: today() });
+      save();
+      loadAll();
+      document.getElementById('mn').value = '';
+      document.getElementById('mp').value = '';
+      document.getElementById('mlevel').value = '普通';
+      alert('✅ 添加成功！');
+    }
+
+    function topup(id) {
+      var amt = parseFloat(prompt('💰 输入充值金额 (RM)', 100));
+      if (amt && amt > 0) {
+        var cus = customers.find(c => c.id === id);
+        if (cus) {
+          cus.balance += amt;
+          cus.points = (cus.points || 0) + Math.floor(amt / 10);
+          save();
+          loadAll();
+          alert('✅ 充值成功！');
+        }
+      }
+    }
+
+    // ============================================================
+    //  员工管理
+    // ============================================================
+    function loadStaff() {
+      var tbody = document.getElementById('staffList');
+      if (staffs.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无员工</td></tr>';
+        return;
+      }
+      var monthStr = thisMonth();
+      tbody.innerHTML = staffs.map(s => {
+        var staffOrders = orders.filter(o => o.status === 'paid' && o.staff_id == s.id && o.date
+          .startsWith(monthStr));
+        var totalSales = staffOrders.reduce((sum, o) => sum + o.total, 0);
+        var totalComm = totalSales * (s.rate / 100);
+        var paid = s.paid_periods && s.paid_periods.indexOf(monthStr) > -1;
+        return '<tr><td><b>' + s.name + '</b></td><td>RM' + s.base + '</td><td>' + (s.rate || 30) +
+          '%</td><td>RM' + totalSales.toFixed(2) + '</td><td>RM' + totalComm.toFixed(2) +
+          '</td><td><span class="badge ' + (paid ? 'green' : 'red') + '">' + (paid ? '✅ 已结算' : '⏳ 待结算') +
+          '</span></td><td><button onclick="removeStaff(' + s.id +
+          ')" class="red" style="padding:4px 12px;font-size:12px">删除</button></td></tr>';
+      }).join('');
+    }
+
+    function addStaff() {
+      var name = document.getElementById('sn').value.trim();
+      var base = parseFloat(document.getElementById('sbase').value) || 0;
+      var rate = parseFloat(document.getElementById('srate').value) || 40;
+      if (!name) return alert('请填写完整');
+      staffs.push({ id: nextId.staff++, name: name, base: base, rate: rate, paid_periods: [] });
+      save();
+      loadAll();
+      document.getElementById('sn').value = '';
+      alert('✅ 添加成功！');
+    }
+
+    function removeStaff(id) {
+      if (!confirm('确定删除员工 ' + (staffs.find(s => s.id === id)?.name || '') + ' 吗？')) return;
+      staffs = staffs.filter(s => s.id !== id);
+      save();
+      loadAll();
+    }
+
+    // ============================================================
+    //  工资结算
+    // ============================================================
+    function refreshPayroll() {
+      var type = document.getElementById('payrollType').value;
+      var dateVal = document.getElementById('payrollDate').value;
+      var tbody = document.getElementById('payrollList');
+      var dailyTotalCommEl = document.getElementById('dailyTotalComm');
+      var dailyTotalCommAmount = document.getElementById('dailyTotalCommAmount');
+
+      if (staffs.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">请先添加员工</td></tr>';
+        dailyTotalCommEl.style.display = 'none';
+        return;
+      }
+
+      var filteredOrders = orders.filter(o => o.status === 'paid');
+      var periodKey = '';
+      var isDayMode = (type === 'day');
+
+      if (isDayMode) {
+        if (!dateVal) { dateVal = today();
+          document.getElementById('payrollDate').value = dateVal; }
+        filteredOrders = filteredOrders.filter(o => o.date === dateVal);
+        periodKey = 'day_' + dateVal;
+      } else {
+        var month = dateVal ? dateVal.slice(0, 7) : thisMonth();
+        if (!dateVal) document.getElementById('payrollDate').value = thisMonth() + '-01';
+        filteredOrders = filteredOrders.filter(o => o.date.startsWith(month));
+        periodKey = 'month_' + month;
+      }
+
+      var totalDailyComm = 0;
+      if (isDayMode) {
+        staffs.forEach(s => {
+          var staffOrders = filteredOrders.filter(o => o.staff_id == s.id);
+          var totalSales = staffOrders.reduce((sum, o) => sum + o.total, 0);
+          totalDailyComm += totalSales * (s.rate / 100);
+        });
+      }
+
+      if (isDayMode) {
+        dailyTotalCommEl.style.display = 'block';
+        dailyTotalCommAmount.textContent = totalDailyComm.toFixed(2);
+      } else {
+        dailyTotalCommEl.style.display = 'none';
+      }
+
+      tbody.innerHTML = staffs.map(s => {
+        var staffOrders = filteredOrders.filter(o => o.staff_id == s.id);
+        var totalSales = staffOrders.reduce((sum, o) => sum + o.total, 0);
+        var totalComm = totalSales * (s.rate / 100);
+        var total = s.base + totalComm;
+        var paid = s.paid_periods && s.paid_periods.indexOf(periodKey) > -1;
+        var statusLabel = paid ? '<span class="badge green">✅ 已结算</span>' :
+          '<span class="badge red">⏳ 待结算</span>';
+        var actionBtn = paid ?
+          '<span class="text-muted">已结算</span>' :
+          '<button onclick="payStaffPeriod(' + s.id + ',\'' + periodKey + '\')" class="green" style="padding:4px 12px;font-size:12px">💰 结算</button>';
+        return '<tr><td><b>' + s.name + '</b></td><td>RM' + s.base + '</td><td>RM' + totalSales.toFixed(2) +
+          '</td><td>RM' + totalComm.toFixed(2) + '</td><td><b>RM' + total.toFixed(2) +
+          '</b></td><td>' + statusLabel + '</td><td>' + actionBtn + '</td></tr>';
+      }).join('');
+    }
+
+    function payStaffPeriod(id, periodKey) {
+      var s = staffs.find(st => st.id === id);
+      if (!s) return;
+      if (s.paid_periods && s.paid_periods.indexOf(periodKey) > -1) {
+        return alert('⚠️ 该周期已结算！');
+      }
+      var type = document.getElementById('payrollType').value;
+      var dateVal = document.getElementById('payrollDate').value;
+      var filteredOrders = orders.filter(o => o.status === 'paid' && o.staff_id == s.id);
+      if (type === 'day') {
+        filteredOrders = filteredOrders.filter(o => o.date === dateVal);
+      } else {
+        var month = dateVal ? dateVal.slice(0, 7) : thisMonth();
+        filteredOrders = filteredOrders.filter(o => o.date.startsWith(month));
+      }
+      var totalSales = filteredOrders.reduce((sum, o) => sum + o.total, 0);
+      var totalComm = totalSales * (s.rate / 100);
+      var total = s.base + totalComm;
+      if (!confirm('确认发放 ' + s.name + ' 工资 RM' + total.toFixed(2) + ' ？')) return;
+      s.paid_periods = s.paid_periods || [];
+      s.paid_periods.push(periodKey);
+      save();
+      refreshPayroll();
+      alert('✅ 工资发放成功！');
+    }
+
+    function markAllPaid() {
+      if (!confirm('⚠️ 标记所有员工为当前周期已结算？')) return;
+      var type = document.getElementById('payrollType').value;
+      var dateVal = document.getElementById('payrollDate').value;
+      var periodKey = '';
+      if (type === 'day') {
+        if (!dateVal) { dateVal = today(); }
+        periodKey = 'day_' + dateVal;
+      } else {
+        var month = dateVal ? dateVal.slice(0, 7) : thisMonth();
+        periodKey = 'month_' + month;
+      }
+      staffs.forEach(s => {
+        s.paid_periods = s.paid_periods || [];
+        if (s.paid_periods.indexOf(periodKey) === -1) {
+          s.paid_periods.push(periodKey);
+        }
+      });
+      save();
+      refreshPayroll();
+      alert('✅ 已全部标记为已结算');
+    }
+
+    // ============================================================
+    //  每日结账
+    // ============================================================
+    function autoSettle() {
+      var date = document.getElementById('sd').value || today();
+      if (settlements.find(s => s.date === date)) return alert('⚠️ 该日期已结账！');
+      var dayOrders = orders.filter(o => o.status === 'paid' && o.date === date);
+      if (dayOrders.length === 0 && !confirm('⚠️ 该日期暂无订单，仍要创建结账记录吗？')) return;
+      var total = dayOrders.reduce((s, o) => s + o.total, 0);
+      var cash = dayOrders.filter(o => o.payment === 'Cash 现金' || o.payment === 'Cash').reduce((s, o) => s + o.total,
+        0);
+      var duitnow = dayOrders.filter(o => o.payment === 'DuitNow QR').reduce((s, o) => s + o.total, 0);
+      var card = dayOrders.filter(o => o.payment === 'Card 刷卡' || o.payment === 'Card').reduce((s, o) => s + o.total,
+        0);
+      var transfer = dayOrders.filter(o => o.payment === 'Bank Transfer').reduce((s, o) => s + o.total, 0);
+      var stored = dayOrders.filter(o => o.payment === '会员储值' || o.payment === 'Stored Value').reduce((s, o) => s + o
+        .total, 0);
+      var actual = parseFloat(prompt('💰 实际现金盘点 (RM)', cash.toFixed(2)));
+      if (actual === null || isNaN(actual)) return alert('❌ 已取消');
+      var note = prompt('📝 备注', '') || '';
+      settlements.push({ id: nextId.settlement++, date: date, total: total, cash: cash, duitnow: duitnow, card: card,
+        transfer: transfer, stored: stored, actual_cash: actual, difference: actual - cash, note: note,
+        created: now() });
+      document.getElementById('sd').value = date;
+      document.getElementById('stotal').value = total.toFixed(2);
+      document.getElementById('scash').value = cash.toFixed(2);
+      document.getElementById('sdu').value = duitnow.toFixed(2);
+      document.getElementById('scard').value = card.toFixed(2);
+      document.getElementById('str').value = transfer.toFixed(2);
+      document.getElementById('ssv').value = stored.toFixed(2);
+      document.getElementById('actual').value = actual.toFixed(2);
+      save();
+      loadAll();
+      alert('✅ 结账完成！\n📅 ' + date + '\n💰 营业额: RM' + total.toFixed(2) + '\n📊 现金差额: RM' + (actual - cash)
+        .toFixed(2));
+    }
+
+    function loadSettleAuto() {
+      var date = document.getElementById('sd').value || today();
+      var dayOrders = orders.filter(o => o.status === 'paid' && o.date === date);
+      document.getElementById('stotal').value = dayOrders.reduce((s, o) => s + o.total, 0).toFixed(2);
+      document.getElementById('scash').value = dayOrders.filter(o => o.payment === 'Cash 现金' || o.payment === 'Cash')
+        .reduce((s, o) => s + o.total, 0).toFixed(2);
+      document.getElementById('sdu').value = dayOrders.filter(o => o.payment === 'DuitNow QR').reduce((s, o) => s + o
+        .total, 0).toFixed(2);
+      document.getElementById('scard').value = dayOrders.filter(o => o.payment === 'Card 刷卡' || o.payment === 'Card')
+        .reduce((s, o) => s + o.total, 0).toFixed(2);
+      document.getElementById('str').value = dayOrders.filter(o => o.payment === 'Bank Transfer').reduce((s, o) => s +
+        o.total, 0).toFixed(2);
+      document.getElementById('ssv').value = dayOrders.filter(o => o.payment === '会员储值' || o.payment === 'Stored Value')
+        .reduce((s, o) => s + o.total, 0).toFixed(2);
+    }
+
+    function loadSettlements() {
+      var tbody = document.getElementById('settlements');
+      if (settlements.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="10" style="text-align:center;color:#999;padding:20px">暂无数据</td></tr>';
+        return;
+      }
+      tbody.innerHTML = settlements.slice().reverse().map(s => {
+        return '<tr><td>' + s.date + '</td><td>RM' + s.total.toFixed(2) + '</td><td>RM' + s.cash.toFixed(2) +
+          '</td><td>RM' + (s.duitnow || 0).toFixed(2) + '</td><td>RM' + (s.card || 0).toFixed(2) +
+          '</td><td>RM' + (s.transfer || 0).toFixed(2) + '</td><td>RM' + (s.stored || 0).toFixed(2) +
+          '</td><td>RM' + s.actual_cash.toFixed(2) + '</td><td class="' + (s.difference >= 0 ? 'green' :
+            'red') + '">RM' + s.difference.toFixed(2) + '</td><td>' + (s.note || '-') + '</td></tr>';
+      }).join('');
+    }
+
+    // ============================================================
+    //  月绩报告
+    // ============================================================
+    function loadMonthlyReport() {
+      var from = document.getElementById('mrFrom').value;
+      var to = document.getElementById('mrTo').value;
+      var paidOrders = orders.filter(o => o.status === 'paid');
+      var deletedOrders = orders.filter(o => o.status === 'deleted');
+      if (from) paidOrders = paidOrders.filter(o => o.date >= from + '-01');
+      if (to) paidOrders = paidOrders.filter(o => o.date <= to + '-31');
+      if (from) deletedOrders = deletedOrders.filter(o => o.date >= from + '-01');
+      if (to) deletedOrders = deletedOrders.filter(o => o.date <= to + '-31');
+      var revenue = paidOrders.reduce((s, o) => s + o.total, 0);
+      var discount = paidOrders.reduce((s, o) => s + (o.discount || 0), 0);
+      var totalExpense = expenses.reduce((s, e) => {
+        if (from && e.date < from + '-01') return s;
+        if (to && e.date > to + '-31') return s;
+        return s + e.amount;
+      }, 0);
+      var totalRefund = orders.filter(o => {
+        if (o.status !== 'refunded') return false;
+        if (from && o.date < from + '-01') return false;
+        if (to && o.date > to + '-31') return false;
+        return true;
+      }).reduce((s, o) => s + (o.refund_amount || 0), 0);
+      var totalCommission = paidOrders.reduce((s, o) => {
+        var staff = staffs.find(st => st.id == o.staff_id);
+        if (staff) return s + (o.total * staff.rate / 100);
+        return s;
+      }, 0);
+      var profit = revenue - totalCommission - totalExpense - totalRefund;
+      document.getElementById('mrRevenue').textContent = 'RM ' + revenue.toFixed(2);
+      document.getElementById('mrDiscount').textContent = 'RM ' + discount.toFixed(2);
+      document.getElementById('mrExpense').textContent = 'RM ' + totalExpense.toFixed(2);
+      document.getElementById('mrProfit').textContent = 'RM ' + profit.toFixed(2);
+      var deletedAmount = deletedOrders.reduce((s, o) => s + o.total, 0);
+      document.getElementById('mrDeleted').textContent = deletedOrders.length + ' 单';
+      document.getElementById('mrDeletedAmount').textContent = 'RM ' + deletedAmount.toFixed(2);
+      document.getElementById('mrValidOrders').textContent = paidOrders.length + ' 单';
+
+      var staffTbody = document.getElementById('staffMonthlyReport');
+      if (staffs.length === 0) {
+        staffTbody.innerHTML =
+          '<tr><td colspan="5" style="text-align:center;color:#999;padding:20px">暂无员工</td></tr>';
+        return;
+      }
+      staffTbody.innerHTML = staffs.map(s => {
+        var staffOrders = paidOrders.filter(o => o.staff_id == s.id);
+        var totalSales = staffOrders.reduce((sum, o) => sum + o.total, 0);
+        var totalComm = totalSales * (s.rate / 100);
+        return '<tr><td><b>' + s.name + '</b></td><td>' + staffOrders.length + '</td><td>RM' + totalSales
+          .toFixed(2) + '</td><td>RM' + totalComm.toFixed(2) + '</td><td>' + (s.rate || 30) + '%</td></tr>';
+      }).join('');
+
+      var dailyTbody = document.getElementById('dailyDetail');
+      var allRelevant = paidOrders.concat(deletedOrders);
+      if (allRelevant.length === 0) {
+        dailyTbody.innerHTML =
+          '<tr><td colspan="6" style="text-align:center;color:#999;padding:20px">暂无数据</td></tr>';
+        return;
+      }
+      var dailyMap = {};
+      paidOrders.forEach(o => {
+        if (!dailyMap[o.date]) dailyMap[o.date] = { count: 0, revenue: 0, refund: 0, deleted: 0 };
+        dailyMap[o.date].count++;
+        dailyMap[o.date].revenue += o.total;
+      });
+      deletedOrders.forEach(o => {
+        if (!dailyMap[o.date]) dailyMap[o.date] = { count: 0, revenue: 0, refund: 0, deleted: 0 };
+        dailyMap[o.date].deleted += o.total;
+      });
+      orders.filter(o => {
+        if (o.status !== 'refunded') return false;
+        if (from && o.date < from + '-01') return false;
+        if (to && o.date > to + '-31') return false;
+        return true;
+      }).forEach(o => {
+        if (!dailyMap[o.date]) dailyMap[o.date] = { count: 0, revenue: 0, refund: 0, deleted: 0 };
+        dailyMap[o.date].refund += (o.refund_amount || 0);
+      });
+      dailyTbody.innerHTML = Object.keys(dailyMap).sort().map(d => {
+        return '<tr><td>' + d + '</td><td>' + dailyMap[d].count + '</td><td>RM' + dailyMap[d].revenue
+          .toFixed(2) + '</td><td>RM' + dailyMap[d].refund.toFixed(2) + '</td><td>RM' + dailyMap[d]
+          .deleted.toFixed(2) + '</td><td>RM' + (dailyMap[d].revenue - dailyMap[d].refund - dailyMap[d]
+            .deleted).toFixed(2) + '</td></tr>';
+      }).join('');
+    }
+
+    function loadYearlyReport() {
+      var from = document.getElementById('mrFrom').value;
+      var to = document.getElementById('mrTo').value;
+      if (!from && !to) {
+        var years = [];
+        orders.forEach(o => {
+          var y = o.date.slice(0, 4);
+          if (years.indexOf(y) === -1) years.push(y);
+        });
+        if (years.length === 0) return alert('暂无订单数据');
+        years.sort();
+        document.getElementById('mrFrom').value = years[0] + '-01';
+        document.getElementById('mrTo').value = years[years.length - 1] + '-12';
+        loadMonthlyReport();
+        alert('📅 年度汇总：' + years[0] + ' 至 ' + years[years.length - 1]);
+        return;
+      }
+      loadMonthlyReport();
+    }
+
+    // ============================================================
+    //  预约管理
+    // ============================================================
+    function loadAppointments() {
+      var tbody = document.getElementById('appts');
+      if (appointments.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无预约</td></tr>';
+        return;
+      }
+      tbody.innerHTML = appointments.slice().reverse().map(a => {
+        return '<tr><td>' + a.date + '</td><td>' + (a.time || '-') + '</td><td>' + a.customer + '</td><td>' + (a
+            .staff || '-') + '</td><td>' + (a.service || '-') + '</td><td><span class="badge ' + (a
+            .status === '已完成' ? 'green' : a.status === '已取消' ? 'red' : 'gold') + '">' + (a.status ||
+            '待处理') + '</span></td><td>' + (a.status !== '已完成' && a.status !== '已取消' ?
+          '<button onclick="completeAppt(' + a.id + ')" class="green" style="padding:4px 12px;font-size:12px">✅ 完成</button><button onclick="cancelAppt(' + a.id +
+          ')" class="red" style="padding:4px 12px;font-size:12px">✕ 取消</button>' :
+          '-') + '</td></tr>';
+      }).join('');
+    }
+
+    function addAppt() {
+      var date = document.getElementById('ad').value,
+        time = document.getElementById('at').value;
+      var customer = document.getElementById('ac').value.trim(),
+        staff = document.getElementById('ae').value.trim();
+      var service = document.getElementById('as').value.trim();
+      if (!date || !customer) return alert('请填写完整');
+      appointments.push({ id: nextId.appt++, date: date, time: time, customer: customer, staff: staff, service: service,
+        status: '待处理', created: now() });
+      save();
+      loadAll();
+      document.getElementById('ad').value = '';
+      document.getElementById('at').value = '';
+      document.getElementById('ac').value = '';
+      document.getElementById('ae').value = '';
+      document.getElementById('as').value = '';
+      alert('✅ 添加成功！');
+    }
+
+    function completeAppt(id) {
+      var a = appointments.find(ap => ap.id === id);
+      if (a) { a.status = '已完成';
+        save();
+        loadAll(); }
+    }
+
+    function cancelAppt(id) {
+      var a = appointments.find(ap => ap.id === id);
+      if (a) { a.status = '已取消';
+        save();
+        loadAll(); }
+    }
+
+    // ============================================================
+    //  库存管理
+    // ============================================================
+    function loadProducts() {
+      var tbody = document.getElementById('products');
+      if (products.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="6" style="text-align:center;color:#999;padding:20px">暂无产品</td></tr>';
+        return;
+      }
+      tbody.innerHTML = products.map(p => {
+        return '<tr><td><b>' + p.name + '</b></td><td>' + p.qty + '</td><td>' + p.min + '</td><td>RM' + (p
+            .cost || 0).toFixed(2) + '</td><td><span class="badge ' + (p.qty <= p.min ? 'red' :
+            'green') + '">' + (p.qty <= p.min ? '⚠️ 低库存' : '✅ 充足') +
+          '</span></td><td><button onclick="moveStock(' + p.id +
+          ',1)" class="gold" style="padding:4px 12px;font-size:12px">+1</button><button onclick="moveStock(' +
+          p.id + ',-1)" class="red" style="padding:4px 12px;font-size:12px">-1</button><button onclick="removeProduct(' +
+          p.id + ')" style="padding:4px 12px;font-size:12px">🗑️</button></td></tr>';
+      }).join('');
+    }
+
+    function addProduct() {
+      var name = document.getElementById('pn').value.trim(),
+        qty = parseInt(document.getElementById('pqty').value) || 0;
+      var min = parseInt(document.getElementById('pmin').value) || 0,
+        cost = parseFloat(document.getElementById('pcost').value) || 0;
+      if (!name) return alert('请填写完整');
+      products.push({ id: nextId.product++, name: name, qty: qty, min: min, cost: cost });
+      save();
+      loadAll();
+      document.getElementById('pn').value = '';
+      document.getElementById('pqty').value = '';
+      document.getElementById('pmin').value = '';
+      document.getElementById('pcost').value = '';
+      alert('✅ 添加成功！');
+    }
+
+    function moveStock(id, delta) {
+      var p = products.find(pr => pr.id === id);
+      if (p) {
+        p.qty = Math.max(0, p.qty + delta);
+        save();
+        loadAll();
+      }
+    }
+
+    function removeProduct(id) {
+      if (!confirm('确定删除？')) return;
+      products = products.filter(p => p.id !== id);
+      save();
+      loadAll();
+    }
+
+    // ============================================================
+    //  支出管理
+    // ============================================================
+    function loadExpenses() {
+      var tbody = document.getElementById('expenses');
+      if (expenses.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="4" style="text-align:center;color:#999;padding:20px">暂无支出记录</td></tr>';
+        return;
+      }
+      tbody.innerHTML = expenses.slice().reverse().map(e => {
+        return '<tr><td>' + e.name + '</td><td>RM' + e.amount.toFixed(2) + '</td><td><span class="badge blue">' +
+          (e.cat || '其他') + '</span></td><td>' + e.date + '</td></tr>';
+      }).join('');
+    }
+
+    function addExpense() {
+      var name = document.getElementById('en').value.trim(),
+        amount = parseFloat(document.getElementById('ea').value) || 0;
+      var cat = document.getElementById('ecat').value.trim() || '其他';
+      if (!name || !amount) return alert('请填写完整');
+      expenses.push({ id: nextId.expense++, name: name, amount: amount, cat: cat, date: today(), created: now() });
+      save();
+      loadAll();
+      document.getElementById('en').value = '';
+      document.getElementById('ea').value = '';
+      document.getElementById('ecat').value = '';
+      alert('✅ 添加成功！');
+    }
+
+    // ============================================================
+    //  订单报表
+    // ============================================================
+    function loadOrders() { renderOrders(orders); }
+
+    function renderOrders(list) {
+      var tbody = document.getElementById('orderRows');
+      if (list.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px">暂无订单</td></tr>';
+        return;
+      }
+      tbody.innerHTML = list.slice().reverse().map(o => {
+        var statusBadge = '',
+          statusText = '';
+        if (o.status === 'paid') {
+          statusBadge = 'green';
+          statusText = '已收款';
+        } else if (o.status === 'refunded') {
+          statusBadge = 'red';
+          statusText = '已退款';
+        } else if (o.status === 'deleted') {
+          statusBadge = 'gray';
+          statusText = '已删除';
+        } else {
+          statusBadge = 'gold';
+          statusText = '⏳ 未知';
+        }
+        var actions = '-';
+        if (o.status === 'paid') {
+          actions =
+            '<button onclick="refundOrder(' + o.id + ')" class="red" style="padding:4px 8px;font-size:11px">退款</button><button onclick="deleteOrder(' + o.id +
+            ')" style="padding:4px 8px;font-size:11px;background:#6c757d">删除</button><button onclick="showOrderReceipt(' +
+            o.id + ')" class="receipt-btn" style="padding:4px 8px;font-size:11px">📧收据</button>';
+        } else if (o.status === 'refunded') {
+          actions = '<span class="badge red">已退款 RM' + (o.refund_amount || 0).toFixed(2) + '</span>';
+        } else if (o.status === 'deleted') {
+          actions = '<span class="badge gray">已删除</span>';
+        }
+        return '<tr><td>#' + o.id + '</td><td>' + o.date + ' ' + (o.time || '') + '</td><td>' + (o.customer_name ||
+          '散客') + '</td><td>RM' + o.total.toFixed(2) + '</td><td>' + o.payment +
+          '</td><td><span class="badge ' + statusBadge + '">' + statusText + '</span></td><td>' + actions +
+          '</td></tr>';
+      }).join('');
+    }
+
+    function filterOrders() {
+      var from = document.getElementById('ofrom').value;
+      var to = document.getElementById('oto').value;
+      var status = document.getElementById('oStatus').value;
+      var filtered = orders;
+      if (from) filtered = filtered.filter(o => o.date >= from);
+      if (to) filtered = filtered.filter(o => o.date <= to);
+      if (status !== 'all') filtered = filtered.filter(o => o.status === status);
+      renderOrders(filtered);
+    }
+
+    function resetOrders() {
+      document.getElementById('ofrom').value = '';
+      document.getElementById('oto').value = '';
+      document.getElementById('oStatus').value = 'all';
+      renderOrders(orders);
+    }
+
+    // ============================================================
+    //  删除订单 (保留原版)
+    // ============================================================
+    function deleteOrder(id) {
+      var order = orders.find(o => o.id === id);
+      if (!order) return;
+      if (order.status === 'deleted') return alert('⚠️ 该订单已删除');
+      if (order.status === 'refunded') return alert('⚠️ 已退款的订单不能删除');
+      var pwd = prompt('🔐 请输入【退款密码】以确认删除操作：');
+      if (pwd === null) return;
+      var refundAuthLocal = { password: '135103' };
+      if (pwd !== refundAuthLocal.password) return alert('❌ 退款密码错误，操作取消！');
+      if (!confirm('确认删除订单 #' + order.id + ' (RM' + order.total.toFixed(2) + ') 吗？')) return;
+      order.status = 'deleted';
+      order.deleted_at = now();
+      order.deleted_by = 'admin';
+      save();
+      loadAll();
+      alert('✅ 已删除！');
+    }
+
+    // ============================================================
+    //  分类与选项管理
+    // ============================================================
+    function loadCategoryManager() {
+      var container = document.getElementById('categoryManager');
+      if (!container) return;
+      var catSelect = document.getElementById('newOptCategory');
+      if (catSelect) {
+        catSelect.innerHTML = categories.map(c => '<option value="' + c.id + '">' + c.name + '</option>').join('');
+      }
+      if (categories.length === 0) {
+        container.innerHTML = '<p class="text-muted">暂无分类，请添加</p>';
+        return;
+      }
+      var html = '';
+      categories.forEach(cat => {
+        html += '<div style="border:1px solid #eee;border-radius:8px;margin-bottom:8px;overflow:hidden;">';
+        html +=
+          '<div style="background:#f5f5f5;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-weight:bold;">' + cat.name + ' <span style="color:#999;font-weight:normal;">(' +
+          cat.options.length + ' 项)</span></span>';
+        html += '<div style="display:flex;gap:6px;">';
+        html +=
+          '<button onclick="editCategoryName(' + cat.id +
+          ')" class="outline" style="padding:4px 12px;font-size:12px;min-height:30px;">✏️ 改名</button>';
+        html +=
+          '<button onclick="deleteCategory(' + cat.id +
+          ')" class="red" style="padding:4px 12px;font-size:12px;min-height:30px;">🗑️</button>';
+        html += '</div></div>';
+        if (cat.options.length > 0) {
+          html += '<div style="padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;">';
+          cat.options.forEach(opt => {
+            html +=
+              '<div style="background:#fafafa;border:1px solid #e0e0e0;border-radius:6px;padding:6px 12px;display:flex;align-items:center;gap:8px;">';
+            html += '<span>' + opt.name + ' (RM' + opt.price + ', ' + opt.rate + '%)</span>';
+            html +=
+              '<button onclick="editOption(' + cat.id + ',' + opt.id +
+              ')" class="outline" style="padding:2px 8px;font-size:11px;min-height:24px;">✏️</button>';
+            html +=
+              '<button onclick="deleteOption(' + cat.id + ',' + opt.id +
+              ')" class="red" style="padding:2px 8px;font-size:11px;min-height:24px;">✕</button>';
+            html += '</div>';
+          });
+          html += '</div>';
+        } else {
+          html += '<p style="padding:8px 12px;color:#999;font-size:13px;">此分类暂无选项</p>';
+        }
+        html += '</div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function addCategory() {
+      var name = document.getElementById('newCatName').value.trim();
+      if (!name) return alert('请输入分类名称');
+      categories.push({ id: nextId.category++, name: name, options: [] });
+      save();
+      loadAll();
+      document.getElementById('newCatName').value = '';
+      alert('✅ 分类 "' + name + '" 已添加！');
+    }
+
+    function deleteCategory(catId) {
+      if (!confirm('确定删除此分类及其所有选项吗？')) return;
+      categories = categories.filter(c => c.id !== catId);
+      save();
+      loadAll();
+      alert('✅ 已删除');
+    }
+
+    function editCategoryName(catId) {
+      var cat = categories.find(c => c.id === catId);
+      if (!cat) return;
+      var newName = prompt('修改分类名称：', cat.name);
+      if (newName && newName.trim()) {
+        cat.name = newName.trim();
+        save();
+        loadAll();
+      }
+    }
+
+    function addOption() {
+      var name = document.getElementById('newOptName').value.trim();
+      var price = parseFloat(document.getElementById('newOptPrice').value) || 0;
+      var rate = parseFloat(document.getElementById('newOptRate').value) || 25;
+      var catId = parseInt(document.getElementById('newOptCategory').value);
+      if (!name) return alert('请输入选项名称');
+      if (price <= 0) return alert('请输入有效价格');
+      var cat = categories.find(c => c.id === catId);
+      if (!cat) return alert('请选择分类');
+      cat.options.push({ id: nextId.option++, name: name, price: price, rate: rate });
+      save();
+      loadAll();
+      document.getElementById('newOptName').value = '';
+      alert('✅ 选项 "' + name + '" 已添加到 "' + cat.name + '"');
+    }
+
+    function editOption(catId, optId) {
+      var cat = categories.find(c => c.id === catId);
+      if (!cat) return;
+      var opt = cat.options.find(o => o.id === optId);
+      if (!opt) return;
+      var newName = prompt('选项名称：', opt.name);
+      if (newName !== null && newName.trim()) opt.name = newName.trim();
+      var newPrice = parseFloat(prompt('价格 (RM)：', opt.price));
+      if (!isNaN(newPrice) && newPrice > 0) opt.price = newPrice;
+      var newRate = parseFloat(prompt('提成 %：', opt.rate));
+      if (!isNaN(newRate) && newRate >= 0) opt.rate = newRate;
+      save();
+      loadAll();
+    }
+
+    function deleteOption(catId, optId) {
+      if (!confirm('确定删除此选项吗？')) return;
+      var cat = categories.find(c => c.id === catId);
+      if (!cat) return;
+      cat.options = cat.options.filter(o => o.id !== optId);
+      save();
+      loadAll();
+    }
+
+    // ============================================================
+    //  数据管理
+    // ============================================================
+    function exportData() {
+      var data = {
+        version: '3.6',
+        exported: new Date().toISOString(),
+        categories: categories,
+        customers: customers,
+        staff: staffs,
+        orders: orders,
+        products: products,
+        appointments: appointments,
+        expenses: expenses,
+        settlements: settlements,
+        nextId: nextId
+      };
+      try {
+        var jsonStr = JSON.stringify(data);
+        localStorage.setItem('ys_backup_data', jsonStr);
+        localStorage.setItem('ys_backup_date', new Date().toISOString());
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(jsonStr).then(() => alert('✅ 备份成功！')).catch(() => fallbackCopy(jsonStr));
+        } else { fallbackCopy(jsonStr); }
+      } catch (e) { alert('❌ 错误：' + e.message); }
+    }
+
+    function fallbackCopy(text) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try { document.execCommand('copy');
+        alert('✅ 备份成功！'); } catch (e) { alert('✅ 备份已保存到本地'); }
+      document.body.removeChild(textarea);
+    }
+
+    function importData() {
+      var choice = confirm('📥 点击「确定」从剪贴板粘贴\n点击「取消」从本地恢复');
+      if (choice) {
+        if (navigator.clipboard && navigator.clipboard.readText) {
+          navigator.clipboard.readText().then(text => {
+            try {
+              var data = JSON.parse(text);
+              if (!data.categories) return alert('❌ 无效的备份数据');
+              restoreData(data);
+            } catch (e) { alert('❌ 解析失败：' + e.message); }
+          }).catch(() => manualPasteImport());
+        } else { manualPasteImport(); }
+      } else {
+        var backupData = localStorage.getItem('ys_backup_data');
+        if (!backupData) return alert('❌ 没有找到本地备份！');
+        try {
+          var data = JSON.parse(backupData);
+          restoreData(data);
+        } catch (e) { alert('❌ 解析失败：' + e.message); }
+      }
+    }
+
+    function manualPasteImport() {
+      var input = prompt('📝 请粘贴备份数据：', '');
+      if (input === null) return;
+      if (!input.trim()) return alert('❌ 无效的备份数据');
+      try {
+        var data = JSON.parse(input);
+        if (!data.categories) return alert('❌ 无效的备份数据');
+        restoreData(data);
+      } catch (e) { alert('❌ 解析失败：' + e.message); }
+    }
+
+    function restoreData(data) {
+      if (!confirm('⚠️ 确定覆盖当前所有数据？')) return;
+      customers = data.customers || [];
+      staffs = data.staff || [];
+      orders = data.orders || [];
+      categories = data.categories || [];
+      products = data.products || [];
+      appointments = data.appointments || [];
+      expenses = data.expenses || [];
+      settlements = data.settlements || [];
+      nextId = data.nextId || { customer: 1, order: 1, product: 3, appt: 1, expense: 1, settlement: 1, category: 6,
+        option: 521, staff: 6 };
+      save();
+      loadAll();
+      alert('✅ 数据恢复成功！');
+    }
+
+    function clearAllData() {
+      var user = authFirebase.currentUser;
+      if (!user) return alert('❌ 请先登录');
+      if (!confirm('⚠️ 确定清除所有数据？不可撤销！')) return;
+      db.ref('/').set({ initialized: true }).then(() => {
+        alert('✅ 所有数据已清除！');
+        location.reload();
+      }).catch(err => {
+        alert('❌ 清除失败：' + err.message);
+      });
+    }
+
+    function showOrderReceipt(orderId) {
+      var order = orders.find(o => o.id === orderId);
+      if (!order) return alert('❌ 找不到该订单');
+      var receipt = generateReceiptText(order);
+      var overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.id = 'receiptModal';
+      overlay.innerHTML = '<div class="modal-content"><button class="modal-close" onclick="document.getElementById(\'receiptModal\').remove()">✕</button><h3 style="margin-bottom:12px">🧾 Invoice #' +
+        String(order.id).padStart(4, '0') +
+        '</h3><div class="receipt-box" style="white-space:pre">' + receipt +
+        '</div><div class="row" style="margin-top:12px"><input id="modalPhone" placeholder="顾客手机号" value="' + (order
+          .phone || '') + '"><input id="modalEmail" placeholder="顾客邮箱" value="' + (order.email || '') +
+        '"></div><div class="flex" style="gap:8px;flex-wrap:wrap;margin-top:8px"><button onclick="modalGeneratePDF(' +
+        order.id + ')" class="share-btn" style="background:#FF9800">📤 生成 PDF</button><button onclick="modalPrintReceipt(' +
+        order.id + ')" class="print-btn">🖨️ 打印</button><button onclick="modalCopyReceipt(' + order.id +
+        ')" class="outline">📋 复制</button><button onclick="document.getElementById(\'receiptModal\').remove()" class="red">关闭</button></div></div>';
+      document.body.appendChild(overlay);
+      overlay.dataset.orderId = order.id;
+    }
+
+    function modalGeneratePDF(orderId) {
+      var order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      var filename = 'Invoice_' + String(order.id || 1).padStart(6, '0') + '.pdf';
+      var html = generateReceiptHTML(order);
+      var container = document.getElementById('pdfContent');
+      container.innerHTML = html;
+      container.style.display = 'block';
+      container.style.background = 'white';
+      container.style.padding = '10px';
+      container.style.maxWidth = '420px';
+      container.style.margin = '0 auto';
+      if (typeof html2pdf === 'undefined') {
+        container.style.display = 'none';
+        alert('❌ PDF库加载失败，请检查网络连接后刷新重试');
+        return;
+      }
+      html2pdf().set({
+        margin: [0.5, 0.5, 0.5, 0.5],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, letterRendering: true, useCORS: true, logging: false, width: 420 },
+        jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' }
+      }).from(container).save(filename).then(() => {
+        container.style.display = 'none';
+        alert('✅ PDF 已保存到 Download 文件夹！\n📄 文件名: ' + filename);
+      }).catch(err => {
+        container.style.display = 'none';
+        alert('❌ 生成失败：' + err.message);
+      });
+    }
+
+    function modalPrintReceipt(orderId) {
+      var order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      var receipt = generateReceiptText(order);
+      var iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.left = '-9999px';
+      iframe.style.top = '0';
+      iframe.style.width = '420px';
+      iframe.style.height = '650px';
+      iframe.style.border = 'none';
+      iframe.style.zIndex = '9999';
+      document.body.appendChild(iframe);
+      var doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write('<html><head><title>Invoice #' + order.id + '</title>');
+      doc.write(
+        '<style>body{font-family:"Courier New",monospace;font-size:12px;padding:20px;max-width:420px;margin:0 auto;background:white;white-space:pre-wrap;word-wrap:break-word;}pre{margin:0;padding:0;white-space:pre;}</style>'
+        );
+      doc.write('</head><body>');
+      doc.write('<pre>' + receipt + '</pre>');
+      doc.write(
+        '<div style="text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid #ddd;"><button onclick="window.print()" style="padding:10px 30px;background:#2196F3;color:#fff;border:0;border-radius:6px;font-size:16px;cursor:pointer;">🖨️ 打印</button> <button onclick="window.close()" style="padding:10px 30px;background:#999;color:#fff;border:0;border-radius:6px;font-size:16px;cursor:pointer;">✕ 关闭</button></div>'
+        );
+      doc.write('</body></html>');
+      doc.close();
+      setTimeout(() => {
+        try {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+        } catch (e) {
+          alert('⚠️ 请点击打印对话框中的「打印」按钮');
+        }
+      }, 500);
+      setTimeout(() => {
+        if (iframe && iframe.parentNode) {
+          iframe.parentNode.removeChild(iframe);
+        }
+      }, 30000);
+    }
+
+    function modalCopyReceipt(orderId) {
+      var order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      var receipt = generateReceiptText(order);
+      navigator.clipboard.writeText(receipt).then(() => alert('✅ 收据已复制！')).catch(() => {
+        var textarea = document.createElement('textarea');
+        textarea.value = receipt;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('✅ 收据已复制！');
+      });
+    }
+
+    // ============================================================
+    //  初始化
+    // ============================================================
+    document.getElementById('sd').value = today();
+    document.getElementById('mrFrom').value = thisMonth();
+    document.getElementById('mrTo').value = thisMonth();
+    document.getElementById('payrollDate').value = today();
+
+    console.log('✂️ Ys Hair Style Studio v3.6 云端版 (Firebase Auth + Firestore)');
+    console.log('📌 使用邮箱密码登录，支持注册和密码重置');
+    console.log('📌 首次使用请先「注册新账号」');
+    console.log('📌 管理员退款需要在 Firestore 创建 Users 集合并设置 role=admin');
+    console.log('📌 服务项目已预置 ' + DEFAULT_DATA.categories.reduce((s, c) => s + c.options.length, 0) + ' 项服务');
+  </script>
 </body>
 </html>
