@@ -11,43 +11,33 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Arial,sans-serif;background:#f0f2f5;color:#222;padding-bottom:80px}
     .top{background:#1a1a2e;color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-    .top h1{font-size:18px}
-    .top h1 span{color:#c9a84c}
+    .top h1{font-size:18px}.top h1 span{color:#c9a84c}
     .top .user{font-size:13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
     .logout-btn{padding:6px 16px;background:#dc3545;color:#fff;border:0;border-radius:6px;cursor:pointer}
     .wrap{max-width:1200px;margin:auto;padding:12px}
     .tabs{display:flex;gap:5px;flex-wrap:wrap;background:#f0f2f5;padding:8px 0;position:sticky;top:0;z-index:99}
     .tabs button{padding:8px 16px;border:0;border-radius:6px;background:#fff;color:#333;cursor:pointer;font-size:13px;border-bottom:3px solid transparent}
     .tabs button.active{background:#1a1a2e;color:#fff;border-bottom-color:#c9a84c}
-    .page{display:none}
-    .page.active{display:block}
+    .page{display:none}.page.active{display:block}
     .panel{background:#fff;padding:18px;border-radius:12px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
     .panel h3{margin-bottom:12px;font-size:16px;color:#1a1a2e;border-left:4px solid #c9a84c;padding-left:12px}
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
     .card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);text-align:center}
     .card .num{font-size:28px;font-weight:bold;color:#1a1a2e;margin-top:4px}
     .card .label{font-size:13px;color:#888}
-    .card.gold .num{color:#c9a84c}
-    .card.green .num{color:#0e7c4b}
-    .card.red .num{color:#c0392b}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
-    .row>*{flex:1;min-width:80px}
+    .card.gold .num{color:#c9a84c}.card.green .num{color:#0e7c4b}.card.red .num{color:#c0392b}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.row>*{flex:1;min-width:80px}
     input,select,textarea{padding:10px 12px;border:1px solid #ddd;border-radius:8px;width:100%;font-size:15px}
     input:focus,select:focus{outline:none;border-color:#c9a84c}
     button{padding:10px 20px;border:0;border-radius:8px;background:#1a1a2e;color:#fff;cursor:pointer;font-size:14px;min-height:44px}
-    button.gold{background:#c9a84c}
-    button.green{background:#0e7c4b}
-    button.red{background:#c0392b}
+    button.gold{background:#c9a84c}button.green{background:#0e7c4b}button.red{background:#c0392b}
     table{width:100%;border-collapse:collapse;font-size:13px}
     td,th{padding:8px 6px;border-bottom:1px solid #eee;text-align:left}
     th{background:#f8f8f8;font-weight:600}
     .badge{padding:3px 12px;border-radius:20px;font-size:12px;display:inline-block}
-    .badge.green{background:#d4edda;color:#155724}
-    .badge.red{background:#f8d7da;color:#721c24}
-    .badge.gold{background:#fff3cd;color:#856404}
+    .badge.green{background:#d4edda;color:#155724}.badge.red{background:#f8d7da;color:#721c24}
     .total{font-size:32px;color:#c0392b;font-weight:bold}
-    .hide{display:none!important}
-    .text-muted{color:#999;font-size:13px}
+    .hide{display:none!important}.text-muted{color:#999;font-size:13px}
     .flex{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
     .flex-between{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
     .mt-8{margin-top:8px}
@@ -72,8 +62,6 @@
     .cart-table .qty-cell button.minus-btn{background:#e74c3c;color:#fff}
     .cart-table .qty-cell button.plus-btn{background:#0e7c4b;color:#fff}
     .cart-table .qty-cell .qty-num{font-size:15px;font-weight:bold;min-width:24px;text-align:center}
-    .discount-group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .discount-group input{width:70px}
     .login-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
     .login-actions button{padding:8px 20px;font-size:13px;min-height:36px}
     .login-actions .register-btn{background:#4CAF50}
@@ -154,10 +142,7 @@
         <h3>🛒 购物车</h3>
         <table class="cart-table"><thead><tr><th>服务</th><th style="text-align:center">单价</th><th style="text-align:center">数量</th><th style="text-align:center">小计</th><th style="text-align:center">操作</th></tr></thead><tbody id="cartBody"></tbody></table>
         <div class="flex-between" style="margin-top:12px">
-          <div>
-            <span class="total" id="sum">RM 0.00</span>
-            <span id="discountSummary" class="text-muted" style="font-size:14px;margin-left:12px;"></span>
-          </div>
+          <div><span class="total" id="sum">RM 0.00</span></div>
           <div class="flex">
             <select id="pay" style="width:auto;flex:0">
               <option>Cash 现金</option><option>DuitNow QR</option><option>Card 刷卡</option><option>Bank Transfer</option><option>会员储值</option>
@@ -226,7 +211,7 @@ const db = firebase.database();
 const auth = firebase.auth();
 
 // ============================================================
-//  数据 - 简化版
+//  数据 - 强制保存
 // ============================================================
 let cache = {};
 let customers = [], staffs = [], orders = [], categories = [], nextId = {};
@@ -235,7 +220,7 @@ function loadData(callback) {
   db.ref('/').once('value').then(snap => {
     const data = snap.val() || {};
     if (!data.initialized) {
-      // 首次使用，创建默认数据
+      console.log('📌 首次使用，创建默认数据...');
       const defaultData = {
         initialized: true,
         categories: [
@@ -255,36 +240,21 @@ function loadData(callback) {
         nextId: {customer:1,order:1,product:1,appt:1,expense:1,settlement:1,category:6,option:504,staff:3}
       };
       db.ref('/').set(defaultData).then(() => {
+        console.log('✅ 默认数据已创建');
         cache = defaultData;
         refreshData();
         if (callback) callback();
       });
     } else {
+      console.log('📌 数据已存在，加载中...');
       cache = data;
       refreshData();
       if (callback) callback();
     }
   }).catch(err => {
-    console.log('加载失败，使用默认数据');
-    cache = getDefaultData();
-    refreshData();
-    if (callback) callback();
+    console.log('❌ 加载失败:', err);
+    callback();
   });
-}
-
-function getDefaultData() {
-  return {
-    initialized: true,
-    categories: [{id:1,name:'✂️ Hair Cut',options:[{id:101,name:'Male Cut',price:58,rate:100},{id:102,name:'Female Cut',price:68,rate:100}]},{id:2,name:'🎨 Hair Color',options:[{id:201,name:'Color Short',price:130,rate:100},{id:202,name:'Color Medium',price:160,rate:100},{id:203,name:'Color Long',price:190,rate:100}]},{id:3,name:'🔥 Perm',options:[{id:301,name:'Perm Short',price:238,rate:100},{id:302,name:'Perm Medium',price:268,rate:100},{id:303,name:'Perm Long',price:298,rate:100}]},{id:4,name:'💆 Treatment',options:[{id:401,name:'Treatment Short',price:220,rate:100},{id:402,name:'Treatment Medium',price:250,rate:100},{id:403,name:'Treatment Long',price:280,rate:100}]},{id:5,name:'✨ Other',options:[{id:501,name:'Fringe Cut',price:20,rate:100},{id:503,name:'Hair Wash',price:48,rate:100}]}],
-    customers: [],
-    staff: [{id:1,name:'Kent',rate:40,paid_periods:[]},{id:2,name:'Hilson',rate:50,paid_periods:[]}],
-    orders: [],
-    products: [],
-    appointments: [],
-    expenses: [],
-    settlements: [],
-    nextId: {customer:1,order:1,product:1,appt:1,expense:1,settlement:1,category:6,option:504,staff:3}
-  };
 }
 
 function refreshData() {
@@ -295,16 +265,18 @@ function refreshData() {
   nextId = cache.nextId || {customer:1,order:1,product:1,appt:1,expense:1,settlement:1,category:6,option:504,staff:3};
 }
 
-function saveData() {
+function saveData(callback) {
   cache.customers = customers;
   cache.staff = staffs;
   cache.orders = orders;
   cache.categories = categories;
   cache.nextId = nextId;
   db.ref('/').set(cache).then(() => {
-    console.log('✅ 数据已保存');
+    console.log('✅ 数据已保存到 Firebase, orders数量:', orders.length);
+    if (callback) callback(true);
   }).catch(err => {
     console.log('❌ 保存失败:', err);
+    if (callback) callback(false);
   });
 }
 
@@ -403,8 +375,6 @@ function page(name) {
   document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
   var map = ['dash','pos','orders','staff','settings'];
   document.querySelectorAll('.tabs button').forEach((b,i) => { if(map[i]===name) b.classList.add('active'); });
-  if(name==='staff') loadStaff();
-  if(name==='orders') loadOrders();
   loadAll();
 }
 
@@ -564,16 +534,18 @@ function loadPOS() {
 }
 
 // ============================================================
-//  收款
+//  ✅ 收款 - 强制保存 + 验证
 // ============================================================
 function checkout() {
   if (cart.length === 0) return alert('请选择服务');
+  
   var customerId = document.getElementById('cus').value;
   var staffId = document.getElementById('st').value;
   var payment = document.getElementById('pay').value;
   var total = cart.reduce((s,item) => s + (item.price * item.quantity), 0);
   if (total <= 0) return alert('总金额必须大于0');
   
+  // 会员储值扣款
   if (payment === '会员储值') {
     var cus = customers.find(c => c.id == customerId);
     if (!cus) return alert('请选择会员');
@@ -583,6 +555,7 @@ function checkout() {
   
   var cusName = customerId ? (customers.find(c => c.id == customerId) || {}).name : '散客';
   var staffName = staffId ? (staffs.find(s => s.id == staffId) || {}).name : '未分配';
+  
   var orderItems = [];
   cart.forEach(item => {
     for (var i = 0; i < item.quantity; i++) {
@@ -606,19 +579,33 @@ function checkout() {
     created: now()
   };
   
+  // 添加到数组
   orders.push(order);
+  console.log('📌 订单已添加，当前订单总数:', orders.length);
+  
+  // 更新客户
   if (customerId) {
     var c2 = customers.find(c => c.id == customerId);
     if (c2) { c2.visit = (c2.visit || 0) + 1; }
   }
   
+  // 清空购物车
   cart = [];
   drawCart();
   renderProductGrid();
-  saveData();
-  loadAll();
   
-  alert('✅ 收款成功！\n💰 金额: RM' + total.toFixed(2) + '\n📋 订单号: #' + order.id);
+  // ✅ 强制保存到 Firebase
+  saveData(function(success) {
+    if (success) {
+      console.log('✅ 订单已保存到 Firebase');
+      // 重新加载数据
+      refreshData();
+      loadAll();
+      alert('✅ 收款成功！\n💰 金额: RM' + total.toFixed(2) + '\n📋 订单号: #' + order.id);
+    } else {
+      alert('⚠️ 收款成功，但数据保存失败！请检查网络。');
+    }
+  });
 }
 
 // ============================================================
@@ -738,7 +725,7 @@ document.getElementById('pw').addEventListener('keypress', function(e) {
 //  初始化
 // ============================================================
 console.log('✅ Ys Hair Style Studio v3.6 云端版已启动');
-console.log('📌 数据存储在 Firebase Realtime Database');
+console.log('📌 打开浏览器开发者工具 Console 查看日志');
 </script>
 </body>
 </html>
