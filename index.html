@@ -12,8 +12,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
     body{font-family:"Microsoft YaHei",Arial,sans-serif;background:#f0f2f5;color:#222;padding-bottom:100px;-webkit-user-select:none;user-select:none}
@@ -151,7 +150,6 @@
 </head>
 <body>
 
-<!-- ===== 加载中遮罩 ===== -->
 <div class="loading-screen" id="loadingScreen">
   <div class="spinner"></div>
   <p>⏳ 加载中...</p>
@@ -167,7 +165,6 @@
 </header>
 
 <div class="wrap">
-
   <div id="login" class="panel" style="max-width:420px;margin:40px auto">
     <h2 style="text-align:center;color:var(--primary)" id="loginTitle">✂️ 登录系统</h2>
     <p style="text-align:center;color:#999;font-size:13px" id="loginHint">使用 Firebase 邮箱密码登录</p>
@@ -213,9 +210,7 @@
       </div>
       <div class="panel">
         <h3 id="todayDetailTitle">📋 今日顾客消费明细</h3>
-        <div class="today-sales-list">
-          <table><thead><tr><th id="thTime">时间</th><th id="thCustomer">顾客</th><th id="thStaff">员工</th><th id="thService">服务</th><th id="thAmount">金额</th><th id="thPayment">支付</th></tr></thead><tbody id="todayDetail"></tbody></table>
-        </div>
+        <div class="today-sales-list"><table><thead><tr><th id="thTime">时间</th><th id="thCustomer">顾客</th><th id="thStaff">员工</th><th id="thService">服务</th><th id="thAmount">金额</th><th id="thPayment">支付</th></tr></thead><tbody id="todayDetail"></tbody></table></div>
       </div>
       <div class="panel">
         <div class="flex-between"><h3 id="quickActions">📊 快捷操作</h3></div>
@@ -507,11 +502,7 @@
       </div>
       <div class="panel" style="border:2px solid #2e7d32;background:#f1f8e9;">
         <h3 style="border-left-color:#2e7d32;">🔑 Firestore 管理员设置</h3>
-        <div class="admin-hint">
-          <strong>📌 退款功能需要管理员授权</strong><br>
-          请在 Firebase Console → Firestore Database 创建 <code>Users</code> 集合，添加文档：<br>
-          <code>{ email: "你的管理员邮箱", role: "admin", name: "管理员姓名" }</code>
-        </div>
+        <div class="admin-hint"><strong>📌 退款功能需要管理员授权</strong><br>请在 Firebase Console → Firestore Database 创建 <code>Users</code> 集合，添加文档：<br><code>{ email: "你的管理员邮箱", role: "admin", name: "管理员姓名" }</code></div>
         <div class="admin-hint" style="border-left-color:#f57c00;background:#fff3e0;">
           <strong>🔐 当前登录账号角色检测</strong><br>
           <span id="userRoleDisplay">⏳ 检测中...</span>
@@ -535,7 +526,6 @@ const firebaseConfig = {
   appId: "1:1013042053262:web:81e155d05672843d5909df"
 };
 
-// 初始化 Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -544,7 +534,7 @@ const authFirebase = firebase.auth();
 const dbFirestore = firebase.firestore();
 
 // ============================================================
-//  🔥 默认数据（包含您的服务项目）
+//  🔥 默认数据
 // ============================================================
 const DEFAULT_DATA = {
   initialized: true,
@@ -570,7 +560,7 @@ const DEFAULT_DATA = {
 };
 
 // ============================================================
-//  数据层 - 使用 Promise 确保数据加载完成
+//  数据层
 // ============================================================
 let _cache = {};
 let dataReady = false;
@@ -622,12 +612,8 @@ const DB = {
   },
   set: function(key, data) {
     _cache[key] = data;
-    if (!this._saveTimer) {
-      this._saveTimer = setTimeout(() => {
-        this._saveTimer = null;
-        saveToCloud();
-      }, 300);
-    }
+    // 立即保存到云端
+    saveToCloud();
   }
 };
 
@@ -671,7 +657,6 @@ function login() {
       document.getElementById('app').classList.remove('hide');
       document.getElementById('who').textContent = '👤 ' + user.email + ' | Cloud';
       document.getElementById('loadingScreen').style.display = 'flex';
-      // 确保数据已加载
       initData().then(() => {
         refreshGlobals();
         loadAll();
@@ -937,7 +922,6 @@ window.refundOrder = async function(orderId) {
 //  自动登录状态监听 & 初始化
 // ============================================================
 
-// 先初始化数据，再监听认证状态
 initData().then(() => {
   refreshGlobals();
   authFirebase.onAuthStateChanged(user => {
@@ -946,7 +930,6 @@ initData().then(() => {
       document.getElementById('app').classList.remove('hide');
       document.getElementById('who').textContent = '👤 ' + user.email + ' | Cloud';
       document.getElementById('loadingScreen').style.display = 'flex';
-      // 重新加载数据
       initData().then(() => {
         refreshGlobals();
         loadAll();
@@ -1304,11 +1287,16 @@ function loadPOS() {
   clearDiscount();
 }
 
+// ============================================================
+//  ✅ 收款 - 修复数据保存问题
+// ============================================================
 function checkout() {
   if (cart.length === 0) return alert('请选择服务');
+  
   var customerId = document.getElementById('cus').value;
   var staffId = document.getElementById('st').value;
   var payment = document.getElementById('pay').value;
+  
   var totalBeforeDiscount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   var discountAmount = 0;
   if (currentDiscountPercent > 0) {
@@ -1318,12 +1306,14 @@ function checkout() {
   }
   var total = Math.max(0, totalBeforeDiscount - discountAmount);
   if (total <= 0) return alert('总金额必须大于0');
+  
   if (payment === '会员储值' || payment === 'Stored Value') {
     var cus = customers.find(c => c.id == customerId);
     if (!cus) return alert('请选择会员');
     if (cus.balance < total) return alert('余额不足！当前余额 RM' + cus.balance.toFixed(2));
     cus.balance -= total;
   }
+  
   var cusName = customerId ? (customers.find(c => c.id == customerId) || {}).name : '散客';
   var orderItems = [];
   cart.forEach(item => {
@@ -1331,6 +1321,7 @@ function checkout() {
       orderItems.push({ name: item.categoryName + ' · ' + item.optionName, price: item.price, rate: item.rate });
     }
   });
+  
   var order = {
     id: nextId.order++,
     date: today(),
@@ -1354,7 +1345,10 @@ function checkout() {
     phone: '',
     email: ''
   };
+  
+  // ✅ 关键修复：先保存到本地数组，再同步到 Firebase
   orders.push(order);
+  
   if (customerId) {
     var cus2 = customers.find(c => c.id == customerId);
     if (cus2) {
@@ -1362,15 +1356,26 @@ function checkout() {
       cus2.points = (cus2.points || 0) + Math.floor(total / 5);
     }
   }
+  
+  // ✅ 清空购物车
   cart = [];
   drawCart();
   renderProductGrid();
   clearDiscount();
+  
+  // ✅ 保存到 Firebase (包含新订单)
   save();
+  
+  // ✅ 重新加载所有数据
   loadAll();
+  
+  // ✅ 显示收据面板
   showReceiptPanel(order);
+  
   alert('✅ 收款成功！\n💰 金额: RM' + total.toFixed(2) +
-    (discountAmount > 0 ? '\n📉 折扣: RM ' + discountAmount.toFixed(2) : '') + '\n💡 佣金将在月绩报告自动计算');
+    (discountAmount > 0 ? '\n📉 折扣: RM ' + discountAmount.toFixed(2) : '') + 
+    '\n📋 订单号: #' + order.id +
+    '\n💡 佣金将在月绩报告自动计算');
 }
 
 // ============================================================
