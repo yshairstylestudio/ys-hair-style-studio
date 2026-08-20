@@ -1173,6 +1173,28 @@
     }
     const db = firebase.database();
 
+    // ===== 第2步：会员资料 Firestore 云端镜像 =====
+    // 原 customers / Realtime Database 逻辑完全保留。
+    async function fsSaveCustomer(customer) {
+      if (!window.firestoreDb) return;
+      try {
+        await firestoreDb.collection('customers').doc(String(customer.id)).set(customer, { merge: true });
+        console.log('☁️ 会员已同步 Firestore:', customer.id);
+      } catch (err) {
+        console.error('Firestore 会员同步失败:', err);
+      }
+    }
+
+    async function fsLoadCustomers() {
+      if (!window.firestoreDb) return;
+      try {
+        const snap = await firestoreDb.collection('customers').get();
+        console.log('☁️ Firestore 会员数量:', snap.size);
+      } catch (err) {
+        console.error('Firestore 会员读取测试失败:', err);
+      }
+    }
+
     // 第1步：新增 Cloud Firestore，原 Realtime Database 完整保留。
     let firestoreDb = null;
     try {
@@ -2196,9 +2218,11 @@
       var phone = document.getElementById('mp').value.trim();
       var level = document.getElementById('mlevel').value.trim() || '普通';
       if (!name) return alert('请填写完整');
-      customers.push({ id: nextId.customer++, name: name, phone: phone, level: level, balance: 0, points: 0, visit: 0,
-        created: today() });
+      var newCustomer = { id: nextId.customer++, name: name, phone: phone, level: level, balance: 0, points: 0, visit: 0,
+        created: today() };
+      customers.push(newCustomer);
       save();
+      fsSaveCustomer(newCustomer);
       loadAll();
       document.getElementById('mn').value = '';
       document.getElementById('mp').value = '';
@@ -2214,6 +2238,7 @@
           cus.balance += amt;
           cus.points = (cus.points || 0) + Math.floor(amt / 10);
           save();
+          fsSaveCustomer(cus);
           loadAll();
           alert('✅ 充值成功！');
         }
@@ -3144,9 +3169,4 @@
     document.getElementById('mrTo').value = thisMonth();
     document.getElementById('payrollDate').value = today();
 
-    console.log('✂️ Ys Hair Style Studio v3.6 云端版 (Firebase Auth)');
-    console.log('📌 使用邮箱密码登录，支持注册和密码重置');
-    console.log('📌 首次使用请先「注册新账号」');
-  </script>
-</body>
-</html>
+    console.log('✂️ Ys Hair Style Studio v3.6
